@@ -10,7 +10,7 @@
   
   <title>
     
-      Hello World | 个人笔记
+      springboot配置devtools实现热部署 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>Hello World</h2>
-  <p class="post-date">2019-06-29</p>
+  <h2>springboot配置devtools实现热部署</h2>
+  <p class="post-date">2019-07-05</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,27 +153,36 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+    <section class="markdown-content"><h2 id="springboot配置实现热部署"><a href="#springboot配置实现热部署" class="headerlink" title="springboot配置实现热部署"></a>springboot配置实现热部署</h2><hr>
+<ul>
+<li>spring为开发者提供了一个名为spring-boot-devtools的模块<br>来使spring boot应用支持热部署，提高开发者的开发效率，无需手动重启spring boot应用。</li>
+</ul>
+<h3 id="1、maven的pom-xml配置"><a href="#1、maven的pom-xml配置" class="headerlink" title="1、maven的pom.xml配置"></a>1、maven的pom.xml配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--springboot启动器--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupid</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactid</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--热部署依赖--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupid</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactid</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupid</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactid</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupid</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupid</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactid</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactid</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>但是,为什么配置了还是没有用呢 ?!</p>
+</li>
+<li><p>这是因为idea默认是没有自动编译的,我们这里需要添加修改配置.打开设置</p>
+</li>
+</ul>
+<h3 id="2、idea需要设置一下2个地方"><a href="#2、idea需要设置一下2个地方" class="headerlink" title="2、idea需要设置一下2个地方"></a>2、idea需要设置一下2个地方</h3><ul>
+<li>（1）file-settings-compiler-build project automatically</li>
+</ul>
+<p><img src="/image/devtools-1.jpg" alt></p>
+<ul>
+<li>alt + shift + a 搜索 registry 回车，弹出框选择 compiler.automake.allow.when.app.running 勾选上即可。</li>
+</ul>
+<p><img src="/image/devtools-2.jpg" alt></p>
+<h3 id="可选配置application-properties"><a href="#可选配置application-properties" class="headerlink" title="可选配置application.properties"></a>可选配置application.properties</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#热部署生效</span></span><br><span class="line"><span class="string">spring.devtools.restart.enabled</span> <span class="string">=</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="/tags#hexo" >
-    <span class="tag-code">hexo</span>
+  <a href="/tags#springboot" >
+    <span class="tag-code">springboot</span>
   </a>
 
       </div>
@@ -184,20 +193,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/2019/06/28/优秀的springboot开源项目/">
+      <a class="nav-left" href="/2019/06/29/hello-world/">
         <span class="nav-arrow">← </span>
         
-          优秀的springboot开源项目
+          Hello World
         
       </a>
     
-    
-      <a class="nav-right" href="/2019/07/05/springboot配置devtools实现热部署/">
-        
-          springboot配置devtools实现热部署
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -243,7 +245,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Quick-Start"><span class="toc-nav-text">Quick Start</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Create-a-new-post"><span class="toc-nav-text">Create a new post</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Run-server"><span class="toc-nav-text">Run server</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Generate-static-files"><span class="toc-nav-text">Generate static files</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Deploy-to-remote-sites"><span class="toc-nav-text">Deploy to remote sites</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#springboot配置实现热部署"><span class="toc-nav-text">springboot配置实现热部署</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1、maven的pom-xml配置"><span class="toc-nav-text">1、maven的pom.xml配置</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2、idea需要设置一下2个地方"><span class="toc-nav-text">2、idea需要设置一下2个地方</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#可选配置application-properties"><span class="toc-nav-text">可选配置application.properties</span></a></li></ol></li></ol>
     
   </div>
 </aside>
@@ -253,7 +255,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/06/29/hello-world/';
+    var url = 'https://kenhinschan.github.io/2019/07/05/springboot配置devtools实现热部署/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -315,7 +317,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "Hello World",
+        id: "springboot配置devtools实现热部署",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {
