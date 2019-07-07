@@ -10,7 +10,7 @@
   
   <title>
     
-      springboot配置devtools实现热部署 | 个人笔记
+      springboot 集成 swagger2 展示restful api 文档 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>springboot配置devtools实现热部署</h2>
-  <p class="post-date">2019-07-06</p>
+  <h2>springboot 集成 swagger2 展示restful api 文档</h2>
+  <p class="post-date">2019-07-07</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,28 +153,44 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="springboot配置实现热部署"><a href="#springboot配置实现热部署" class="headerlink" title="springboot配置实现热部署"></a>springboot配置实现热部署</h2><hr>
+    <section class="markdown-content"><h3 id="springboot-集成-swagger2-展示restful-api-文档"><a href="#springboot-集成-swagger2-展示restful-api-文档" class="headerlink" title="springboot 集成 swagger2 展示restful api 文档"></a>springboot 集成 swagger2 展示restful api 文档</h3><hr>
 <ul>
-<li>spring为开发者提供了一个名为spring-boot-devtools的模块<br>来使spring boot应用支持热部署，提高开发者的开发效率，无需手动重启spring boot应用。</li>
+<li>1、在pom.xml文件，引入swagger2 maveny依赖</li>
 </ul>
-<h3 id="1、maven的pom-xml配置"><a href="#1、maven的pom-xml配置" class="headerlink" title="1、maven的pom.xml配置"></a>1、maven的pom.xml配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--springboot启动器--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupid</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactid</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--热部署依赖--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupid</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactid</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupid</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactid</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactid</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupid</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupid</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactid</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactid</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>但是,为什么配置了还是没有用呢 ?!</p>
+<li><p>2、编写swagger2配置类</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class Swagger2Config &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public Docket api() &#123;</span><br><span class="line">        return new Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">                .apiInfo(apiInfo())</span><br><span class="line">                .select()</span><br><span class="line">                // 自行修改为自己的包路径</span><br><span class="line">                .apis(RequestHandlerSelectors.basePackage("com.neo.controller"))</span><br><span class="line">                .paths(PathSelectors.any())</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private ApiInfo apiInfo() &#123;</span><br><span class="line">        return new ApiInfoBuilder()</span><br><span class="line">                .title("客户管理")</span><br><span class="line">                .description("客户管理中心 API 1.0 操作文档")</span><br><span class="line">                //服务条款网址</span><br><span class="line">                .termsOfServiceUrl("https://kenhinschan.github.io")</span><br><span class="line">                .version("1.0")</span><br><span class="line">                .contact(new Contact("kenhinschan", "https://kenhinschan.github.io", "1805455228@qq.com"))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>这是因为idea默认是没有自动编译的,我们这里需要添加修改配置.打开设置</p>
-</li>
-</ul>
-<h3 id="2、idea需要设置一下2个地方"><a href="#2、idea需要设置一下2个地方" class="headerlink" title="2、idea需要设置一下2个地方"></a>2、idea需要设置一下2个地方</h3><ul>
-<li>（1）file-settings-compiler-build project automatically</li>
-</ul>
-<p><img src="/image/devtools-1.jpg" alt></p>
+<li><p>3、修改启动类，开启swagger2</p>
+<pre><code>加上注解 @EnableSwagger2 表示开启Swagger</code></pre></li>
+<li><p>4、开发中如何使用swagger2</p>
+<pre><code>@Api：修饰整个类，描述Controller的作用
+@ApiOperation：描述一个类的一个方法，或者说一个接口
+@ApiParam：单个参数描述
+@ApiModel：用对象来接收参数
+@ApiProperty：用对象接收参数时，描述对象的一个字段
+@ApiResponse：HTTP响应其中1个描述
+@ApiResponses：HTTP响应整体描述
+@ApiIgnore：使用该注解忽略这个API
+@ApiError ：发生错误返回的信息
+@ApiImplicitParam：一个请求参数
+@ApiImplicitParams：多个请求参数</code></pre></li>
+<li><p>5、测试</p>
 <ul>
-<li>alt + shift + a 搜索 registry 回车，弹出框选择 compiler.automake.allow.when.app.running 勾选上即可。</li>
+<li><a href="http://localhost:8080/swagger-ui.html" target="_blank" rel="noopener">http://localhost:8080/swagger-ui.html</a></li>
 </ul>
-<p><img src="/image/devtools-2.jpg" alt></p>
-<h3 id="3、可选配置application-properties"><a href="#3、可选配置application-properties" class="headerlink" title="3、可选配置application.properties"></a>3、可选配置application.properties</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#热部署生效</span></span><br><span class="line"><span class="string">spring.devtools.restart.enabled</span> <span class="string">=</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
+</li>
+<li><p>6、总结</p>
+<ul>
+<li><p>后期可以编写基于mybatis-plus的自动生成代码的功能，自动生成controller模板</p>
+</li>
+<li><p>后期可以编写基于jpa的自动生成代码方式，自动生成controller模板</p>
+</li>
+</ul>
+</li>
+</ul>
 </section>
     <!-- Tags START -->
     
@@ -193,20 +209,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../05/nginx/nginx负载均衡时配置/">
+      <a class="nav-left" href="../../06/springboot配置devtools实现热部署/">
         <span class="nav-arrow">← </span>
         
-          nginx负载均衡时配置
+          springboot配置devtools实现热部署
         
       </a>
     
-    
-      <a class="nav-right" href="../../07/springboot-swagger2的restful api文档/">
-        
-          springboot 集成 swagger2 展示restful api 文档
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -252,7 +261,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#springboot配置实现热部署"><span class="toc-nav-text">springboot配置实现热部署</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1、maven的pom-xml配置"><span class="toc-nav-text">1、maven的pom.xml配置</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2、idea需要设置一下2个地方"><span class="toc-nav-text">2、idea需要设置一下2个地方</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#3、可选配置application-properties"><span class="toc-nav-text">3、可选配置application.properties</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#springboot-集成-swagger2-展示restful-api-文档"><span class="toc-nav-text">springboot 集成 swagger2 展示restful api 文档</span></a></li></ol>
     
   </div>
 </aside>
@@ -262,7 +271,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/07/06/springboot配置devtools实现热部署/';
+    var url = 'https://kenhinschan.github.io/2019/07/07/springboot-swagger2的restful api文档/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -324,7 +333,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "springboot配置devtools实现热部署",
+        id: "springboot 集成 swagger2 展示restful api 文档",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {
