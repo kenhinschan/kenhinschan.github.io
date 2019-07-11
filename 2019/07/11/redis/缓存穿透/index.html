@@ -153,12 +153,8 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><hr>
-<ul>
-<li><p>缓存穿透、缓存雪崩、缓存击穿 </p>
-<ul>
-<li><p>缓存穿透 </p>
-<ul>
+    <section class="markdown-content"><h2 id="缓存穿透、缓存雪崩、缓存击穿"><a href="#缓存穿透、缓存雪崩、缓存击穿" class="headerlink" title="缓存穿透、缓存雪崩、缓存击穿"></a>缓存穿透、缓存雪崩、缓存击穿</h2><hr>
+<h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><ul>
 <li><p>程序在处理缓存时，一般是先从缓存查询，如果缓存没有这个key获取为null，则会从DB中查询，并设置到缓存中去。</p>
 <p>按这种做法，那查询一个一定不存在的数据值，由于缓存是不命中时需要从数据库查询，查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到数据库去查询，造成缓存穿透。</p>
 </li>
@@ -173,9 +169,7 @@
 </ul>
 </li>
 </ul>
-</li>
-<li><p>缓存雪崩</p>
-<ul>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><ul>
 <li><p>指的是大量缓存集中在一段时间内失效，发生大量的缓存穿透，所有的查询都落在数据库上，造成了缓存雪崩。</p>
 </li>
 <li><p>解决方法</p>
@@ -187,9 +181,7 @@
 </ul>
 </li>
 </ul>
-</li>
-<li><p>缓存击穿 </p>
-<ul>
+<h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><ul>
 <li><p>指的是热点key在某个特殊的场景时间内恰好失效了，恰好有大量并发请求过来了，造成DB压力。</p>
 </li>
 <li><p>解决方法</p>
@@ -199,10 +191,6 @@
 <li><p>还有一种比较好用的（针对缓存雪崩与缓存击穿）：</p>
 <p>物理上的缓存是不设置超时时间的（或者超时时间比较长）， 但是在缓存的对象上增加一个属性来标识超时时间（此时间相对小）。 当获取到数据后，校验数据内部的标记时间，判定是否快超时了，如果是，异步发起一个线程（控制好并发）去主动更新该缓存。</p>
 <p>这种方式会导致一定时间内，有些请求获取缓存会拿到过期的值，看业务是否能接受而定。</p>
-</li>
-</ul>
-</li>
-</ul>
 </li>
 </ul>
 </li>
@@ -277,7 +265,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="nav">none</ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#缓存穿透、缓存雪崩、缓存击穿"><span class="toc-nav-text">缓存穿透、缓存雪崩、缓存击穿</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存穿透"><span class="toc-nav-text">缓存穿透</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存雪崩"><span class="toc-nav-text">缓存雪崩</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存击穿"><span class="toc-nav-text">缓存击穿</span></a></li></ol></li></ol>
     
   </div>
 </aside>
