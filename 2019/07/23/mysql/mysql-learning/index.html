@@ -145,7 +145,7 @@
 
     <div id="article-banner">
   <h2>mysql笔记</h2>
-  <p class="post-date">2019-07-22</p>
+  <p class="post-date">2019-07-23</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -185,7 +185,7 @@
 
 </li>
 </ul>
-<h2 id="mysql索引失效"><a href="#mysql索引失效" class="headerlink" title="mysql索引失效"></a>mysql索引失效</h2><pre><code>- 索引是检索、与排序的数据结构
+<h2 id="mysql索引失效-amp-amp-索引优化"><a href="#mysql索引失效-amp-amp-索引优化" class="headerlink" title="mysql索引失效 &amp;&amp; 索引优化"></a>mysql索引失效 &amp;&amp; 索引优化</h2><pre><code>- 索引是检索、与排序的数据结构
 
 - 最左前缀原则，（带头大哥不能死）（1楼，2楼，3楼，4楼）没有1楼就上不了2楼
 
@@ -255,9 +255,33 @@
 </li>
 </ul>
 <h2 id="mysql-锁机制"><a href="#mysql-锁机制" class="headerlink" title="mysql 锁机制"></a>mysql 锁机制</h2><ul>
-<li><p>1、表锁（读锁）</p>
+<li><p>1、表锁（偏读） - MyIsAm 无死锁 低并发，</p>
+<p>   读锁（共享锁）</p>
+<p>   写锁 （排他锁、独占锁）</p>
 </li>
-<li><p>2、行货（写锁）</p>
+<li><p>2、行锁（偏写） - InnoDB</p>
+<pre><code>索引失效是 行锁会升级为表锁
+
+间隙锁范围条件会阻塞 （A事务范围条件修改数据，事务还未提交）同时（B事务添加范围条件内不再存在的数据，会出现阻塞）
+
+脏读 - 脏读发生在一个事务A读取了被另一个事务B修改，但是还未提交的数据。假如B回退，则事务A读取的是无效的数据。这跟不可重复读类似，但是第二个事务不需要执行提交。
+
+不可重复读 - 
+
+幻读 - </code></pre></li>
+<li><p>查看数据库锁情况：show open tables 或者 show open tables from database; </p>
+</li>
+<li><p>查看服务器状态：show status like ‘%lock%’   </p>
+<pre><code>如当Table_locks_waited与Table_locks_immediate的比值较大，
+则说明我们的表锁造成的阻塞比较严重，可能需要调整Query语句，
+或者更改存储引擎，亦或者需要调整业务逻辑。
+当然，具体改善方式必须根据实际场景来判断。
+而Innodb_row_lock_waits较大，则说明Innodb的行锁也比较严重，
+且影响了其他线程的正常处理。同样需要查找出原因并解决。
+造成Innodb行锁严重的原因可能是Query语句所利用的索引不够合理
+（Innodb行锁是基于索引来锁定的），造成间隙锁过大。
+也可能是系统本身处理能力有限，则需要从其他方面来考虑解决。</code></pre></li>
+<li><p>查看服务器配置参数：show variables like ‘%timeout%’;  </p>
 </li>
 </ul>
 </section>
@@ -330,7 +354,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#mysql笔记"><span class="toc-nav-text">mysql笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql-结构"><span class="toc-nav-text">mysql 结构</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql-开启慢查询日志-（抓取sql语句）"><span class="toc-nav-text">mysql 开启慢查询日志 （抓取sql语句）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql索引失效"><span class="toc-nav-text">mysql索引失效</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#explain-分析SQL语句"><span class="toc-nav-text">explain 分析SQL语句</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#show-profiles-数据库自带sql性能分析工具"><span class="toc-nav-text">show profiles 数据库自带sql性能分析工具</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql-锁机制"><span class="toc-nav-text">mysql 锁机制</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#mysql笔记"><span class="toc-nav-text">mysql笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql-结构"><span class="toc-nav-text">mysql 结构</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql-开启慢查询日志-（抓取sql语句）"><span class="toc-nav-text">mysql 开启慢查询日志 （抓取sql语句）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql索引失效-amp-amp-索引优化"><span class="toc-nav-text">mysql索引失效 &amp;&amp; 索引优化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#explain-分析SQL语句"><span class="toc-nav-text">explain 分析SQL语句</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#show-profiles-数据库自带sql性能分析工具"><span class="toc-nav-text">show profiles 数据库自带sql性能分析工具</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql-锁机制"><span class="toc-nav-text">mysql 锁机制</span></a></li></ol></li></ol>
     
   </div>
 </aside>
@@ -340,7 +364,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/07/22/mysql/mysql-learning/';
+    var url = 'https://kenhinschan.github.io/2019/07/23/mysql/mysql-learning/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
