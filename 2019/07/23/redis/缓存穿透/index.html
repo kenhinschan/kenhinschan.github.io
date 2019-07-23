@@ -145,7 +145,7 @@
 
     <div id="article-banner">
   <h2>缓存穿透、缓存雪崩、缓存击穿</h2>
-  <p class="post-date">2019-07-11</p>
+  <p class="post-date">2019-07-23</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,7 +153,7 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="缓存穿透、缓存雪崩、缓存击穿"><a href="#缓存穿透、缓存雪崩、缓存击穿" class="headerlink" title="缓存穿透、缓存雪崩、缓存击穿"></a>缓存穿透、缓存雪崩、缓存击穿</h2><hr>
+    <section class="markdown-content"><h2 id="缓存穿透、缓存雪崩、缓存击穿-（缓存失效）"><a href="#缓存穿透、缓存雪崩、缓存击穿-（缓存失效）" class="headerlink" title="缓存穿透、缓存雪崩、缓存击穿 （缓存失效）"></a>缓存穿透、缓存雪崩、缓存击穿 （缓存失效）</h2><hr>
 <h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><ul>
 <li><p>程序在处理缓存时，一般是先从缓存查询，如果缓存没有这个key获取为null，则会从DB中查询，并设置到缓存中去。</p>
 <p>按这种做法，那查询一个一定不存在的数据值，由于缓存是不命中时需要从数据库查询，查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到数据库去查询，造成缓存穿透。</p>
@@ -213,17 +213,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../07/springboot-swagger2的restful api文档/">
+      <a class="nav-left" href="../../mysql/mysql-learning/">
         <span class="nav-arrow">← </span>
         
-          springboot 集成 swagger2 展示restful api 文档
+          mysql笔记
         
       </a>
     
     
-      <a class="nav-right" href="../../../23/mysql/mysql-learning/">
+      <a class="nav-right" href="../基于redis的分布式锁/">
         
-          mysql笔记
+          基于redis的高并发分布式锁
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -272,7 +272,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#缓存穿透、缓存雪崩、缓存击穿"><span class="toc-nav-text">缓存穿透、缓存雪崩、缓存击穿</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存穿透"><span class="toc-nav-text">缓存穿透</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存雪崩"><span class="toc-nav-text">缓存雪崩</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存击穿"><span class="toc-nav-text">缓存击穿</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#缓存穿透、缓存雪崩、缓存击穿-（缓存失效）"><span class="toc-nav-text">缓存穿透、缓存雪崩、缓存击穿 （缓存失效）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存穿透"><span class="toc-nav-text">缓存穿透</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存雪崩"><span class="toc-nav-text">缓存雪崩</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存击穿"><span class="toc-nav-text">缓存击穿</span></a></li></ol></li></ol>
     
   </div>
 </aside>
@@ -282,7 +282,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/07/11/redis/缓存穿透/';
+    var url = 'https://kenhinschan.github.io/2019/07/23/redis/缓存穿透/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({

@@ -264,15 +264,19 @@
 </ul>
 </li>
 <li><p>2、行锁（偏写） - InnoDB</p>
-<pre><code>- 索引失效是 行锁会升级为表锁
-
-- 间隙锁范围条件会阻塞 （A事务范围条件修改数据，事务还未提交）同时（B事务添加范围条件内不再存在的数据，会出现阻塞）
-
-- 脏读 - 脏读发生在一个事务A读取了被另一个事务B修改，但是还未提交的数据。假如B回退，则事务A读取的是无效的数据。这跟不可重复读类似，但是第二个事务不需要执行提交。
-
-- 不可重复读 - 
-
-- 幻读 - </code></pre></li>
+<ul>
+<li><p>索引失效是 行锁会升级为表锁</p>
+</li>
+<li><p>间隙锁范围条件会阻塞 （A事务范围条件修改数据，事务还未提交）同时（B事务添加范围条件内不再存在的数据，会出现阻塞）</p>
+</li>
+<li><p>脏读 - 脏读发生在一个事务A读取了被另一个事务B修改，但是还未提交的数据。假如B回退，则事务A读取的是无效的数据。</p>
+</li>
+<li><p>不可重复读 - </p>
+</li>
+<li><p>幻读 - </p>
+</li>
+</ul>
+</li>
 <li><p>查看数据库锁情况：show open tables 或者 show open tables from database; </p>
 </li>
 <li><p>查看服务器状态：show status like ‘%lock%’   </p>
@@ -304,13 +308,20 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../11/redis/缓存穿透/">
+      <a class="nav-left" href="../../../07/springboot-swagger2的restful api文档/">
         <span class="nav-arrow">← </span>
         
-          缓存穿透、缓存雪崩、缓存击穿
+          springboot 集成 swagger2 展示restful api 文档
         
       </a>
     
+    
+      <a class="nav-right" href="../../redis/缓存穿透/">
+        
+          缓存穿透、缓存雪崩、缓存击穿
+        
+        <span class="nav-arrow"> →</span>
+      </a>
     
   </div>
 
