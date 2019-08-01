@@ -10,7 +10,7 @@
   
   <title>
     
-      缓存穿透、缓存雪崩、缓存击穿 | 个人笔记
+      Docker下安装rabbitmq | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>缓存穿透、缓存雪崩、缓存击穿</h2>
-  <p class="post-date">2019-07-23</p>
+  <h2>Docker下安装rabbitmq</h2>
+  <p class="post-date">2019-08-01</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,56 +153,54 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="缓存穿透、缓存雪崩、缓存击穿-（缓存失效）"><a href="#缓存穿透、缓存雪崩、缓存击穿-（缓存失效）" class="headerlink" title="缓存穿透、缓存雪崩、缓存击穿 （缓存失效）"></a>缓存穿透、缓存雪崩、缓存击穿 （缓存失效）</h2><hr>
-<h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><ul>
-<li><p>程序在处理缓存时，一般是先从缓存查询，如果缓存没有这个key获取为null，则会从DB中查询，并设置到缓存中去。</p>
-<p>按这种做法，那查询一个一定不存在的数据值，由于缓存是不命中时需要从数据库查询，查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到数据库去查询，造成缓存穿透。</p>
-</li>
-<li><p>解决方法   </p>
+    <section class="markdown-content"><h2 id="搜查镜像"><a href="#搜查镜像" class="headerlink" title="搜查镜像"></a>搜查镜像</h2><ul>
+<li>地址：<a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a>  找对应的tags：3.7-management </li>
+</ul>
+<h2 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">pull</span> <span class="attr">rabbitmq:3.7-management</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="启动镜像（默认用户名密码）-默认guest-用户，密码也是-guest"><a href="#启动镜像（默认用户名密码）-默认guest-用户，密码也是-guest" class="headerlink" title="启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest"></a>启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">-p</span> <span class="number">5672</span><span class="string">:5672</span> <span class="bullet">-p</span> <span class="number">15672</span><span class="string">:15672</span> <span class="bullet">--name</span> <span class="string">rabbitmq</span> <span class="attr">rabbitmq:3.7-management</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="启动镜像（设置用户名密码）"><a href="#启动镜像（设置用户名密码）" class="headerlink" title="启动镜像（设置用户名密码）"></a>启动镜像（设置用户名密码）</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">--hostname</span> <span class="string">my-rabbit</span> <span class="bullet">--name</span> <span class="string">rabbit</span> <span class="bullet">-e</span> <span class="string">RABBITMQ_DEFAULT_USER=admin</span> <span class="bullet">-e</span> <span class="string">RABBITMQ_DEFAULT_PASS=123456</span> <span class="bullet">-p</span> <span class="number">15672</span><span class="string">:15672</span> <span class="bullet">-p</span> <span class="number">5672</span><span class="string">:5672</span> <span class="attr">rabbitmq:3.7-management</span></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><p>最好对于每一个缓存key都有一定的规范约束，这样在程序中对不符合parttern的key 的请求可以拒绝。（但一般key都是通过程序自动生成的）</p>
-</li>
-<li><p>布隆过滤器(保存的订单的指纹信息，hash算法) ==guava框架保护缓存（缓存防火墙、要牺牲空间== 将可能出现的缓存key的组合方式的所有数值以hash形式存储在一个很大的bitmap中&lt;布隆过滤器&gt;（需要考虑如何将这个可能出现的数据的hash值之后同步到bitmap中， eg. 后端每次新增一个可能的组合就同步一次，或者 穷举），一个一定不存在的数据会被这个bitmap拦截掉，从而避免了对底层存储系统的查询压力</p>
-</li>
-<li><p>常用：返回空对象 （简单） 如果对应在数据库中的数据都不存在，我们将此key对应的value设置为一个默认的值，比如“NULL”，并设置一个缓存的失效时间。当然这个key的时效比正常的时效要小的多</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><ul>
-<li><p>指的是大量缓存集中在一段时间内失效，发生大量的缓存穿透，所有的查询都落在数据库上，造成了缓存雪崩。</p>
-</li>
-<li><p>解决方法</p>
+<li><p>参数说明：</p>
 <ul>
-<li><p>这个没有完美解决办法，但可以分析用户行为，尽量让失效时间点均匀分布，设置不同的过期时间。</p>
+<li><p>-d 后台运行容器；</p>
 </li>
-<li><p>用加分布式锁或者分布式队列的方式保证缓存的单线程（进程）写 （eg. redis的 SETNX），从而避免失效时大量的并发请求落到底层存储系统上。在加锁方法内先从缓存中再获取一次(防止另外的线程优先获取锁已经写入了缓存)，没有再查DB写入缓存。 （当然也可以： 在没有获取锁(tryLock)的线程中一直轮询缓存，至超限时）</p>
+<li><p>–name 指定容器名；</p>
 </li>
-</ul>
+<li><p>-p 指定服务运行的端口（5672：应用访问端口；15672：控制台Web端口号）；</p>
 </li>
-</ul>
-<h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><ul>
-<li><p>指的是热点key在某个特殊的场景时间内恰好失效了，恰好有大量并发请求过来了，造成DB压力。</p>
+<li><p>-v 映射目录或文件；</p>
 </li>
-<li><p>解决方法</p>
-<ul>
-<li><p>与缓存雪崩的解决方法类似： 用加锁或者队列的方式保证缓存的单线程（进程）写，在加锁方法内先从缓存中再获取一次，没有再查DB写入缓存。 </p>
+<li><p>–hostname  主机名（RabbitMQ的一个重要注意事项是它根据所谓的 “节点名称” 存储数据，默认为主机名）；</p>
 </li>
-<li><p>还有一种比较好用的（针对缓存雪崩与缓存击穿）：</p>
-<p>物理上的缓存是不设置超时时间的（或者超时时间比较长）， 但是在缓存的对象上增加一个属性来标识超时时间（此时间相对小）。 当获取到数据后，校验数据内部的标记时间，判定是否快超时了，如果是，异步发起一个线程（控制好并发）去主动更新该缓存。</p>
-<p>这种方式会导致一定时间内，有些请求获取缓存会拿到过期的值，看业务是否能接受而定。</p>
+<li><p>-e 指定环境变量；（RABBITMQ_DEFAULT_VHOST：默认虚拟机名；RABBITMQ_DEFAULT_USER：默认的用户名；RABBITMQ_DEFAULT_PASS：默认用户名的密码）</p>
 </li>
 </ul>
 </li>
 </ul>
+<h2 id="停止容器"><a href="#停止容器" class="headerlink" title="停止容器"></a>停止容器</h2><ul>
+<li><p>停止容器 docker stop feb3e82503d9（feb3e82503d9：是容器ID）</p>
+</li>
+<li><p>查看已停止的容器 docker ps -l</p>
+</li>
+<li><p>启动容器 docker start &lt;容器名 or ID&gt; # 启动容器</p>
+</li>
+</ul>
+<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><ul>
+<li>地址：<a href="http://192.168.1.10:15672/" target="_blank" rel="noopener">http://192.168.1.10:15672/</a>  账户：admin 密码：123456</li>
+</ul>
+<p><img src="/image/rabbitmq-01.png" alt></p>
+<p>注意区分：镜像 与 容器</p>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#redis" >
-    <span class="tag-code">redis</span>
+  <a href="../../../../../tags#docker" >
+    <span class="tag-code">docker</span>
   </a>
 
       </div>
@@ -213,20 +211,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../07/springboot-swagger2的restful api文档/">
+      <a class="nav-left" href="../docker-01/">
         <span class="nav-arrow">← </span>
         
-          springboot 集成 swagger2 展示restful api 文档
+          centos7 安装 docker
         
       </a>
     
-    
-      <a class="nav-right" href="../基于redis的分布式锁/">
-        
-          基于redis的高并发分布式锁
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -272,7 +263,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#缓存穿透、缓存雪崩、缓存击穿-（缓存失效）"><span class="toc-nav-text">缓存穿透、缓存雪崩、缓存击穿 （缓存失效）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存穿透"><span class="toc-nav-text">缓存穿透</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存雪崩"><span class="toc-nav-text">缓存雪崩</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#缓存击穿"><span class="toc-nav-text">缓存击穿</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#搜查镜像"><span class="toc-nav-text">搜查镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#拉取镜像"><span class="toc-nav-text">拉取镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#启动镜像（默认用户名密码）-默认guest-用户，密码也是-guest"><span class="toc-nav-text">启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#启动镜像（设置用户名密码）"><span class="toc-nav-text">启动镜像（设置用户名密码）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#停止容器"><span class="toc-nav-text">停止容器</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#访问"><span class="toc-nav-text">访问</span></a></li></ol>
     
   </div>
 </aside>
@@ -282,7 +273,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/07/23/redis/缓存穿透/';
+    var url = 'https://kenhinschan.github.io/2019/08/01/docker-learn/docker-02/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -344,7 +335,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "缓存穿透、缓存雪崩、缓存击穿",
+        id: "Docker下安装rabbitmq",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {
