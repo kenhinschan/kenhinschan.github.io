@@ -10,7 +10,7 @@
   
   <title>
     
-      jvm性能调休 | 个人笔记
+      rabbitmq学习笔记 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>jvm性能调休</h2>
-  <p class="post-date">2019-07-27</p>
+  <h2>rabbitmq学习笔记</h2>
+  <p class="post-date">2019-08-05</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,25 +153,49 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h1 id="jvm性能调休"><a href="#jvm性能调休" class="headerlink" title="jvm性能调休"></a>jvm性能调休</h1><hr>
-<h2 id="堆内存溢出outofmemory"><a href="#堆内存溢出outofmemory" class="headerlink" title="堆内存溢出outofmemory"></a>堆内存溢出outofmemory</h2><ul>
-<li><p>堆区内存溢出</p>
+    <section class="markdown-content"><h1 id="rabbitmq学习笔记"><a href="#rabbitmq学习笔记" class="headerlink" title="rabbitmq学习笔记"></a>rabbitmq学习笔记</h1><ul>
+<li><p>官网文档教程：<a href="https://www.rabbitmq.com/getstarted.html" target="_blank" rel="noopener">https://www.rabbitmq.com/getstarted.html</a></p>
 </li>
-<li><p>非堆区内存溢出</p>
-</li>
-<li><p>代码模拟例子 （死循环向List不断添加对象，非堆区添加class）</p>
-</li>
-<li><p>自动、手动导出jvm内存影像文件，分析</p>
+<li><p>参考代码git：<a href="https://github.com/1805455228/myrabbitmq" target="_blank" rel="noopener">https://github.com/1805455228/myrabbitmq</a></p>
 </li>
 </ul>
-<h2 id="生产环境死循环-导致内存、cpu飙升"><a href="#生产环境死循环-导致内存、cpu飙升" class="headerlink" title="生产环境死循环 导致内存、cpu飙升"></a>生产环境死循环 导致内存、cpu飙升</h2><h2 id="线程死锁-cpu飙升耗资源"><a href="#线程死锁-cpu飙升耗资源" class="headerlink" title="线程死锁 cpu飙升耗资源"></a>线程死锁 cpu飙升耗资源</h2><h2 id="jvm性能调休工具使用"><a href="#jvm性能调休工具使用" class="headerlink" title="jvm性能调休工具使用"></a>jvm性能调休工具使用</h2></section>
+<h2 id="Virtual-Hosts-相当于mysql的db"><a href="#Virtual-Hosts-相当于mysql的db" class="headerlink" title="Virtual Hosts 相当于mysql的db"></a>Virtual Hosts 相当于mysql的db</h2><ul>
+<li>新建一个Virtual Hosts</li>
+</ul>
+<h2 id="rabbitmq-模式"><a href="#rabbitmq-模式" class="headerlink" title="rabbitmq 模式"></a>rabbitmq 模式</h2><p><img src="/image/rabbitmq-02.jpg" alt></p>
+<p><img src="/image/rabbitmq-03.jpg" alt></p>
+<ul>
+<li>1、简单队列</li>
+</ul>
+<ul>
+<li>2、工作队列</li>
+</ul>
+<ul>
+<li>3、发布/订阅模式 （加多交换机、转发器）</li>
+</ul>
+<ul>
+<li>4、路由模式接收消息（指定路由键）</li>
+</ul>
+<ul>
+<li>5、根据模式（主题）接收消息</li>
+</ul>
+<ul>
+<li>6、RPC模式</li>
+</ul>
+<h2 id="消息确认"><a href="#消息确认" class="headerlink" title="消息确认"></a>消息确认</h2><ul>
+<li><p>事务</p>
+</li>
+<li><p>comfig</p>
+</li>
+</ul>
+</section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#jvm" >
-    <span class="tag-code">jvm</span>
+  <a href="../../../../../tags#rabbitmq" >
+    <span class="tag-code">rabbitmq</span>
   </a>
 
       </div>
@@ -182,17 +206,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../23/redis/基于redis的分布式锁/">
+      <a class="nav-left" href="../../springboot/sb-01/">
         <span class="nav-arrow">← </span>
         
-          基于redis的高并发分布式锁
+          springboot AOP
         
       </a>
     
     
-      <a class="nav-right" href="../../../28/springcould/sc-01/">
+      <a class="nav-right" href="../../../06/mq/rabbitmq-02/">
         
-          springcould 技术栈笔记
+          rabbitmq 消息延迟推送
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -241,7 +265,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#jvm性能调休"><span class="toc-nav-text">jvm性能调休</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#堆内存溢出outofmemory"><span class="toc-nav-text">堆内存溢出outofmemory</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#生产环境死循环-导致内存、cpu飙升"><span class="toc-nav-text">生产环境死循环 导致内存、cpu飙升</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#线程死锁-cpu飙升耗资源"><span class="toc-nav-text">线程死锁 cpu飙升耗资源</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#jvm性能调休工具使用"><span class="toc-nav-text">jvm性能调休工具使用</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#rabbitmq学习笔记"><span class="toc-nav-text">rabbitmq学习笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Virtual-Hosts-相当于mysql的db"><span class="toc-nav-text">Virtual Hosts 相当于mysql的db</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#rabbitmq-模式"><span class="toc-nav-text">rabbitmq 模式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#消息确认"><span class="toc-nav-text">消息确认</span></a></li></ol></li></ol>
     
   </div>
 </aside>
@@ -251,7 +275,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/07/27/jvm/jvm-memory/';
+    var url = 'https://kenhinschan.github.io/2019/08/05/mq/rabbitmq-01/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -313,7 +337,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "jvm性能调休",
+        id: "rabbitmq学习笔记",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

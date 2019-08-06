@@ -10,7 +10,7 @@
   
   <title>
     
-      springcould 技术栈笔记 | 个人笔记
+      jvm性能调休 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>springcould 技术栈笔记</h2>
-  <p class="post-date">2019-07-28</p>
+  <h2>jvm性能调休</h2>
+  <p class="post-date">2019-08-05</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,119 +153,28 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h1 id="springcould-技术栈笔记"><a href="#springcould-技术栈笔记" class="headerlink" title="springcould 技术栈笔记"></a>springcould 技术栈笔记</h1><hr>
-<h2 id="Eureka-服务注册与发现（物业公司）"><a href="#Eureka-服务注册与发现（物业公司）" class="headerlink" title="Eureka 服务注册与发现（物业公司）"></a>Eureka 服务注册与发现（物业公司）</h2><ul>
-<li><p>eureka_service（物业公司）与 eureka_client 入住的公司 （需要到物业公司登记、注册）</p>
+    <section class="markdown-content"><h1 id="jvm性能调休"><a href="#jvm性能调休" class="headerlink" title="jvm性能调休"></a>jvm性能调休</h1><hr>
+<h2 id="堆内存溢出outofmemory"><a href="#堆内存溢出outofmemory" class="headerlink" title="堆内存溢出outofmemory"></a>堆内存溢出outofmemory</h2><ul>
+<li><p>堆区内存溢出</p>
 </li>
-<li><p>eureka_service自我保护机制 （心跳）</p>
-<ul>
-<li><p>eureka 定时检查入住的微服务，是否正常，默认90秒，超过90秒没收到eureka_client的服务访问，会判断该服务已经挂死，但不会销毁，会保留保证服务可用</p>
+<li><p>非堆区内存溢出</p>
 </li>
-<li></li>
-<li><p>总的来说：好死不如赖活着，保证高可用</p>
+<li><p>代码模拟例子 （死循环向List不断添加对象，非堆区添加class）</p>
 </li>
-</ul>
-</li>
-<li><p>CAP原则</p>
-<ul>
-<li>C：数据的强一致性，</li>
-<li>A：高可用性，</li>
-<li>P：分区容错性， </li>
-<li>3进2 （行业内也只能做得3选二，分布式系统必须有P原则）</li>
-</ul>
-</li>
-<li><p>euraka （AP原则） 与 zookeeper 比较 （CP原则）</p>
-<ul>
-<li><p>euraka 一直可以访问 但数据强一致性比zookeeper弱</p>
-</li>
-<li><p>zookeeper 短暂不能访问，30秒后有恢复正常访问 </p>
+<li><p>自动、手动导出jvm内存影像文件，分析</p>
 </li>
 </ul>
-</li>
-<li><p>euraka 集群 （euraka_service多开几个，保证高可用性）</p>
-<ul>
-<li><p>1、配置原则（不能监控自己）：euraka_service9001 、euraka_service9002、euraka_serice9003</p>
-</li>
-<li><p>euraka_service9001： （defaultZone：9002、9003）</p>
-</li>
-<li><p>euraka_service9002： （defaultZone：9001、9003）</p>
-</li>
-<li><p>euraka_service9003： （defaultZone：9001、9002）</p>
-</li>
+<h2 id="生产环境死循环-导致内存、cpu飙升"><a href="#生产环境死循环-导致内存、cpu飙升" class="headerlink" title="生产环境死循环 导致内存、cpu飙升"></a>生产环境死循环 导致内存、cpu飙升</h2><h2 id="线程死锁-cpu飙升耗资源"><a href="#线程死锁-cpu飙升耗资源" class="headerlink" title="线程死锁 cpu飙升耗资源"></a>线程死锁 cpu飙升耗资源</h2><h2 id="jvm性能调休工具使用"><a href="#jvm性能调休工具使用" class="headerlink" title="jvm性能调休工具使用"></a>jvm性能调休工具使用</h2><ul>
+<li>jvisualVM</li>
 </ul>
-</li>
-</ul>
-<h2 id="客户端-负载均衡-Ribbon-和-feign"><a href="#客户端-负载均衡-Ribbon-和-feign" class="headerlink" title="客户端 负载均衡 Ribbon 和 feign"></a>客户端 负载均衡 Ribbon 和 feign</h2><ul>
-<li><p>ribbon 是（Ribbon + Resttemplate）</p>
-</li>
-<li><p>feign 是接口加注解</p>
-</li>
-</ul>
-<h2 id="服务容错hystrix"><a href="#服务容错hystrix" class="headerlink" title="服务容错hystrix"></a>服务容错hystrix</h2><ul>
-<li><p>服务熔断</p>
-<ul>
-<li><p>1、在pom.xml添加相关的springcould坐标</p>
-</li>
-<li><p>2、在springboot的启动类加相关的开启注解 @EnableXXXX</p>
-</li>
-<li><p>3、yml文件添加配置</p>
-</li>
-</ul>
-</li>
-<li><p>服务降级</p>
-<ul>
-<li><p>1、在pom.xml添加相关的springcould坐标</p>
-</li>
-<li><p>2、在springboot的启动类加相关的开启注解 @EnableXXXX</p>
-</li>
-<li><p>3、yml文件添加配置</p>
-</li>
-</ul>
-</li>
-<li><p>服务监控</p>
-<ul>
-<li><p>1、在pom.xml添加相关的springcould坐标</p>
-</li>
-<li><p>2、在springboot的启动类加相关的开启注解 @EnableXXXX</p>
-</li>
-<li><p>3、yml文件添加配置</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="路由网关-zuul-（门口保安）"><a href="#路由网关-zuul-（门口保安）" class="headerlink" title="路由网关 zuul （门口保安）"></a>路由网关 zuul （门口保安）</h2><ul>
-<li><p>起到保护、过滤、代理的作用 当做一个微服务注册到euruka</p>
-</li>
-<li><p>构建步骤</p>
-<ul>
-<li><p>1、在pom.xml添加相关的springcould坐标</p>
-</li>
-<li><p>2、在springboot的启动类加相关的开启注解 @EnableXXXX</p>
-</li>
-<li><p>3、yml文件添加配置</p>
-</li>
-</ul>
-</li>
-<li><p>路由映射规则配置</p>
-</li>
-</ul>
-<h2 id="配置中心-config-service"><a href="#配置中心-config-service" class="headerlink" title="配置中心 config-service"></a>配置中心 config-service</h2><ul>
-<li><p>上传到git，配置与编码隔离</p>
-</li>
-<li><p>config-service 拉取git 配置文件</p>
-</li>
-<li><p>微服务与config-service关联</p>
-</li>
-</ul>
-<p>项目git地址：</p>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#springcould" >
-    <span class="tag-code">springcould</span>
+  <a href="../../../../../tags#jvm" >
+    <span class="tag-code">jvm</span>
   </a>
 
       </div>
@@ -276,17 +185,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../23/redis/基于redis的分布式锁/">
+      <a class="nav-left" href="../../mysql/mysql-02/">
         <span class="nav-arrow">← </span>
         
-          基于redis的高并发分布式锁
+          数据库连接池满的问题
         
       </a>
     
     
-      <a class="nav-right" href="../../../31/java/java-node/">
+      <a class="nav-right" href="../../springboot/sb-01/">
         
-          Java线程池笔记
+          springboot AOP
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -335,7 +244,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#springcould-技术栈笔记"><span class="toc-nav-text">springcould 技术栈笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Eureka-服务注册与发现（物业公司）"><span class="toc-nav-text">Eureka 服务注册与发现（物业公司）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#客户端-负载均衡-Ribbon-和-feign"><span class="toc-nav-text">客户端 负载均衡 Ribbon 和 feign</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#服务容错hystrix"><span class="toc-nav-text">服务容错hystrix</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#路由网关-zuul-（门口保安）"><span class="toc-nav-text">路由网关 zuul （门口保安）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#配置中心-config-service"><span class="toc-nav-text">配置中心 config-service</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#jvm性能调休"><span class="toc-nav-text">jvm性能调休</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#堆内存溢出outofmemory"><span class="toc-nav-text">堆内存溢出outofmemory</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#生产环境死循环-导致内存、cpu飙升"><span class="toc-nav-text">生产环境死循环 导致内存、cpu飙升</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#线程死锁-cpu飙升耗资源"><span class="toc-nav-text">线程死锁 cpu飙升耗资源</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#jvm性能调休工具使用"><span class="toc-nav-text">jvm性能调休工具使用</span></a></li></ol></li></ol>
     
   </div>
 </aside>
@@ -345,7 +254,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/07/28/springcould/sc-01/';
+    var url = 'https://kenhinschan.github.io/2019/08/05/jvm/jvm-memory/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -407,7 +316,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "springcould 技术栈笔记",
+        id: "jvm性能调休",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

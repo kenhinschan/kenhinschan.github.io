@@ -10,7 +10,7 @@
   
   <title>
     
-      springcould 技术栈笔记 | 个人笔记
+      springboot AOP | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>springcould 技术栈笔记</h2>
-  <p class="post-date">2019-07-28</p>
+  <h2>springboot AOP</h2>
+  <p class="post-date">2019-08-05</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,119 +153,46 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h1 id="springcould-技术栈笔记"><a href="#springcould-技术栈笔记" class="headerlink" title="springcould 技术栈笔记"></a>springcould 技术栈笔记</h1><hr>
-<h2 id="Eureka-服务注册与发现（物业公司）"><a href="#Eureka-服务注册与发现（物业公司）" class="headerlink" title="Eureka 服务注册与发现（物业公司）"></a>Eureka 服务注册与发现（物业公司）</h2><ul>
-<li><p>eureka_service（物业公司）与 eureka_client 入住的公司 （需要到物业公司登记、注册）</p>
+    <section class="markdown-content"><h1 id="springboot-AOP笔记"><a href="#springboot-AOP笔记" class="headerlink" title="springboot AOP笔记"></a>springboot AOP笔记</h1><h2 id="springboot-AOP-面向切面编程"><a href="#springboot-AOP-面向切面编程" class="headerlink" title="springboot AOP 面向切面编程"></a>springboot AOP 面向切面编程</h2><ul>
+<li>加入maven坐标</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;dependency&gt;</span></span><br><span class="line">        <span class="string">&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line">        <span class="string">&lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;</span></span><br><span class="line"><span class="string">&lt;/dependency&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="AOP使用方式"><a href="#AOP使用方式" class="headerlink" title="AOP使用方式"></a>AOP使用方式</h2><ul>
+<li><p>xml配置方式使用</p>
 </li>
-<li><p>eureka_service自我保护机制 （心跳）</p>
+<li><p>注解方式使用</p>
+</li>
+</ul>
 <ul>
-<li><p>eureka 定时检查入住的微服务，是否正常，默认90秒，超过90秒没收到eureka_client的服务访问，会判断该服务已经挂死，但不会销毁，会保留保证服务可用</p>
+<li><p>1、切面类上加入@Aspect，@Component这个注解是交给spring容器管理</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">@Aspect</span></span><br><span class="line"><span class="string">@Component</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">WebLogAspect</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@Pointcut()</span></span><br><span class="line">    </span><br><span class="line">    <span class="string">@After()</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li></li>
-<li><p>总的来说：好死不如赖活着，保证高可用</p>
+<li><p>2、匹配（切入点）@Pointcut()</p>
 </li>
 </ul>
-</li>
-<li><p>CAP原则</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">@Pointcut("execution(public</span> <span class="string">*</span> <span class="string">com.stuPayment.controller..*.*(..))")//切入点描述</span> <span class="string">这个是controller包的切入点</span></span><br><span class="line"> <span class="string">public</span> <span class="string">void</span> <span class="string">controllerLog()&#123;&#125;//签名，可以理解成这个切入点的一个名称</span></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>C：数据的强一致性，</li>
-<li>A：高可用性，</li>
-<li>P：分区容错性， </li>
-<li>3进2 （行业内也只能做得3选二，分布式系统必须有P原则）</li>
-</ul>
-</li>
-<li><p>euraka （AP原则） 与 zookeeper 比较 （CP原则）</p>
+<li><p>3、5种advice 是编写业务逻辑实现代码</p>
 <ul>
-<li><p>euraka 一直可以访问 但数据强一致性比zookeeper弱</p>
+<li><p>@before()</p>
 </li>
-<li><p>zookeeper 短暂不能访问，30秒后有恢复正常访问 </p>
-</li>
-</ul>
-</li>
-<li><p>euraka 集群 （euraka_service多开几个，保证高可用性）</p>
-<ul>
-<li><p>1、配置原则（不能监控自己）：euraka_service9001 、euraka_service9002、euraka_serice9003</p>
-</li>
-<li><p>euraka_service9001： （defaultZone：9002、9003）</p>
-</li>
-<li><p>euraka_service9002： （defaultZone：9001、9003）</p>
-</li>
-<li><p>euraka_service9003： （defaultZone：9001、9002）</p>
+<li><p>@after()</p>
 </li>
 </ul>
 </li>
 </ul>
-<h2 id="客户端-负载均衡-Ribbon-和-feign"><a href="#客户端-负载均衡-Ribbon-和-feign" class="headerlink" title="客户端 负载均衡 Ribbon 和 feign"></a>客户端 负载均衡 Ribbon 和 feign</h2><ul>
-<li><p>ribbon 是（Ribbon + Resttemplate）</p>
-</li>
-<li><p>feign 是接口加注解</p>
-</li>
-</ul>
-<h2 id="服务容错hystrix"><a href="#服务容错hystrix" class="headerlink" title="服务容错hystrix"></a>服务容错hystrix</h2><ul>
-<li><p>服务熔断</p>
-<ul>
-<li><p>1、在pom.xml添加相关的springcould坐标</p>
-</li>
-<li><p>2、在springboot的启动类加相关的开启注解 @EnableXXXX</p>
-</li>
-<li><p>3、yml文件添加配置</p>
-</li>
-</ul>
-</li>
-<li><p>服务降级</p>
-<ul>
-<li><p>1、在pom.xml添加相关的springcould坐标</p>
-</li>
-<li><p>2、在springboot的启动类加相关的开启注解 @EnableXXXX</p>
-</li>
-<li><p>3、yml文件添加配置</p>
-</li>
-</ul>
-</li>
-<li><p>服务监控</p>
-<ul>
-<li><p>1、在pom.xml添加相关的springcould坐标</p>
-</li>
-<li><p>2、在springboot的启动类加相关的开启注解 @EnableXXXX</p>
-</li>
-<li><p>3、yml文件添加配置</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="路由网关-zuul-（门口保安）"><a href="#路由网关-zuul-（门口保安）" class="headerlink" title="路由网关 zuul （门口保安）"></a>路由网关 zuul （门口保安）</h2><ul>
-<li><p>起到保护、过滤、代理的作用 当做一个微服务注册到euruka</p>
-</li>
-<li><p>构建步骤</p>
-<ul>
-<li><p>1、在pom.xml添加相关的springcould坐标</p>
-</li>
-<li><p>2、在springboot的启动类加相关的开启注解 @EnableXXXX</p>
-</li>
-<li><p>3、yml文件添加配置</p>
-</li>
-</ul>
-</li>
-<li><p>路由映射规则配置</p>
-</li>
-</ul>
-<h2 id="配置中心-config-service"><a href="#配置中心-config-service" class="headerlink" title="配置中心 config-service"></a>配置中心 config-service</h2><ul>
-<li><p>上传到git，配置与编码隔离</p>
-</li>
-<li><p>config-service 拉取git 配置文件</p>
-</li>
-<li><p>微服务与config-service关联</p>
-</li>
-</ul>
-<p>项目git地址：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">@Before("controllerLog()</span> <span class="string">||</span> <span class="string">uiControllerLog()")</span> <span class="string">//在切入点的方法run之前要干的</span></span><br><span class="line">   <span class="string">public</span> <span class="string">void</span> <span class="string">logBeforeController(JoinPoint</span> <span class="string">joinPoint)</span> <span class="string">&#123;</span></span><br><span class="line">       <span class="string">//TODO</span> <span class="string">可复用业务逻辑实现代码</span></span><br><span class="line">   <span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#springcould" >
-    <span class="tag-code">springcould</span>
+  <a href="../../../../../tags#springboot" >
+    <span class="tag-code">springboot</span>
   </a>
 
       </div>
@@ -276,17 +203,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../23/redis/基于redis的分布式锁/">
+      <a class="nav-left" href="../../jvm/jvm-memory/">
         <span class="nav-arrow">← </span>
         
-          基于redis的高并发分布式锁
+          jvm性能调休
         
       </a>
     
     
-      <a class="nav-right" href="../../../31/java/java-node/">
+      <a class="nav-right" href="../../mq/rabbitmq-01/">
         
-          Java线程池笔记
+          rabbitmq学习笔记
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -335,7 +262,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#springcould-技术栈笔记"><span class="toc-nav-text">springcould 技术栈笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Eureka-服务注册与发现（物业公司）"><span class="toc-nav-text">Eureka 服务注册与发现（物业公司）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#客户端-负载均衡-Ribbon-和-feign"><span class="toc-nav-text">客户端 负载均衡 Ribbon 和 feign</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#服务容错hystrix"><span class="toc-nav-text">服务容错hystrix</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#路由网关-zuul-（门口保安）"><span class="toc-nav-text">路由网关 zuul （门口保安）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#配置中心-config-service"><span class="toc-nav-text">配置中心 config-service</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#springboot-AOP笔记"><span class="toc-nav-text">springboot AOP笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#springboot-AOP-面向切面编程"><span class="toc-nav-text">springboot AOP 面向切面编程</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#AOP使用方式"><span class="toc-nav-text">AOP使用方式</span></a></li></ol></li></ol>
     
   </div>
 </aside>
@@ -345,7 +272,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/07/28/springcould/sc-01/';
+    var url = 'https://kenhinschan.github.io/2019/08/05/springboot/sb-01/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -407,7 +334,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "springcould 技术栈笔记",
+        id: "springboot AOP",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {
