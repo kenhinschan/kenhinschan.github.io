@@ -147,6 +147,86 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="2019/08/16/redis/redis-04/">redis应用场景</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="/tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis应用场景1、热点数据的缓存由于redis访问速度块、支持的数据类型比较丰富，所以redis很适合用来存储热点数据，另外结合expire，
+我们可以设置过期时间然后再进行缓存更新操作，这个功能最为常见，我们几乎所有的项目都有所运用。2、限时业务的运用redis中可以使用expire命 ...
+        
+      </div>
+      <a class="more" href="2019/08/16/redis/redis-04/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/08/16/redis/redis-03/">redis数据持久化（备份和恢复）</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="/tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis应用场景
+redis
+
+redis数据持久化（备份和恢复）
+使用redis 高并发
+
+读写高效，查询块，避免连接数据库读取数据
+
+
+
+持久化方式
+RDB （默认）redis.conf
+save 900 1    ====有1个key发生变化，900秒后进行持久化
+save 300  ...
+        
+      </div>
+      <a class="more" href="2019/08/16/redis/redis-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/08/16/mysql/mysql-03/">千万、百万级数据量的快速分页limit 优化</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          千万、百万级数据量的快速分页limit 优化
+随着数据量增大查询会变慢，百万级数据量开始变慢（无索引情况下）
+
+例子limit n,10; n会全表扫描
+
+
+12345678910111213141516SELECT count(*) from t_advertise_view_record ...
+        
+      </div>
+      <a class="more" href="2019/08/16/mysql/mysql-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="2019/08/16/jvm/jvm-memory/">jvm性能调休</a>
       </h2>
       <p class="article-date">August 16, 2019</p>
@@ -177,32 +257,6 @@
         
       </div>
       <a class="more" href="2019/08/16/jvm/jvm-memory/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/16/mysql/mysql-03/">千万、百万级数据量的快速分页limit 优化</a>
-      </h2>
-      <p class="article-date">August 16, 2019</p>
-      
-        
-  <a href="/tags#mysql" >
-    <span class="tag-code">mysql</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          千万、百万级数据量的快速分页limit 优化
-随着数据量增大查询会变慢，百万级数据量开始变慢（无索引情况下）
-
-例子limit n,10; n会全表扫描
-
-
-12345678910111213141516SELECT count(*) from t_advertise_view_record ...
-        
-      </div>
-      <a class="more" href="2019/08/16/mysql/mysql-03/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -361,63 +415,6 @@ sql优化, 合理设计索引
         
       </div>
       <a class="more" href="2019/08/09/FastDFS/fastdfs-03/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/09/FastDFS/fastdfs-01/">docker 安装一键部署FastDFS （分布式文件存储）</a>
-      </h2>
-      <p class="article-date">August 9, 2019</p>
-      
-        
-  <a href="/tags#FastDFS" >
-    <span class="tag-code">FastDFS</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          docker 安装FastDFS
-不利用docker安装，是比较复杂的
-
-利用docker安装镜像，可以安装别人配置好的FastDFS
-
-只要运行命令就可以了
-
-
-一键部署FastDFS 文件存储单机版拉取镜像
-
-封装好的fastDFS镜像：egistry.cn-beijing.aliyun ...
-        
-      </div>
-      <a class="more" href="2019/08/09/FastDFS/fastdfs-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/07/mq/rabbitmq-01/">rabbitmq笔记</a>
-      </h2>
-      <p class="article-date">August 7, 2019</p>
-      
-        
-  <a href="/tags#rabbitmq" >
-    <span class="tag-code">rabbitmq</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          rabbitmq笔记
-官网文档教程：https://www.rabbitmq.com/getstarted.html
-
-参考代码git：https://github.com/1805455228/myrabbitmq
-
-
-Virtual Hosts 相当于mysql的db
-新建一个Virtu ...
-        
-      </div>
-      <a class="more" href="2019/08/07/mq/rabbitmq-01/">Read more</a>
     </article>
   
 

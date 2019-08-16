@@ -184,6 +184,15 @@
 <li><p>日增量、月增量大的应该要分表</p>
 </li>
 </ul>
+<h2 id="常见的分库分表策略"><a href="#常见的分库分表策略" class="headerlink" title="常见的分库分表策略"></a>常见的分库分表策略</h2><ul>
+<li><p>RANGE分区：根据某一个字段的区间，进行分区。比如按照id分区，1到10万一个分区，10万零1到20万一个分区。</p>
+</li>
+<li><p>HASH分区：定义一个表达式，对表达式的结果进行分区选择。例如把id和某个整数进行取模运算，结果为1的是一个分区，结果是2的一个分区。</p>
+</li>
+<li><p>业务字段分区：这个就容易理解了，在业务数据中选择一个合适的字段，作为分区字段。比如按照公司码分区，companyCode=1（北京）为一个分区，companyCode=2（天津）为一个分区；当然，一般不会选择companyName=北京/天津这样的字段；不过这种分表策略，不能保证数据平均，比如北京有五千万数据，天津有五百万数据。</p>
+</li>
+</ul>
+<p>分表/分库虽然看起来很美好，但是问题也不少：跨库关联、分布式事务、结果集合并/排序等问题，都是需要考虑解决的。</p>
 </section>
     <!-- Tags START -->
     
@@ -202,17 +211,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../mysql-02/">
+      <a class="nav-left" href="../../jvm/jvm-memory/">
         <span class="nav-arrow">← </span>
         
-          数据库连接池满的问题
+          jvm性能调休
         
       </a>
     
     
-      <a class="nav-right" href="../../jvm/jvm-memory/">
+      <a class="nav-right" href="../../redis/redis-03/">
         
-          jvm性能调休
+          redis数据持久化（备份和恢复）
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -261,7 +270,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#千万、百万级数据量的快速分页limit-优化"><span class="toc-nav-text">千万、百万级数据量的快速分页limit 优化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#优化方案"><span class="toc-nav-text">优化方案</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#根据业务设计数据表"><span class="toc-nav-text">根据业务设计数据表</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#千万、百万级数据量的快速分页limit-优化"><span class="toc-nav-text">千万、百万级数据量的快速分页limit 优化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#优化方案"><span class="toc-nav-text">优化方案</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#根据业务设计数据表"><span class="toc-nav-text">根据业务设计数据表</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#常见的分库分表策略"><span class="toc-nav-text">常见的分库分表策略</span></a></li></ol>
     
   </div>
 </aside>
