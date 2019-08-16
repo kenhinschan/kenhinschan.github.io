@@ -10,7 +10,7 @@
   
   <title>
     
-      docker 安装 tomcat | 个人笔记
+      千万、百万级数据量的快速分页limit 优化 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>docker 安装 tomcat</h2>
-  <p class="post-date">2019-08-15</p>
+  <h2>千万、百万级数据量的快速分页limit 优化</h2>
+  <p class="post-date">2019-08-16</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,26 +153,45 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="搜查镜像"><a href="#搜查镜像" class="headerlink" title="搜查镜像"></a>搜查镜像</h2><p>docker search tomcat</p>
-<h2 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h2><p>docker pull tomcat</p>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>docker run -d -p 8081:8080 tomcat</p>
-<h2 id="开放端口后，要重启防火墙"><a href="#开放端口后，要重启防火墙" class="headerlink" title="开放端口后，要重启防火墙"></a>开放端口后，要重启防火墙</h2><p>firewall-cmd –zone=public –add-port=8080/tcp –permanent<br>firewall-cmd –zone=public –add-port=8081/tcp –permanent</p>
-<ul>
-<li><p>重启防火墙<br>firewall-cmd –reload</p>
+    <section class="markdown-content"><h2 id="千万、百万级数据量的快速分页limit-优化"><a href="#千万、百万级数据量的快速分页limit-优化" class="headerlink" title="千万、百万级数据量的快速分页limit 优化"></a>千万、百万级数据量的快速分页limit 优化</h2><ul>
+<li><p>随着数据量增大查询会变慢，百万级数据量开始变慢（无索引情况下）</p>
 </li>
-<li><p>访问</p>
-<h2 id="如果要修改容器里的配置文件"><a href="#如果要修改容器里的配置文件" class="headerlink" title="如果要修改容器里的配置文件"></a>如果要修改容器里的配置文件</h2></li>
+<li><p>例子limit n,10; n会全表扫描</p>
+</li>
 </ul>
-<p>docker exec -it  CONTAINER_ID  bash</p>
-<p>docker exec -it  f1755774f442  bash </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">SELECT</span> <span class="string">count(*)</span> <span class="string">from</span> <span class="string">t_advertise_view_record;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">-</span> <span class="string">ID是主键</span> <span class="bullet">--</span> <span class="string">耗时：0.00s</span> <span class="string">左右</span></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">from</span> <span class="string">t_advertise_view_record</span> <span class="string">limit</span> <span class="number">10</span><span class="string">,2;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">-</span> <span class="string">耗时：0.7s</span> <span class="string">左右</span></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">from</span> <span class="string">t_advertise_view_record</span> <span class="string">limit</span> <span class="number">870000</span><span class="string">,2;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">-</span> <span class="string">耗时：1.5s</span> <span class="string">左右</span></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">from</span> <span class="string">t_advertise_view_record</span> <span class="string">limit</span> <span class="number">870000</span><span class="string">,2;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">-</span> <span class="string">耗时：1.2s</span> <span class="string">左右</span></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">from</span> <span class="string">t_advertise_view_record</span> <span class="string">order</span> <span class="string">by</span> <span class="string">id</span> <span class="string">limit</span> <span class="number">870001</span><span class="string">,2;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">-</span> <span class="string">耗时：6s</span> <span class="string">左右</span></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">from</span> <span class="string">t_advertise_view_record</span> <span class="string">order</span> <span class="string">by</span> <span class="string">CREATE_TIME</span> <span class="string">limit</span> <span class="number">870002</span><span class="string">,2;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h2><ul>
+<li><p>首选添加索引、索引优化</p>
+</li>
+<li><p>业务sql语句写法优化</p>
+</li>
+<li><p>分库分表mycat (不同维度去分表)</p>
+<ul>
+<li><p>根据用户ID设计计算规则去分表 如：user_0,user_1,…,user_a，user_b,….</p>
+</li>
+<li><p>根据月份分表，每月一个表；log_yyyy_mm</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>加缓存 如 redis</li>
+</ul>
+<h2 id="根据业务设计数据表"><a href="#根据业务设计数据表" class="headerlink" title="根据业务设计数据表"></a>根据业务设计数据表</h2><ul>
+<li><p>数据表的数据每日、每月增量评估</p>
+</li>
+<li><p>日增量、月增量大的应该要分表</p>
+</li>
+</ul>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#docker, tomcat" >
-    <span class="tag-code">docker, tomcat</span>
+  <a href="../../../../../tags#mysql" >
+    <span class="tag-code">mysql</span>
   </a>
 
       </div>
@@ -183,17 +202,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../task-node/">
+      <a class="nav-left" href="../mysql-02/">
         <span class="nav-arrow">← </span>
         
-          任务笔记备忘录
+          数据库连接池满的问题
         
       </a>
     
     
-      <a class="nav-right" href="../../../16/jvm/jvm-02/">
+      <a class="nav-right" href="../../jvm/jvm-memory/">
         
-          JVM 笔记
+          jvm性能调休
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -242,7 +261,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#搜查镜像"><span class="toc-nav-text">搜查镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#拉取镜像"><span class="toc-nav-text">拉取镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#运行"><span class="toc-nav-text">运行</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#开放端口后，要重启防火墙"><span class="toc-nav-text">开放端口后，要重启防火墙</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#如果要修改容器里的配置文件"><span class="toc-nav-text">如果要修改容器里的配置文件</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#千万、百万级数据量的快速分页limit-优化"><span class="toc-nav-text">千万、百万级数据量的快速分页limit 优化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#优化方案"><span class="toc-nav-text">优化方案</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#根据业务设计数据表"><span class="toc-nav-text">根据业务设计数据表</span></a></li></ol>
     
   </div>
 </aside>
@@ -252,7 +271,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/15/tomcat/tomcat-01/';
+    var url = 'https://kenhinschan.github.io/2019/08/16/mysql/mysql-03/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -314,7 +333,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "docker 安装 tomcat",
+        id: "千万、百万级数据量的快速分页limit 优化",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {
