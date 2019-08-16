@@ -10,7 +10,7 @@
   
   <title>
     
-      springboot AOP | 个人笔记
+      docker 安装 tomcat | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>springboot AOP</h2>
-  <p class="post-date">2019-08-05</p>
+  <h2>docker 安装 tomcat</h2>
+  <p class="post-date">2019-08-15</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,46 +153,26 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h1 id="springboot-AOP笔记"><a href="#springboot-AOP笔记" class="headerlink" title="springboot AOP笔记"></a>springboot AOP笔记</h1><h2 id="springboot-AOP-面向切面编程"><a href="#springboot-AOP-面向切面编程" class="headerlink" title="springboot AOP 面向切面编程"></a>springboot AOP 面向切面编程</h2><ul>
-<li>加入maven坐标</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;dependency&gt;</span></span><br><span class="line">        <span class="string">&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line">        <span class="string">&lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;</span></span><br><span class="line"><span class="string">&lt;/dependency&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="AOP使用方式"><a href="#AOP使用方式" class="headerlink" title="AOP使用方式"></a>AOP使用方式</h2><ul>
-<li><p>xml配置方式使用</p>
-</li>
-<li><p>注解方式使用</p>
-</li>
-</ul>
+    <section class="markdown-content"><h2 id="搜查镜像"><a href="#搜查镜像" class="headerlink" title="搜查镜像"></a>搜查镜像</h2><p>docker search tomcat</p>
+<h2 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h2><p>docker pull tomcat</p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>docker run -d -p 8081:8080 tomcat</p>
+<h2 id="开放端口后，要重启防火墙"><a href="#开放端口后，要重启防火墙" class="headerlink" title="开放端口后，要重启防火墙"></a>开放端口后，要重启防火墙</h2><p>firewall-cmd –zone=public –add-port=8080/tcp –permanent<br>firewall-cmd –zone=public –add-port=8081/tcp –permanent</p>
 <ul>
-<li><p>1、切面类上加入@Aspect，@Component这个注解是交给spring容器管理</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">@Aspect</span></span><br><span class="line"><span class="string">@Component</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">WebLogAspect</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@Pointcut()</span></span><br><span class="line">    </span><br><span class="line">    <span class="string">@After()</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<li><p>重启防火墙<br>firewall-cmd –reload</p>
 </li>
-<li><p>2、匹配（切入点）@Pointcut()</p>
-</li>
+<li><p>访问</p>
+<h2 id="如果要修改容器里的配置文件"><a href="#如果要修改容器里的配置文件" class="headerlink" title="如果要修改容器里的配置文件"></a>如果要修改容器里的配置文件</h2></li>
 </ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">@Pointcut("execution(public</span> <span class="string">*</span> <span class="string">com.stuPayment.controller..*.*(..))")//切入点描述</span> <span class="string">这个是controller包的切入点</span></span><br><span class="line"> <span class="string">public</span> <span class="string">void</span> <span class="string">controllerLog()&#123;&#125;//签名，可以理解成这个切入点的一个名称</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>3、5种advice 是编写业务逻辑实现代码</p>
-<ul>
-<li><p>@before()</p>
-</li>
-<li><p>@after()</p>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">@Before("controllerLog()</span> <span class="string">||</span> <span class="string">uiControllerLog()")</span> <span class="string">//在切入点的方法run之前要干的</span></span><br><span class="line">   <span class="string">public</span> <span class="string">void</span> <span class="string">logBeforeController(JoinPoint</span> <span class="string">joinPoint)</span> <span class="string">&#123;</span></span><br><span class="line">       <span class="string">//TODO</span> <span class="string">可复用业务逻辑实现代码</span></span><br><span class="line">   <span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-
+<p>docker exec -it  CONTAINER_ID  bash</p>
+<p>docker exec -it  f1755774f442  bash </p>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#springboot" >
-    <span class="tag-code">springboot</span>
+  <a href="../../../../../tags#docker, tomcat" >
+    <span class="tag-code">docker, tomcat</span>
   </a>
 
       </div>
@@ -203,17 +183,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../mysql/mysql-02/">
+      <a class="nav-left" href="../../task-node/">
         <span class="nav-arrow">← </span>
         
-          数据库连接池满的问题
+          任务笔记备忘录
         
       </a>
     
     
-      <a class="nav-right" href="../../../06/mq/rabbitmq-02/">
+      <a class="nav-right" href="../../jvm/jvm-memory/">
         
-          rabbitmq 消息延迟推送
+          jvm性能调休
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -262,7 +242,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#springboot-AOP笔记"><span class="toc-nav-text">springboot AOP笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#springboot-AOP-面向切面编程"><span class="toc-nav-text">springboot AOP 面向切面编程</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#AOP使用方式"><span class="toc-nav-text">AOP使用方式</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#搜查镜像"><span class="toc-nav-text">搜查镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#拉取镜像"><span class="toc-nav-text">拉取镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#运行"><span class="toc-nav-text">运行</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#开放端口后，要重启防火墙"><span class="toc-nav-text">开放端口后，要重启防火墙</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#如果要修改容器里的配置文件"><span class="toc-nav-text">如果要修改容器里的配置文件</span></a></li></ol>
     
   </div>
 </aside>
@@ -272,7 +252,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/05/springboot/sb-01/';
+    var url = 'https://kenhinschan.github.io/2019/08/15/tomcat/tomcat-01/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -334,7 +314,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "springboot AOP",
+        id: "docker 安装 tomcat",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

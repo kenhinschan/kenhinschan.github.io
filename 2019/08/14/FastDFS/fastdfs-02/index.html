@@ -145,7 +145,7 @@
 
     <div id="article-banner">
   <h2>docker 安装FastDFS （tracker、storage）</h2>
-  <p class="post-date">2019-08-09</p>
+  <p class="post-date">2019-08-14</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -154,7 +154,7 @@
   <!-- Article START -->
   <article class="post-article">
     <section class="markdown-content"><h1 id="docker-安装FastDFS"><a href="#docker-安装FastDFS" class="headerlink" title="docker 安装FastDFS"></a>docker 安装FastDFS</h1><h2 id="搜查FastDFS镜像"><a href="#搜查FastDFS镜像" class="headerlink" title="搜查FastDFS镜像"></a>搜查FastDFS镜像</h2><p>docker search fastdfs</p>
-<h2 id="1、拉取镜像"><a href="#1、拉取镜像" class="headerlink" title="1、拉取镜像"></a>1、拉取镜像</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">pull</span> <span class="string">luhuiguo/fastdfs</span></span><br></pre></td></tr></table></figure>
+<h2 id="1、拉取镜像"><a href="#1、拉取镜像" class="headerlink" title="1、拉取镜像"></a>1、拉取镜像</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">pull</span> <span class="string">`</span> <span class="string">luhuiguo/fastdfs</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="2、启动tracker、storage"><a href="#2、启动tracker、storage" class="headerlink" title="2、启动tracker、storage"></a>2、启动tracker、storage</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 启动一个tracker服务器</span></span><br><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-dti</span> <span class="bullet">--network=host</span> <span class="bullet">--name</span> <span class="string">tracker</span> <span class="bullet">-v</span> <span class="string">/home/fdfs/tracker:/var/fdfs</span> <span class="string">luhuiguo/fastdfs</span> <span class="string">tracker</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动storage0</span></span><br><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-dti</span> <span class="bullet">--network=host</span> <span class="bullet">--name</span> <span class="string">storage0</span> <span class="bullet">-e</span> <span class="string">TRACKER_SERVER=192.168.1.10:22122</span> <span class="bullet">-v</span> <span class="string">/home/fdfs/storage0:/var/fdfs</span> <span class="string">luhuiguo/fastdfs</span> <span class="string">storage</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 再启动一个storage1</span></span><br><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-dti</span> <span class="bullet">--network=host</span> <span class="bullet">--name</span> <span class="string">storage1</span> <span class="bullet">-e</span> <span class="string">TRACKER_SERVER=192.168.1.10:22122</span> <span class="bullet">-v</span> <span class="string">/home/fdfs/storage1:/var/fdfs</span> <span class="string">luhuiguo/fastdfs</span> <span class="string">storage</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动一个新组的storage</span></span><br><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-dti</span> <span class="bullet">--network=host</span> <span class="bullet">--name</span> <span class="string">storage2</span> <span class="bullet">-e</span> <span class="string">TRACKER_SERVER=192.168.1.10:22122</span> <span class="bullet">-e</span> <span class="string">GROUP_NAME=group2</span> <span class="bullet">-e</span> <span class="string">PORT=22222</span> <span class="bullet">-v</span> <span class="string">/home/fdfs/storage2:/var/fdfs</span> <span class="string">luhuiguo/fastdfs</span> <span class="string">storage</span></span><br></pre></td></tr></table></figure>
 
@@ -183,17 +183,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../07/mq/rabbitmq-01/">
+      <a class="nav-left" href="../../../09/FastDFS/fastdfs-03/">
         <span class="nav-arrow">← </span>
         
-          rabbitmq笔记
+          springboot 整合FastDFS
         
       </a>
     
     
-      <a class="nav-right" href="../fastdfs-01/">
+      <a class="nav-right" href="../../../15/task-node/">
         
-          docker 安装一键部署FastDFS （分布式文件存储）
+          任务笔记备忘录
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -252,7 +252,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/09/FastDFS/fastdfs-02/';
+    var url = 'https://kenhinschan.github.io/2019/08/14/FastDFS/fastdfs-02/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({

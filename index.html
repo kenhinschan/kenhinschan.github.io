@@ -147,6 +147,150 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="2019/08/16/jvm/jvm-02/">JVM 笔记</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="/tags#jvm" >
+    <span class="tag-code">jvm</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          JVM
+了解jvm有助于理解Java编程、程序性能调休
+
+mac查看Java安装目录 /usr/libexec/java_home -V
+
+
+jvm结构
+TODO
+
+1、类加载器 （class文件）2、运行时数据区 （5块区域）（重点）
+结构
+
+1、虚拟机栈 （栈）== 先进后出 生命周期： ...
+        
+      </div>
+      <a class="more" href="2019/08/16/jvm/jvm-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/08/15/jvm/jvm-memory/">jvm性能调休</a>
+      </h2>
+      <p class="article-date">August 15, 2019</p>
+      
+        
+  <a href="/tags#jvm" >
+    <span class="tag-code">jvm</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          jvm性能调休
+堆内存溢出outofmemory
+堆区内存溢出
+
+12
+
+
+非堆区内存溢出
+
+代码模拟例子 （死循环向List不断添加对象，非堆区添加class）
+
+自动、手动导出jvm内存影像文件，分析
+
+
+生产环境死循环 导致内存、cpu飙升线程死锁 cpu飙升耗资源jvm性能调休工具使 ...
+        
+      </div>
+      <a class="more" href="2019/08/15/jvm/jvm-memory/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/08/15/tomcat/tomcat-01/">docker 安装 tomcat</a>
+      </h2>
+      <p class="article-date">August 15, 2019</p>
+      
+        
+  <a href="/tags#docker, tomcat" >
+    <span class="tag-code">docker, tomcat</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          搜查镜像docker search tomcat
+拉取镜像docker pull tomcat
+运行docker run -d -p 8081:8080 tomcat
+开放端口后，要重启防火墙firewall-cmd –zone=public –add-port=8080/tcp –perm ...
+        
+      </div>
+      <a class="more" href="2019/08/15/tomcat/tomcat-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/08/15/task-node/">任务笔记备忘录</a>
+      </h2>
+      <p class="article-date">August 15, 2019</p>
+      
+        
+  <a href="/tags#笔记任务" >
+    <span class="tag-code">笔记任务</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          待处理的任务笔记
+1、mysql 百万级、千万数据量下如何实现快速分页
+sql优化, 合理设计索引
+
+2、redis 数据备份与恢复方式3、GC垃圾回收机制，结合jvm理解4、堆、栈、队列（结合jvm去理解）
+堆 （先进先出）
+
+栈（手枪的子弹盒–先进后出）
+
+队列 （排队）先进先出
+
+
+5 ...
+        
+      </div>
+      <a class="more" href="2019/08/15/task-node/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/08/14/FastDFS/fastdfs-02/">docker 安装FastDFS （tracker、storage）</a>
+      </h2>
+      <p class="article-date">August 14, 2019</p>
+      
+        
+  <a href="/tags#FastDFS" >
+    <span class="tag-code">FastDFS</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          docker 安装FastDFS搜查FastDFS镜像docker search fastdfs
+1、拉取镜像1docker pull ` luhuiguo/fastdfs
+
+2、启动tracker、storage123456789101112# 启动一个tracker服务器docker r ...
+        
+      </div>
+      <a class="more" href="2019/08/14/FastDFS/fastdfs-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="2019/08/09/FastDFS/fastdfs-03/">springboot 整合FastDFS</a>
       </h2>
       <p class="article-date">August 9, 2019</p>
@@ -193,29 +337,6 @@
         
       </div>
       <a class="more" href="2019/08/09/FastDFS/fastdfs-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/09/FastDFS/fastdfs-02/">docker 安装FastDFS （tracker、storage）</a>
-      </h2>
-      <p class="article-date">August 9, 2019</p>
-      
-        
-  <a href="/tags#FastDFS" >
-    <span class="tag-code">FastDFS</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          docker 安装FastDFS搜查FastDFS镜像docker search fastdfs
-1、拉取镜像1docker pull luhuiguo/fastdfs
-
-2、启动tracker、storage123456789101112# 启动一个tracker服务器docker run ...
-        
-      </div>
-      <a class="more" href="2019/08/09/FastDFS/fastdfs-02/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -300,106 +421,6 @@ rabbitmq 消息推送 （延迟、定时）
         
       </div>
       <a class="more" href="2019/08/06/mq/rabbitmq-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/05/springboot/sb-01/">springboot AOP</a>
-      </h2>
-      <p class="article-date">August 5, 2019</p>
-      
-        
-  <a href="/tags#springboot" >
-    <span class="tag-code">springboot</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          springboot AOP笔记springboot AOP 面向切面编程
-加入maven坐标
-
-1234&lt;dependency&gt;        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;        &lt; ...
-        
-      </div>
-      <a class="more" href="2019/08/05/springboot/sb-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/05/jvm/jvm-memory/">jvm性能调休</a>
-      </h2>
-      <p class="article-date">August 5, 2019</p>
-      
-        
-  <a href="/tags#jvm" >
-    <span class="tag-code">jvm</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          jvm性能调休
-堆内存溢出outofmemory
-堆区内存溢出
-
-非堆区内存溢出
-
-代码模拟例子 （死循环向List不断添加对象，非堆区添加class）
-
-自动、手动导出jvm内存影像文件，分析
-
-
-生产环境死循环 导致内存、cpu飙升线程死锁 cpu飙升耗资源jvm性能调休工具使用
-jvi ...
-        
-      </div>
-      <a class="more" href="2019/08/05/jvm/jvm-memory/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/05/mysql/mysql-02/">数据库连接池满的问题</a>
-      </h2>
-      <p class="article-date">August 5, 2019</p>
-      
-        
-  <a href="/tags#mysql" >
-    <span class="tag-code">mysql</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          数据库连接池满的问题因为代码的错误而导致的数据库连接没有释放的问题
-        
-      </div>
-      <a class="more" href="2019/08/05/mysql/mysql-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/01/docker-learn/docker-02/">Docker下安装rabbitmq</a>
-      </h2>
-      <p class="article-date">August 1, 2019</p>
-      
-        
-  <a href="/tags#docker" >
-    <span class="tag-code">docker</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          搜查镜像
-地址：https://hub.docker.com/  找对应的tags：3.7-management 
-
-拉取镜像1docker pull rabbitmq:3.7-management
-
-启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest1docker ru ...
-        
-      </div>
-      <a class="more" href="2019/08/01/docker-learn/docker-02/">Read more</a>
     </article>
   
 
