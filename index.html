@@ -147,9 +147,9 @@
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="2019/08/16/redis/redis-04/">redis应用场景</a>
+        <a href="2019/08/17/redis/redis-05/">redis的事务</a>
       </h2>
-      <p class="article-date">August 16, 2019</p>
+      <p class="article-date">August 17, 2019</p>
       
         
   <a href="/tags#redis" >
@@ -159,18 +159,24 @@
       
       <div class="article-summary">
         
-          redis应用场景1、热点数据的缓存由于redis访问速度块、支持的数据类型比较丰富，所以redis很适合用来存储热点数据，另外结合expire，
-我们可以设置过期时间然后再进行缓存更新操作，这个功能最为常见，我们几乎所有的项目都有所运用。2、限时业务的运用redis中可以使用expire命 ...
+          redis的事务
+redis事务，没有原子性这个概念，不会回滚
+
+redis事务 有类似乐观锁的原理
+
+
+redis事务结构
+redis事务使用12345678910111213141516171819202122232425262728293031323334353637383940414 ...
         
       </div>
-      <a class="more" href="2019/08/16/redis/redis-04/">Read more</a>
+      <a class="more" href="2019/08/17/redis/redis-05/">Read more</a>
     </article>
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="2019/08/16/redis/redis-03/">redis数据持久化（备份和恢复）</a>
+        <a href="2019/08/17/mysql/lock-01/">乐观锁与悲观锁</a>
       </h2>
-      <p class="article-date">August 16, 2019</p>
+      <p class="article-date">August 17, 2019</p>
       
         
   <a href="/tags#redis" >
@@ -180,10 +186,64 @@
       
       <div class="article-summary">
         
-          redis应用场景
-redis
+          乐观锁与悲观锁1、悲观锁 （加锁）总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，
+所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁
+（共享资源每次只给一个线程使用，其它线程阻塞，用完后再把资源转让给其它线程）。
+传统的关系型数据库里边就用到了很多这种锁机制， ...
+        
+      </div>
+      <a class="more" href="2019/08/17/mysql/lock-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/08/17/jvm/jvm-memory/">jvm性能调休</a>
+      </h2>
+      <p class="article-date">August 17, 2019</p>
+      
+        
+  <a href="/tags#jvm" >
+    <span class="tag-code">jvm</span>
+  </a>
 
-redis数据持久化（备份和恢复）
+      
+      <div class="article-summary">
+        
+          jvm性能调休
+堆内存溢出outofmemory
+堆区内存溢出
+
+12
+
+
+非堆区内存溢出
+
+代码模拟例子 （死循环向List不断添加对象，非堆区添加class）
+
+自动、手动导出jvm内存影像文件，分析
+
+
+生产环境死循环 导致内存、cpu飙升线程死锁 cpu飙升耗资源jvm性能调休工具使 ...
+        
+      </div>
+      <a class="more" href="2019/08/17/jvm/jvm-memory/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/08/17/redis/redis-03/">redis数据持久化（备份和恢复）</a>
+      </h2>
+      <p class="article-date">August 17, 2019</p>
+      
+        
+  <a href="/tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis数据持久化（备份和恢复）
 使用redis 高并发
 
 读写高效，查询块，避免连接数据库读取数据
@@ -193,10 +253,10 @@ redis数据持久化（备份和恢复）
 持久化方式
 RDB （默认）redis.conf
 save 900 1    ====有1个key发生变化，900秒后进行持久化
-save 300  ...
+save 300 10   ====有10个key发 ...
         
       </div>
-      <a class="more" href="2019/08/16/redis/redis-03/">Read more</a>
+      <a class="more" href="2019/08/17/redis/redis-03/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -227,36 +287,23 @@ save 300  ...
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="2019/08/16/jvm/jvm-memory/">jvm性能调休</a>
+        <a href="2019/08/16/redis/redis-04/">redis应用场景</a>
       </h2>
       <p class="article-date">August 16, 2019</p>
       
         
-  <a href="/tags#jvm" >
-    <span class="tag-code">jvm</span>
+  <a href="/tags#redis" >
+    <span class="tag-code">redis</span>
   </a>
 
       
       <div class="article-summary">
         
-          jvm性能调休
-堆内存溢出outofmemory
-堆区内存溢出
-
-12
-
-
-非堆区内存溢出
-
-代码模拟例子 （死循环向List不断添加对象，非堆区添加class）
-
-自动、手动导出jvm内存影像文件，分析
-
-
-生产环境死循环 导致内存、cpu飙升线程死锁 cpu飙升耗资源jvm性能调休工具使 ...
+          redis应用场景1、热点数据的缓存由于redis访问速度块、支持的数据类型比较丰富，所以redis很适合用来存储热点数据，另外结合expire，
+我们可以设置过期时间然后再进行缓存更新操作，这个功能最为常见，我们几乎所有的项目都有所运用。2、限时业务的运用redis中可以使用expire命 ...
         
       </div>
-      <a class="more" href="2019/08/16/jvm/jvm-memory/">Read more</a>
+      <a class="more" href="2019/08/16/redis/redis-04/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -372,49 +419,6 @@ sql优化, 合理设计索引
         
       </div>
       <a class="more" href="2019/08/15/task-node/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/14/FastDFS/fastdfs-02/">docker 安装FastDFS （tracker、storage）</a>
-      </h2>
-      <p class="article-date">August 14, 2019</p>
-      
-        
-  <a href="/tags#FastDFS" >
-    <span class="tag-code">FastDFS</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          docker 安装FastDFS搜查FastDFS镜像docker search fastdfs
-1、拉取镜像1docker pull ` luhuiguo/fastdfs
-
-2、启动tracker、storage123456789101112# 启动一个tracker服务器docker r ...
-        
-      </div>
-      <a class="more" href="2019/08/14/FastDFS/fastdfs-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/09/FastDFS/fastdfs-03/">springboot 整合FastDFS</a>
-      </h2>
-      <p class="article-date">August 9, 2019</p>
-      
-        
-  <a href="/tags#FastDFS" >
-    <span class="tag-code">FastDFS</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          1、加入maven坐标12345&lt;dependency&gt;    &lt;groupId&gt;com.github.tobato&lt;/groupId&gt;    &lt;artifactId&gt;fastdfs-client&lt;/artifactId&gt;    & ...
-        
-      </div>
-      <a class="more" href="2019/08/09/FastDFS/fastdfs-03/">Read more</a>
     </article>
   
 

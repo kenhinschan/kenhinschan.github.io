@@ -10,7 +10,7 @@
   
   <title>
     
-      数据库连接池满的问题 | 个人笔记
+      redis数据持久化（备份和恢复） | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>数据库连接池满的问题</h2>
-  <p class="post-date">2019-08-16</p>
+  <h2>redis数据持久化（备份和恢复）</h2>
+  <p class="post-date">2019-08-17</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,12 +153,25 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="数据库连接池满的问题"><a href="#数据库连接池满的问题" class="headerlink" title="数据库连接池满的问题"></a>数据库连接池满的问题</h2><ul>
-<li><p>连接池参数调休—首先调大最大连接池数</p>
+    <section class="markdown-content"><h2 id="redis数据持久化（备份和恢复）"><a href="#redis数据持久化（备份和恢复）" class="headerlink" title="redis数据持久化（备份和恢复）"></a>redis数据持久化（备份和恢复）</h2><ul>
+<li><p>使用redis 高并发</p>
 </li>
-<li><p>因为代码的错误而导致的数据库连接没有释放的问题</p>
+<li><p>读写高效，查询块，避免连接数据库读取数据</p>
 </li>
-<li><p>查看什么原因链接池没有被释放，或者一直被占用</p>
+</ul>
+<hr>
+<h2 id="持久化方式"><a href="#持久化方式" class="headerlink" title="持久化方式"></a>持久化方式</h2><ul>
+<li><p>RDB （默认）redis.conf</p>
+<pre><code>save 900 1    ====有1个key发生变化，900秒后进行持久化
+save 300 10   ====有10个key发生变化，300秒后进行持久化
+save 60 10000 ====有10000个key发生变化，60秒后进行持久化</code></pre></li>
+</ul>
+<p>注：有数据丢失情况（如果还没等到没持久化，redis被故障、非关闭会有数据丢失）</p>
+<ul>
+<li><p>AOF （写一次，备份一次 保证数据不丢失、效率低）</p>
+<ul>
+<li>要在redis.conf开启</li>
+</ul>
 </li>
 </ul>
 </section>
@@ -167,8 +180,8 @@
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#mysql" >
-    <span class="tag-code">mysql</span>
+  <a href="../../../../../tags#redis" >
+    <span class="tag-code">redis</span>
   </a>
 
       </div>
@@ -179,17 +192,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../jvm/jvm-02/">
+      <a class="nav-left" href="../../../16/mysql/mysql-03/">
         <span class="nav-arrow">← </span>
         
-          JVM 笔记
+          千万、百万级数据量的快速分页limit 优化
         
       </a>
     
     
-      <a class="nav-right" href="../../redis/redis-04/">
+      <a class="nav-right" href="../../jvm/jvm-memory/">
         
-          redis应用场景
+          jvm性能调休
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -238,7 +251,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#数据库连接池满的问题"><span class="toc-nav-text">数据库连接池满的问题</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#redis数据持久化（备份和恢复）"><span class="toc-nav-text">redis数据持久化（备份和恢复）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#持久化方式"><span class="toc-nav-text">持久化方式</span></a></li></ol>
     
   </div>
 </aside>
@@ -248,7 +261,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/16/mysql/mysql-02/';
+    var url = 'https://kenhinschan.github.io/2019/08/17/redis/redis-03/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -310,7 +323,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "数据库连接池满的问题",
+        id: "redis数据持久化（备份和恢复）",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

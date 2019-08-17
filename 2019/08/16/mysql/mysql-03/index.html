@@ -167,14 +167,21 @@
 <li><p>业务sql语句写法优化</p>
 </li>
 <li><p>分库分表mycat (不同维度去分表)</p>
+</li>
+<li><p>水平拆分</p>
 <ul>
-<li><p>根据用户ID设计计算规则去分表 如：user_0,user_1,…,user_a，user_b,….</p>
+<li><p>1、根据用户ID设计计算规则去分表 如：user_0,user_1,…,user_a，user_b,….</p>
 </li>
-<li><p>根据月份分表，每月一个表；log_yyyy_mm</p>
-</li>
-</ul>
+<li><p>2、根据月份分表，每月一个表；log_yyyy_mm</p>
 </li>
 </ul>
+</li>
+</ul>
+<p><img src="/image/mysql-fb-02.png" alt></p>
+<ul>
+<li>垂直拆分（分表）    </li>
+</ul>
+<p><img src="/image/mysql-fb-01.png" alt></p>
 <ul>
 <li>加缓存 如 redis</li>
 </ul>
@@ -192,7 +199,7 @@
 <li><p>业务字段分区：这个就容易理解了，在业务数据中选择一个合适的字段，作为分区字段。比如按照公司码分区，companyCode=1（北京）为一个分区，companyCode=2（天津）为一个分区；当然，一般不会选择companyName=北京/天津这样的字段；不过这种分表策略，不能保证数据平均，比如北京有五千万数据，天津有五百万数据。</p>
 </li>
 </ul>
-<p>分表/分库虽然看起来很美好，但是问题也不少：跨库关联、分布式事务、结果集合并/排序等问题，都是需要考虑解决的。</p>
+<p>注意：分表/分库虽然看起来很美好，但是问题也不少：跨库关联、分布式事务、结果集合并/排序等问题，都是需要考虑解决的。</p>
 </section>
     <!-- Tags START -->
     
@@ -211,15 +218,15 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../jvm/jvm-memory/">
+      <a class="nav-left" href="../../redis/redis-04/">
         <span class="nav-arrow">← </span>
         
-          jvm性能调休
+          redis应用场景
         
       </a>
     
     
-      <a class="nav-right" href="../../redis/redis-03/">
+      <a class="nav-right" href="../../../17/redis/redis-03/">
         
           redis数据持久化（备份和恢复）
         
