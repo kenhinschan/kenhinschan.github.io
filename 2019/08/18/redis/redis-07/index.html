@@ -10,7 +10,7 @@
   
   <title>
     
-      千万、百万级数据量的快速分页limit 优化 | 个人笔记
+      redis集群 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>千万、百万级数据量的快速分页limit 优化</h2>
-  <p class="post-date">2019-08-16</p>
+  <h2>redis集群</h2>
+  <p class="post-date">2019-08-18</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,61 +153,40 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="千万、百万级数据量的快速分页limit-优化"><a href="#千万、百万级数据量的快速分页limit-优化" class="headerlink" title="千万、百万级数据量的快速分页limit 优化"></a>千万、百万级数据量的快速分页limit 优化</h2><ul>
-<li><p>随着数据量增大查询会变慢，百万级数据量开始变慢（无索引情况下）</p>
+    <section class="markdown-content"><h2 id="redis集群（默认有哨兵模式）"><a href="#redis集群（默认有哨兵模式）" class="headerlink" title="redis集群（默认有哨兵模式）"></a>redis集群（默认有哨兵模式）</h2><ul>
+<li><p>至少6台机器（3组，每组是一个主从哨兵模式（master主机 salve从机））</p>
 </li>
-<li><p>例子limit n,10; n会全表扫描</p>
+<li><p>三台主机创建集群时，划分槽点</p>
 </li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">SELECT</span> <span class="string">count(*)</span> <span class="string">from</span> <span class="string">t_advertise_view_record;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">-</span> <span class="string">ID是主键</span> <span class="bullet">--</span> <span class="string">耗时：0.00s</span> <span class="string">左右</span></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">from</span> <span class="string">t_advertise_view_record</span> <span class="string">limit</span> <span class="number">10</span><span class="string">,2;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">-</span> <span class="string">耗时：0.7s</span> <span class="string">左右</span></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">from</span> <span class="string">t_advertise_view_record</span> <span class="string">limit</span> <span class="number">870000</span><span class="string">,2;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">-</span> <span class="string">耗时：1.5s</span> <span class="string">左右</span></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">from</span> <span class="string">t_advertise_view_record</span> <span class="string">limit</span> <span class="number">870000</span><span class="string">,2;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">-</span> <span class="string">耗时：1.2s</span> <span class="string">左右</span></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">from</span> <span class="string">t_advertise_view_record</span> <span class="string">order</span> <span class="string">by</span> <span class="string">id</span> <span class="string">limit</span> <span class="number">870001</span><span class="string">,2;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">-</span> <span class="string">耗时：6s</span> <span class="string">左右</span></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">from</span> <span class="string">t_advertise_view_record</span> <span class="string">order</span> <span class="string">by</span> <span class="string">CREATE_TIME</span> <span class="string">limit</span> <span class="number">870002</span><span class="string">,2;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h2><ul>
-<li><p>首选添加索引、索引优化</p>
+<li><p>存储槽点分配：如主机1（0<del>5000）主机1（5000</del>10000）主机1（10000~15000）</p>
 </li>
-<li><p>业务sql语句写法优化</p>
+<li><p>集群是一个整体（数据分布存储在3个master），这里不同主从复制需要每个机器都有一份相对完整的数据</p>
 </li>
-<li><p>分库分表mycat (不同维度去分表)</p>
+<li><p>一组的主机服务器宕机，从机变为主机，宕机的主机降级为从机salve，整个集群还能提供完整的数据服务</p>
 </li>
-<li><p>水平拆分</p>
-<ul>
-<li><p>1、根据用户ID设计计算规则去分表 如：user_0,user_1,…,user_a，user_b,….</p>
-</li>
-<li><p>2、根据月份分表，每月一个表；log_yyyy_mm</p>
+<li><p>如果一组(主从)宕机，就会造成数据不完整、数据缺失</p>
 </li>
 </ul>
+<h2 id="使用集群优点"><a href="#使用集群优点" class="headerlink" title="使用集群优点"></a>使用集群优点</h2><ul>
+<li><p>扩容</p>
+</li>
+<li><p>分担存储、读写压力</p>
 </li>
 </ul>
-<p><img src="/image/mysql-fb-02.png" alt></p>
-<ul>
-<li>垂直拆分（分表）    </li>
+<h2 id="使用集群缺点"><a href="#使用集群缺点" class="headerlink" title="使用集群缺点"></a>使用集群缺点</h2><ul>
+<li>数据迁移麻烦（这点针对把redis当做持久化数据库使用的场景来说），如果数据持久化才mysql，就没有这个问题</li>
 </ul>
-<p><img src="/image/mysql-fb-01.png" alt></p>
-<ul>
-<li>加缓存 如 redis</li>
+<h2 id="redis-manager集群监控工具"><a href="#redis-manager集群监控工具" class="headerlink" title="redis-manager集群监控工具"></a>redis-manager集群监控工具</h2><ul>
+<li>TODO redis-manager工具如何使用</li>
 </ul>
-<h2 id="根据业务设计数据表"><a href="#根据业务设计数据表" class="headerlink" title="根据业务设计数据表"></a>根据业务设计数据表</h2><ul>
-<li><p>数据表的数据每日、每月增量评估</p>
-</li>
-<li><p>日增量、月增量大的应该要分表</p>
-</li>
-</ul>
-<h2 id="常见的分库分表策略"><a href="#常见的分库分表策略" class="headerlink" title="常见的分库分表策略"></a>常见的分库分表策略</h2><ul>
-<li><p>RANGE分区：根据某一个字段的区间，进行分区。比如按照id分区，1到10万一个分区，10万零1到20万一个分区。</p>
-</li>
-<li><p>HASH分区：定义一个表达式，对表达式的结果进行分区选择。例如把id和某个整数进行取模运算，结果为1的是一个分区，结果是2的一个分区。</p>
-</li>
-<li><p>业务字段分区：这个就容易理解了，在业务数据中选择一个合适的字段，作为分区字段。比如按照公司码分区，companyCode=1（北京）为一个分区，companyCode=2（天津）为一个分区；当然，一般不会选择companyName=北京/天津这样的字段；不过这种分表策略，不能保证数据平均，比如北京有五千万数据，天津有五百万数据。</p>
-</li>
-</ul>
-<p>注意：分表/分库虽然看起来很美好，但是问题也不少：跨库关联、分布式事务、结果集合并/排序等问题，都是需要考虑解决的。</p>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#mysql" >
-    <span class="tag-code">mysql</span>
+  <a href="../../../../../tags#redis" >
+    <span class="tag-code">redis</span>
   </a>
 
       </div>
@@ -218,20 +197,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../redis/redis-04/">
+      <a class="nav-left" href="../redis-06/">
         <span class="nav-arrow">← </span>
         
-          redis应用场景
+          redis主从复制
         
       </a>
     
-    
-      <a class="nav-right" href="../../../17/jvm/jvm-memory/">
-        
-          jvm性能调休
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -277,7 +249,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#千万、百万级数据量的快速分页limit-优化"><span class="toc-nav-text">千万、百万级数据量的快速分页limit 优化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#优化方案"><span class="toc-nav-text">优化方案</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#根据业务设计数据表"><span class="toc-nav-text">根据业务设计数据表</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#常见的分库分表策略"><span class="toc-nav-text">常见的分库分表策略</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#redis集群（默认有哨兵模式）"><span class="toc-nav-text">redis集群（默认有哨兵模式）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#使用集群优点"><span class="toc-nav-text">使用集群优点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#使用集群缺点"><span class="toc-nav-text">使用集群缺点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#redis-manager集群监控工具"><span class="toc-nav-text">redis-manager集群监控工具</span></a></li></ol>
     
   </div>
 </aside>
@@ -287,7 +259,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/16/mysql/mysql-03/';
+    var url = 'https://kenhinschan.github.io/2019/08/18/redis/redis-07/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -349,7 +321,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "千万、百万级数据量的快速分页limit 优化",
+        id: "redis集群",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

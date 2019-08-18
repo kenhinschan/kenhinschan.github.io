@@ -154,24 +154,58 @@
   <!-- Article START -->
   <article class="post-article">
     <section class="markdown-content"><h2 id="redis数据持久化（备份和恢复）"><a href="#redis数据持久化（备份和恢复）" class="headerlink" title="redis数据持久化（备份和恢复）"></a>redis数据持久化（备份和恢复）</h2><ul>
-<li><p>使用redis 高并发</p>
+<li><p>使用redis做缓存 抗高并发</p>
 </li>
-<li><p>读写高效，查询块，避免连接数据库读取数据</p>
+<li><p>读写高效，查询速度快，避免频繁连接数据库读取数据</p>
+</li>
+<li><p>只用redis做内存缓存使用，可以不关心redis持久化（因为数据库在mysql数据库里）</p>
+</li>
+<li><p>如果把redis当做缓存数据库使用，那需要注意redis数据持久化、数据一致性的问题</p>
 </li>
 </ul>
 <hr>
-<h2 id="持久化方式"><a href="#持久化方式" class="headerlink" title="持久化方式"></a>持久化方式</h2><ul>
-<li><p>RDB （默认）redis.conf</p>
-<pre><code>save 900 1    ====有1个key发生变化，900秒后进行持久化
-save 300 10   ====有10个key发生变化，300秒后进行持久化
-save 60 10000 ====有10000个key发生变化，60秒后进行持久化</code></pre></li>
+<h2 id="持久化方式（RDB、AOF）"><a href="#持久化方式（RDB、AOF）" class="headerlink" title="持久化方式（RDB、AOF）"></a>持久化方式（RDB、AOF）</h2><ul>
+<li><p>RDB （默认开启）redis.conf</p>
+<ul>
+<li>自动触发保存机制 </li>
+</ul>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">save</span> <span class="number">900</span> <span class="number">1</span>    <span class="string">====有1个key发生变化，900秒后进行持久化</span></span><br><span class="line"><span class="string">save</span> <span class="number">300</span> <span class="number">10</span>   <span class="string">====有10个key发生变化，300秒后进行持久化</span></span><br><span class="line"><span class="string">save</span> <span class="number">60</span> <span class="number">10000</span> <span class="string">====有10000个key发生变化，60秒后进行持久化</span></span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>redis重新启动时，会从dump.rdb重新加载数据进缓存     </li>
 </ul>
 <p>注：有数据丢失情况（如果还没等到没持久化，redis被故障、非关闭会有数据丢失）</p>
 <ul>
-<li><p>AOF （写一次，备份一次 保证数据不丢失、效率低）</p>
+<li><p>AOF （默认不开启）（写一次，备份一次 保证数据强一致性、稳健、效率低）</p>
 <ul>
-<li>要在redis.conf开启</li>
+<li><p>要在redis.conf 配置文件中 开启 appendonly yes</p>
+</li>
+<li><p>开启AOF和RDB并存，取数据时以AOF为准</p>
+</li>
+<li><p>redis重新启动时，会从appendonly.aof重新加载数据进缓存 </p>
+</li>
+<li><p>自动触发保存机制   </p>
+</li>
 </ul>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># appendfsync always  # 每次有数据修改发生时都会写入AOF文件（安全但是费时）。</span></span><br><span class="line"><span class="string">appendfsync</span> <span class="string">everysec</span>  <span class="comment"># 每秒钟同步一次，该策略为AOF的缺省策略。</span></span><br><span class="line"><span class="comment"># appendfsync no  # 从不同步。高效但是数据不会被持久化。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="数据恢复"><a href="#数据恢复" class="headerlink" title="数据恢复"></a>数据恢复</h2><ul>
+<li><p>redis重新启动时，会从dump.rdb、appendonly.aof重新加载数据进缓存 </p>
+</li>
+<li><p>开启AOF后 RDB和AOF并存，主要以AOF为准</p>
+</li>
+</ul>
+<h2 id="RDB持久化的触发分为手动触发和自动触发两种"><a href="#RDB持久化的触发分为手动触发和自动触发两种" class="headerlink" title="RDB持久化的触发分为手动触发和自动触发两种"></a>RDB持久化的触发分为手动触发和自动触发两种</h2><ul>
+<li><p>save命令和bgsave命令都可以生成RDB文件</p>
+</li>
+<li><p>save命令会阻塞Redis服务器进程，直到RDB文件创建完毕为止，在Redis服务器阻塞期间，服务器不能处理任何命令请求</p>
+</li>
+<li><p>bgsave命令会创建一个子进程，由子进程来负责创建RDB文件，父进程(即Redis主进程)则继续处理请求</p>
 </li>
 </ul>
 </section>
@@ -192,17 +226,17 @@ save 60 10000 ====有10000个key发生变化，60秒后进行持久化</code></p
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../16/mysql/mysql-03/">
+      <a class="nav-left" href="../redis-05/">
         <span class="nav-arrow">← </span>
         
-          千万、百万级数据量的快速分页limit 优化
+          redis的事务
         
       </a>
     
     
-      <a class="nav-right" href="../../jvm/jvm-memory/">
+      <a class="nav-right" href="../../java/java-collections/">
         
-          jvm性能调休
+          Java集合
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -251,7 +285,7 @@ save 60 10000 ====有10000个key发生变化，60秒后进行持久化</code></p
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#redis数据持久化（备份和恢复）"><span class="toc-nav-text">redis数据持久化（备份和恢复）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#持久化方式"><span class="toc-nav-text">持久化方式</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#redis数据持久化（备份和恢复）"><span class="toc-nav-text">redis数据持久化（备份和恢复）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#持久化方式（RDB、AOF）"><span class="toc-nav-text">持久化方式（RDB、AOF）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#数据恢复"><span class="toc-nav-text">数据恢复</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#RDB持久化的触发分为手动触发和自动触发两种"><span class="toc-nav-text">RDB持久化的触发分为手动触发和自动触发两种</span></a></li></ol>
     
   </div>
 </aside>
