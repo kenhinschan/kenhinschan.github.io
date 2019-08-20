@@ -147,6 +147,53 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/08/16/mysql/mysql-03/">千万、百万级数据量的快速分页limit 优化</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="../../tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          千万、百万级数据量的快速分页limit 优化
+随着数据量增大查询会变慢，百万级数据量开始变慢（无索引情况下）
+
+例子limit n,10; n会全表扫描
+
+
+12345678910111213141516SELECT count(*) from t_advertise_view_record ...
+        
+      </div>
+      <a class="more" href="../../2019/08/16/mysql/mysql-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/16/redis/redis-04/">redis应用场景</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis应用场景1、热点数据的缓存由于redis访问速度块、支持的数据类型比较丰富，所以redis很适合用来存储热点数据，另外结合expire，
+我们可以设置过期时间然后再进行缓存更新操作，这个功能最为常见，我们几乎所有的项目都有所运用。2、限时业务的运用redis中可以使用expire命 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/16/redis/redis-04/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/08/16/mysql/mysql-02/">数据库连接池满的问题</a>
       </h2>
       <p class="article-date">August 16, 2019</p>
@@ -358,63 +405,6 @@ Virtual Hosts 相当于mysql的db
         
       </div>
       <a class="more" href="../../2019/08/07/mq/rabbitmq-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/06/mq/rabbitmq-03/">rabbitmq 消息延迟消费、延迟重试</a>
-      </h2>
-      <p class="article-date">August 6, 2019</p>
-      
-        
-  <a href="../../tags#rabbitmq" >
-    <span class="tag-code">rabbitmq</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          延迟消费过程（每个消息可以单独设置失效时间）：
-
-声明 delay_queue_per_message_ttl 队列：死信队列，设置 DLX 参数，包含 x-dead-letter-exchange 表示失效后进入的 exchange（值为 delay_exchange，即实际消费交换机）、 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/06/mq/rabbitmq-03/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/06/mq/rabbitmq-02/">rabbitmq 消息延迟推送</a>
-      </h2>
-      <p class="article-date">August 6, 2019</p>
-      
-        
-  <a href="../../tags#rabbitmq" >
-    <span class="tag-code">rabbitmq</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          rabbitmq 消息推送 （实时）
-生产者
-
-消费者
-
-
-rabbitmq 消息推送 （延迟、定时）
-实战场景
-
-
-订单未支付，2小时删除
-
-方式1
-在RabbitMQ 3.6.x 之前我们一般采用死信队列+TTL过期时间来实现延迟队列 （会有阻塞，因为队列是先进先出）
-
-其实精华就是两个 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/06/mq/rabbitmq-02/">Read more</a>
     </article>
   
 

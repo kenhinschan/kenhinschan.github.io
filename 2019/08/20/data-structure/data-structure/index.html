@@ -10,7 +10,7 @@
   
   <title>
     
-      redis集群 | 个人笔记
+      数据结构--学习笔记 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>redis集群</h2>
-  <p class="post-date">2019-08-18</p>
+  <h2>数据结构--学习笔记</h2>
+  <p class="post-date">2019-08-20</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,40 +153,25 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="redis集群（默认有哨兵模式）"><a href="#redis集群（默认有哨兵模式）" class="headerlink" title="redis集群（默认有哨兵模式）"></a>redis集群（默认有哨兵模式）</h2><ul>
-<li><p>至少6台机器（3组，每组是一个主从哨兵模式（master主机 salve从机））</p>
+    <section class="markdown-content"><h2 id="数据结构可视化"><a href="#数据结构可视化" class="headerlink" title="数据结构可视化"></a>数据结构可视化</h2><p><a href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html" target="_blank" rel="noopener">数据结构可视化</a></p>
+<h2 id="B-Tree存储演示"><a href="#B-Tree存储演示" class="headerlink" title="B + Tree存储演示"></a>B + Tree存储演示</h2><ul>
+<li><p>数据存储在叶子节点（即：最底的一层）</p>
 </li>
-<li><p>三台主机创建集群时，划分槽点</p>
+<li><p>根据MaxDegree设定的数值（节点存储个数）</p>
 </li>
-<li><p>存储槽点分配：如主机1（0<del>5000）主机1（5000</del>10000）主机1（10000~15000）</p>
-</li>
-<li><p>集群是一个整体（数据分布存储在3个master），这里不同主从复制需要每个机器都有一份相对完整的数据</p>
-</li>
-<li><p>一组的主机服务器宕机，从机变为主机，宕机的主机降级为从机salve，整个集群还能提供完整的数据服务</p>
-</li>
-<li><p>如果一组(主从)宕机，就会造成数据不完整、数据缺失</p>
+<li><p>每个节点存储个数小于MaxDegree设定的数值，达到这个数值，就要提取节点，扩建树结构</p>
 </li>
 </ul>
-<h2 id="使用集群优点"><a href="#使用集群优点" class="headerlink" title="使用集群优点"></a>使用集群优点</h2><ul>
-<li><p>扩容</p>
-</li>
-<li><p>分担存储、读写压力</p>
-</li>
-</ul>
-<h2 id="使用集群缺点"><a href="#使用集群缺点" class="headerlink" title="使用集群缺点"></a>使用集群缺点</h2><ul>
-<li>数据迁移麻烦（这点针对把redis当做持久化数据库使用的场景来说），如果数据持久化才mysql，就没有这个问题</li>
-</ul>
-<h2 id="redis-manager集群监控工具"><a href="#redis-manager集群监控工具" class="headerlink" title="redis-manager集群监控工具"></a>redis-manager集群监控工具</h2><ul>
-<li>TODO redis-manager工具如何使用</li>
-</ul>
+<p><img src="/image/data-s-01.jpg" alt></p>
+<p><img src="/image/data-s-01.jpg" alt></p>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#redis" >
-    <span class="tag-code">redis</span>
+  <a href="../../../../../tags#数据结构" >
+    <span class="tag-code">数据结构</span>
   </a>
 
       </div>
@@ -197,20 +182,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../redis-06/">
+      <a class="nav-left" href="../../../18/java/java-hash-sf/">
         <span class="nav-arrow">← </span>
-        
-          redis主从复制
-        
-      </a>
-    
-    
-      <a class="nav-right" href="../../java/java-hash-sf/">
         
           Java 获取存储槽点hash算法
         
-        <span class="nav-arrow"> →</span>
       </a>
+    
     
   </div>
 
@@ -256,7 +234,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#redis集群（默认有哨兵模式）"><span class="toc-nav-text">redis集群（默认有哨兵模式）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#使用集群优点"><span class="toc-nav-text">使用集群优点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#使用集群缺点"><span class="toc-nav-text">使用集群缺点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#redis-manager集群监控工具"><span class="toc-nav-text">redis-manager集群监控工具</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#数据结构可视化"><span class="toc-nav-text">数据结构可视化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#B-Tree存储演示"><span class="toc-nav-text">B + Tree存储演示</span></a></li></ol>
     
   </div>
 </aside>
@@ -266,7 +244,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/18/redis/redis-07/';
+    var url = 'https://kenhinschan.github.io/2019/08/20/data-structure/data-structure/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -328,7 +306,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "redis集群",
+        id: "数据结构--学习笔记",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {
