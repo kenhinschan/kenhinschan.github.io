@@ -147,6 +147,82 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="2019/08/21/elasticsearch/es-03/">基于elasticsearch的IK中文分词笔记</a>
+      </h2>
+      <p class="article-date">August 21, 2019</p>
+      
+        
+  <a href="/tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          基于elasticsearch的IK中文分词笔记使用
+自带的分词（对中文支持不好）
+
+123456GET /_analyze&#123;  "analyzer": "standard",  "text": "我是程序员，我是帅哥"&#125;
+
+
+IK分词（有多种模式）123456GET / ...
+        
+      </div>
+      <a class="more" href="2019/08/21/elasticsearch/es-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/08/21/elasticsearch/es-01/">docker安装elasticsearch</a>
+      </h2>
+      <p class="article-date">August 21, 2019</p>
+      
+        
+  <a href="/tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          前言ElasticSearch是一个基于Lucene的搜索服务器.
+它提供了一个分布式多用户能力的全文搜索引擎,
+基于Restfulweb接口.ES是用java开发的,
+是当前流行的企业级搜索引擎.在本系列博文中,
+我们将来一起学习ElasticSearch的相关知识在docker安装ela ...
+        
+      </div>
+      <a class="more" href="2019/08/21/elasticsearch/es-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/08/20/elasticsearch/es-02/">elasticsearch全文检索</a>
+      </h2>
+      <p class="article-date">August 20, 2019</p>
+      
+        
+  <a href="/tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          基于Lucene全文搜索引擎的全文检索技术框架
+elasticsearch（推荐）
+
+solr（出现比较早）
+
+
+使用
+        
+      </div>
+      <a class="more" href="2019/08/20/elasticsearch/es-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="2019/08/20/data-structure/data-structure/">数据结构--学习笔记</a>
       </h2>
       <p class="article-date">August 20, 2019</p>
@@ -328,90 +404,6 @@ List HashMap Set 线程安全声明使用方法
         
       </div>
       <a class="more" href="2019/08/17/redis/redis-03/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/17/redis/redis-05/">redis的事务</a>
-      </h2>
-      <p class="article-date">August 17, 2019</p>
-      
-        
-  <a href="/tags#redis" >
-    <span class="tag-code">redis</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          redis的事务
-redis事务，没有原子性这个概念，不会回滚
-
-redis事务 有类似乐观锁的原理
-
-
-redis事务结构
-redis事务使用12345678910111213141516171819202122232425262728293031323334353637383940414 ...
-        
-      </div>
-      <a class="more" href="2019/08/17/redis/redis-05/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/17/mysql/lock-01/">乐观锁与悲观锁</a>
-      </h2>
-      <p class="article-date">August 17, 2019</p>
-      
-        
-  <a href="/tags#redis" >
-    <span class="tag-code">redis</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          乐观锁与悲观锁1、悲观锁 （加锁）总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，
-所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁
-（共享资源每次只给一个线程使用，其它线程阻塞，用完后再把资源转让给其它线程）。
-传统的关系型数据库里边就用到了很多这种锁机制， ...
-        
-      </div>
-      <a class="more" href="2019/08/17/mysql/lock-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/17/jvm/jvm-memory/">jvm性能调休</a>
-      </h2>
-      <p class="article-date">August 17, 2019</p>
-      
-        
-  <a href="/tags#jvm" >
-    <span class="tag-code">jvm</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          jvm性能调休
-堆内存溢出outofmemory
-堆区内存溢出
-
-12
-
-
-非堆区内存溢出
-
-代码模拟例子 （死循环向List不断添加对象，非堆区添加class）
-
-自动、手动导出jvm内存影像文件，分析
-
-
-生产环境死循环 导致内存、cpu飙升线程死锁 cpu飙升耗资源jvm性能调休工具使 ...
-        
-      </div>
-      <a class="more" href="2019/08/17/jvm/jvm-memory/">Read more</a>
     </article>
   
 

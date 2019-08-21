@@ -10,7 +10,7 @@
   
   <title>
     
-      数据结构--学习笔记 | 个人笔记
+      docker安装elasticsearch | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>数据结构--学习笔记</h2>
-  <p class="post-date">2019-08-20</p>
+  <h2>docker安装elasticsearch</h2>
+  <p class="post-date">2019-08-21</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,25 +153,75 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="数据结构可视化"><a href="#数据结构可视化" class="headerlink" title="数据结构可视化"></a>数据结构可视化</h2><p><a href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html" target="_blank" rel="noopener">数据结构可视化</a></p>
-<h2 id="B-Tree存储演示"><a href="#B-Tree存储演示" class="headerlink" title="B + Tree存储演示"></a>B + Tree存储演示</h2><ul>
-<li><p>数据存储在叶子节点（即：最底的一层）</p>
+    <section class="markdown-content"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>ElasticSearch是一个基于Lucene的搜索服务器.
+它提供了一个分布式多用户能力的全文搜索引擎,
+基于Restfulweb接口.ES是用java开发的,
+是当前流行的企业级搜索引擎.在本系列博文中,
+我们将来一起学习ElasticSearch的相关知识</code></pre><h3 id="在docker安装elasticsearch"><a href="#在docker安装elasticsearch" class="headerlink" title="在docker安装elasticsearch"></a>在docker安装elasticsearch</h3><ul>
+<li><p>1、安装elasticsearch（版本：v7.1.1） 搜索引擎 === 核心</p>
 </li>
-<li><p>根据MaxDegree设定的数值（节点存储个数）</p>
+<li><p>2、安装Kibana （版本：v7.1.1） (用于对elasticsearch 可视化操作、监控等) </p>
 </li>
-<li><p>每个节点存储个数小于MaxDegree设定的数值，达到这个数值，就要提取节点，扩建树结构</p>
+<li><p>3、安装Ik （版本：v7.1.1）中文分词插件</p>
+</li>
+<li><p>4、安装elasticsearch-head （用于elasticsearch集群监控）单机可以忽略</p>
 </li>
 </ul>
-<p><img src="/image/data-s-01.jpg" alt></p>
-<p><img src="/image/data-s-02.jpg" alt></p>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><ul>
+<li>1、搜索镜像</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">search</span> <span class="string">elasticsearch</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2、拉取镜像</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">pull</span> <span class="string">nshou/elasticsearch-kibana</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3、运行</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">-p</span> <span class="number">9200</span><span class="string">:9200</span> <span class="bullet">-p</span> <span class="number">5601</span><span class="string">:5601</span> <span class="string">nshou/elasticsearch-kibana</span></span><br><span class="line"></span><br><span class="line"><span class="string">或者</span></span><br><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">-p</span> <span class="number">9200</span><span class="string">:9200</span> <span class="bullet">-p</span> <span class="number">9300</span><span class="string">:9300</span> <span class="bullet">-p</span> <span class="number">5601</span><span class="string">:5601</span> <span class="bullet">--name</span> <span class="string">eskibana</span>  <span class="string">nshou/elasticsearch-kibana</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>4、测试访问</li>
+</ul>
+<p><a href="http://192.168.1.14:9200/" target="_blank" rel="noopener">http://192.168.1.14:9200/</a> (elasticsearch)<br><a href="http://192.168.1.14:5601" target="_blank" rel="noopener">http://192.168.1.14:5601</a> (Kibana 可视化)<br><a href="http://192.168.1.14:9100/" target="_blank" rel="noopener">http://192.168.1.14:9100/</a> （elasticsearch-head）</p>
+<p><img src="/image/es-d-01.jpg" alt></p>
+<ul>
+<li>5、如果要修改配置文件(docker ps后 显示的列表COMMAND列 输入命令)</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">exec</span> <span class="bullet">-it</span> <span class="number">92</span><span class="string">d3451662f3</span> <span class="string">/bin/sh</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装中文分词器IK"><a href="#安装中文分词器IK" class="headerlink" title="安装中文分词器IK"></a>安装中文分词器IK</h2><ul>
+<li>下载与ES相对应的版本（7.1.1）</li>
+</ul>
+<p><a href="https://github.com/medcl/elasticsearch-analysis-ik/releases" target="_blank" rel="noopener">https://github.com/medcl/elasticsearch-analysis-ik/releases</a></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">wget</span> <span class="attr">https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.1.1/elasticsearch-analysis-ik-7.1.1.zip</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解压，并复制到docker的ES安装目录下pluings下</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">从宿主机拷文件到docker容器里面</span></span><br><span class="line"><span class="string">docker</span> <span class="string">cp</span> <span class="string">/home/elasticsearch-analysis-ik-7.1.1.zip</span>  <span class="number">92</span><span class="attr">d3451662f3:/home/elasticsearch/elasticsearch/plugins/ik</span></span><br><span class="line"></span><br><span class="line"><span class="string">进度ik目录解压</span></span><br><span class="line"><span class="string">unzip</span> <span class="string">elasticsearch-analysis-ik-7.1.1.zip</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装elasticsearch-head"><a href="#安装elasticsearch-head" class="headerlink" title="安装elasticsearch-head"></a>安装elasticsearch-head</h2><ul>
+<li><p>拉取镜像</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">pull</span> <span class="string">mobz/elasticsearch-head:5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">--name</span> <span class="string">es_head</span> <span class="bullet">-p</span> <span class="number">9100</span><span class="string">:9100</span> <span class="string">mobz/elasticsearch-head:5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试访问</p>
+</li>
+</ul>
+<p><a href="http://192.168.1.14:9100/" target="_blank" rel="noopener">http://192.168.1.14:9100/</a></p>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#数据结构" >
-    <span class="tag-code">数据结构</span>
+  <a href="../../../../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
   </a>
 
       </div>
@@ -182,17 +232,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../18/java/java-hash-sf/">
+      <a class="nav-left" href="../../../20/elasticsearch/es-02/">
         <span class="nav-arrow">← </span>
         
-          Java 获取存储槽点hash算法
+          elasticsearch全文检索
         
       </a>
     
     
-      <a class="nav-right" href="../../elasticsearch/es-02/">
+      <a class="nav-right" href="../es-03/">
         
-          elasticsearch全文检索
+          基于elasticsearch的IK中文分词笔记
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -241,7 +291,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#数据结构可视化"><span class="toc-nav-text">数据结构可视化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#B-Tree存储演示"><span class="toc-nav-text">B + Tree存储演示</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#前言"><span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#在docker安装elasticsearch"><span class="toc-nav-text">在docker安装elasticsearch</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装步骤"><span class="toc-nav-text">安装步骤</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装中文分词器IK"><span class="toc-nav-text">安装中文分词器IK</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装elasticsearch-head"><span class="toc-nav-text">安装elasticsearch-head</span></a>
     
   </div>
 </aside>
@@ -251,7 +301,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/20/data-structure/data-structure/';
+    var url = 'https://kenhinschan.github.io/2019/08/21/elasticsearch/es-01/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -313,7 +363,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "数据结构--学习笔记",
+        id: "docker安装elasticsearch",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {
