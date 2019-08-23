@@ -10,7 +10,7 @@
   
   <title>
     
-      数据结构--学习笔记 | 个人笔记
+      elasticsearch全文检索 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>数据结构--学习笔记</h2>
-  <p class="post-date">2019-08-20</p>
+  <h2>elasticsearch全文检索</h2>
+  <p class="post-date">2019-08-21</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,25 +153,44 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="数据结构可视化"><a href="#数据结构可视化" class="headerlink" title="数据结构可视化"></a>数据结构可视化</h2><p><a href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html" target="_blank" rel="noopener">数据结构可视化</a></p>
-<h2 id="B-Tree存储演示"><a href="#B-Tree存储演示" class="headerlink" title="B + Tree存储演示"></a>B + Tree存储演示</h2><ul>
-<li><p>数据存储在叶子节点（即：最底的一层）</p>
+    <section class="markdown-content"><h2 id="基于Lucene全文搜索引擎的全文检索技术框架"><a href="#基于Lucene全文搜索引擎的全文检索技术框架" class="headerlink" title="基于Lucene全文搜索引擎的全文检索技术框架"></a>基于Lucene全文搜索引擎的全文检索技术框架</h2><ul>
+<li><p>elasticsearch（分布式的）（推荐）</p>
 </li>
-<li><p>根据MaxDegree设定的数值（节点存储个数）</p>
-</li>
-<li><p>每个节点存储个数小于MaxDegree设定的数值，达到这个数值，就要提取节点，扩建树结构</p>
+<li><p>solr（出现比较早）</p>
 </li>
 </ul>
-<p><img src="/image/data-s-01.jpg" alt></p>
-<p><img src="/image/data-s-02.jpg" alt></p>
-</section>
+<h2 id="es与mysql数据库对比"><a href="#es与mysql数据库对比" class="headerlink" title="es与mysql数据库对比"></a>es与mysql数据库对比</h2><table>
+<thead>
+<tr>
+<th>关系型数据库</th>
+<th>Elasticsearch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据库（数据库）</td>
+<td>指数（索引）</td>
+</tr>
+<tr>
+<td>表（表）</td>
+<td>类型（类型）</td>
+</tr>
+<tr>
+<td>行（行）</td>
+<td>文档（文档）</td>
+</tr>
+<tr>
+<td>列（列）</td>
+<td>字段（字段）</td>
+</tr>
+</tbody></table>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2></section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#数据结构" >
-    <span class="tag-code">数据结构</span>
+  <a href="../../../../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
   </a>
 
       </div>
@@ -182,17 +201,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../18/java/java-hash-sf/">
+      <a class="nav-left" href="../es-03/">
         <span class="nav-arrow">← </span>
         
-          Java 获取存储槽点hash算法
+          基于elasticsearch的IK中文分词笔记
         
       </a>
     
     
-      <a class="nav-right" href="../../../21/elasticsearch/es-01/">
+      <a class="nav-right" href="../../../23/data-structure/fibonacci-sequence/">
         
-          docker安装elasticsearch
+          斐波那契数列--学习笔记
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -241,7 +260,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#数据结构可视化"><span class="toc-nav-text">数据结构可视化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#B-Tree存储演示"><span class="toc-nav-text">B + Tree存储演示</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#基于Lucene全文搜索引擎的全文检索技术框架"><span class="toc-nav-text">基于Lucene全文搜索引擎的全文检索技术框架</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#es与mysql数据库对比"><span class="toc-nav-text">es与mysql数据库对比</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#使用"><span class="toc-nav-text">使用</span></a></li></ol>
     
   </div>
 </aside>
@@ -251,7 +270,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/20/data-structure/data-structure/';
+    var url = 'https://kenhinschan.github.io/2019/08/21/elasticsearch/es-02/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -313,7 +332,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "数据结构--学习笔记",
+        id: "elasticsearch全文检索",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {
