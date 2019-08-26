@@ -10,7 +10,7 @@
   
   <title>
     
-      docker 安装 tomcat | 个人笔记
+      linux文件系统挂载 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>docker 安装 tomcat</h2>
-  <p class="post-date">2019-08-15</p>
+  <h2>linux文件系统挂载</h2>
+  <p class="post-date">2019-08-23</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,26 +153,14 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="搜查镜像"><a href="#搜查镜像" class="headerlink" title="搜查镜像"></a>搜查镜像</h2><p>docker search tomcat</p>
-<h2 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h2><p>docker pull tomcat</p>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>docker run -d -p 8081:8080 tomcat</p>
-<h2 id="开放端口后，要重启防火墙"><a href="#开放端口后，要重启防火墙" class="headerlink" title="开放端口后，要重启防火墙"></a>开放端口后，要重启防火墙</h2><p>firewall-cmd –zone=public –add-port=8080/tcp –permanent<br>firewall-cmd –zone=public –add-port=8081/tcp –permanent</p>
-<ul>
-<li><p>重启防火墙<br>firewall-cmd –reload</p>
-</li>
-<li><p>访问</p>
-<h2 id="如果要修改容器里的配置文件"><a href="#如果要修改容器里的配置文件" class="headerlink" title="如果要修改容器里的配置文件"></a>如果要修改容器里的配置文件</h2></li>
-</ul>
-<p>docker exec -it  CONTAINER_ID  bash</p>
-<p>docker exec -it  f1755774f442  bash </p>
-</section>
+    <section class="markdown-content"></section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#docker, tomcat" >
-    <span class="tag-code">docker, tomcat</span>
+  <a href="../../../../../tags#linux" >
+    <span class="tag-code">linux</span>
   </a>
 
       </div>
@@ -183,20 +171,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../14/FastDFS/fastdfs-02/">
+      <a class="nav-left" href="../../data-structure/fibonacci-sequence/">
         <span class="nav-arrow">← </span>
         
-          docker 安装FastDFS （tracker、storage）
+          斐波那契数列--学习笔记
         
       </a>
     
-    
-      <a class="nav-right" href="../../../16/jvm/jvm-02/">
-        
-          JVM 笔记
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -242,7 +223,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#搜查镜像"><span class="toc-nav-text">搜查镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#拉取镜像"><span class="toc-nav-text">拉取镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#运行"><span class="toc-nav-text">运行</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#开放端口后，要重启防火墙"><span class="toc-nav-text">开放端口后，要重启防火墙</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#如果要修改容器里的配置文件"><span class="toc-nav-text">如果要修改容器里的配置文件</span></a></li></ol>
+      <ol class="nav">none</ol>
     
   </div>
 </aside>
@@ -252,7 +233,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/15/tomcat/tomcat-01/';
+    var url = 'https://kenhinschan.github.io/2019/08/23/linux-os/linux-01/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -314,7 +295,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "docker 安装 tomcat",
+        id: "linux文件系统挂载",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {
