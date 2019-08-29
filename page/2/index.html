@@ -147,6 +147,35 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/08/18/redis/redis-06/">redis主从复制</a>
+      </h2>
+      <p class="article-date">August 18, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis主从复制 区别redis集群
+至少2台机器（一主一从），最好3台机器（一主二仆）
+
+主从复制时读写分离（从机不能写入，只有主机才能写入）
+
+主从复制较好好的方式是：一主二仆，再增加哨兵模式
+
+哨兵模式是（心跳）监听：主机服务器宕机，会从两个从机中选择一个变为主机
+
+从机启动时 主机 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/18/redis/redis-06/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/08/17/java/java-list-copy/">Java集合List的浅复制、深复制</a>
       </h2>
       <p class="article-date">August 17, 2019</p>
@@ -380,38 +409,6 @@ redis事务使用123456789101112131415161718192021222324252627282930313233343536
         
       </div>
       <a class="more" href="../../2019/08/16/mysql/mysql-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/16/jvm/jvm-02/">JVM 笔记</a>
-      </h2>
-      <p class="article-date">August 16, 2019</p>
-      
-        
-  <a href="../../tags#jvm" >
-    <span class="tag-code">jvm</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          JVM
-了解jvm有助于理解Java编程、程序性能调休
-
-mac查看Java安装目录 /usr/libexec/java_home -V
-
-
-jvm结构
-TODO
-
-1、类加载器 （class文件）2、运行时数据区 （5块区域）（重点）
-结构
-
-1、虚拟机栈 （栈）== 先进后出 生命周期： ...
-        
-      </div>
-      <a class="more" href="../../2019/08/16/jvm/jvm-02/">Read more</a>
     </article>
   
 

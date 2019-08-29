@@ -147,6 +147,38 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="2019/08/29/linux-os/linux-project-run/">项目线上运行突然变慢了</a>
+      </h2>
+      <p class="article-date">August 29, 2019</p>
+      
+        
+  <a href="/tags#linux" >
+    <span class="tag-code">linux</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          项目线上运行突然变慢了
+什么原因导致项目运行变慢？
+
+项目肯定出现了问题（这点毋庸置疑）
+
+程序问题导致（日志分析，jvm内存监控，服务器内存监控）
+
+sql问题导致，数量增大导致 （慢查询分析）
+
+高并发环境下造成，一台服务器扛不住压力 （考虑集群、nginx做负载均衡）
+
+
+怎样排查、定 ...
+        
+      </div>
+      <a class="more" href="2019/08/29/linux-os/linux-project-run/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="2019/08/29/java/java-class/">Java的接口与抽象类</a>
       </h2>
       <p class="article-date">August 29, 2019</p>
@@ -401,35 +433,6 @@ B + Tree存储演示
         
       </div>
       <a class="more" href="2019/08/18/redis/redis-07/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/18/redis/redis-06/">redis主从复制</a>
-      </h2>
-      <p class="article-date">August 18, 2019</p>
-      
-        
-  <a href="/tags#redis" >
-    <span class="tag-code">redis</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          redis主从复制 区别redis集群
-至少2台机器（一主一从），最好3台机器（一主二仆）
-
-主从复制时读写分离（从机不能写入，只有主机才能写入）
-
-主从复制较好好的方式是：一主二仆，再增加哨兵模式
-
-哨兵模式是（心跳）监听：主机服务器宕机，会从两个从机中选择一个变为主机
-
-从机启动时 主机 ...
-        
-      </div>
-      <a class="more" href="2019/08/18/redis/redis-06/">Read more</a>
     </article>
   
 
