@@ -10,7 +10,7 @@
   
   <title>
     
-      linux文件系统挂载 | 个人笔记
+      Java的接口与抽象类 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>linux文件系统挂载</h2>
-  <p class="post-date">2019-08-26</p>
+  <h2>Java的接口与抽象类</h2>
+  <p class="post-date">2019-08-29</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,61 +153,31 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="软连接和挂载有什么区别（ln和mount）"><a href="#软连接和挂载有什么区别（ln和mount）" class="headerlink" title="软连接和挂载有什么区别（ln和mount）"></a>软连接和挂载有什么区别（ln和mount）</h2><ul>
-<li>挂载</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">挂载是将其他机器上的磁盘映射到本机器上来，使得在本机器上可以访问其他机器的文件；</span></span><br><span class="line"><span class="string">如在IP1服务器上可以访问IP2上的资源</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>命令</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mount</span> <span class="string">[-t</span> <span class="string">vfstype]</span> <span class="string">[-o</span> <span class="string">options]</span> <span class="string">device</span> <span class="string">dir</span> </span><br><span class="line"><span class="string">挂载命令:moount</span> <span class="bullet">-t</span> <span class="string">cifs</span> <span class="string">URL1/</span> <span class="string">目标地点/</span> <span class="bullet">-o</span> <span class="string">username=域名/用户名</span> </span><br><span class="line"><span class="string">取消挂载:umount</span> <span class="string">URL1</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>软连接</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">软链接文件有类似于Windows的快捷方式。它实际上是一个特殊的文件。</span></span><br><span class="line"><span class="string">在符号连接中，文件实际上是一个文本文件，其中包含的有另一文件的位置信息，</span></span><br><span class="line"><span class="string">软连接一般指的是本机器内部之</span> <span class="string">间的访问联系，相当于一个快捷方式</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>命令</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">创建:ln</span> <span class="bullet">-s</span> <span class="string">target-URL</span> </span><br><span class="line"><span class="string">解除：unlink</span> <span class="string">URL</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="linux文件系统挂载"><a href="#linux文件系统挂载" class="headerlink" title="linux文件系统挂载"></a>linux文件系统挂载</h2><ul>
-<li><p>一台Linux服务器上挂载另一台Linux服务器文件系统的方法</p>
+    <section class="markdown-content"><h2 id="为什么要使用接口"><a href="#为什么要使用接口" class="headerlink" title="为什么要使用接口"></a>为什么要使用接口</h2><ul>
+<li><p>平时项目当中经常使用到接口，那你有思考过为什么要使用接口？</p>
 </li>
-<li><p>在服务器B上访问服务器A上指定的文件系统</p>
+<li><p>我们都知道接口里只做方法的声明，没有方法的具体实现</p>
+</li>
+<li><p>接口的好处</p>
+<ul>
+<li><p>接口是产品经理等站在项目一层的人发起的动作，底层的码农必须按照接口要求进行实现</p>
+</li>
+<li><p>业务功能扩展性</p>
 </li>
 </ul>
-<h2 id="linux服务器挂载例子"><a href="#linux服务器挂载例子" class="headerlink" title="linux服务器挂载例子"></a>linux服务器挂载例子</h2><pre><code>文件服务器（被挂载机）：192.168.1.100
-
-操作机（挂载到机）：192.168.1.200</code></pre><ul>
-<li>1、开启NFS服务（在文件服务器（被挂载机）上）</li>
+</li>
 </ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># chkconfig --level 35 nfs on  //开启NFS开机运行</span></span><br><span class="line"><span class="comment"># service nfs start  //手动启动服务</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>2、编辑/etc/exports文件（在文件服务器（被挂载机）上）</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/tmp</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span> <span class="string">(rw,sync,no_root_squash)</span>  <span class="string">//编辑需要共享的目录和允许访问的服务器及权限。</span></span><br><span class="line">  <span class="string">或</span></span><br><span class="line"><span class="string">/opt/apache-tomcat-6.0.37/webapps/fileShare/file</span> <span class="string">*</span> <span class="string">(rw,sync,no_root_squash)</span></span><br><span class="line"><span class="string">/mnt</span> <span class="string">*</span> <span class="string">(ro,sync)</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>3、在被搭载机上新建目录，配置权限（在操作机（挂载到机）上）</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mkdir /tmp</span></span><br><span class="line"><span class="comment"># chmod 777 -R /tmp</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>4、 建立连接（在操作机（挂载到机）上）</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mount</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span><span class="string">:/tmp</span> <span class="string">/tmp</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>5、开机自动挂载（在操作机（挂载到机）上）</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将这行添加到/etc/rc.local，开机就会自动挂载了</span></span><br><span class="line"><span class="string">mount</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span><span class="string">:/tmp</span> <span class="string">/tmp</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="服务器之间文件传输"><a href="#服务器之间文件传输" class="headerlink" title="服务器之间文件传输"></a>服务器之间文件传输</h2><ul>
-<li>使用scp命令</li>
+<h2 id="为什么要使用抽象类"><a href="#为什么要使用抽象类" class="headerlink" title="为什么要使用抽象类"></a>为什么要使用抽象类</h2><ul>
+<li><p>平时项目中抽象类使用的比较少，为什么要把类定义成一个抽象类？</p>
+</li>
+<li><p>我们都知道抽象类里的可以有非抽象方法的具体实现，抽象方法的声明，抽象方法必须要被子类重写</p>
+</li>
+<li><p>抽象类不能实例化</p>
+</li>
+<li><p>多数开发者在项目中，都会用一般类代替抽象类</p>
+</li>
+<li><p>抽象类的好处：唯一可以考虑到的就是，项目再重构时使用到（提醒你子类必须要重写抽象类的抽象方法）</p>
+</li>
 </ul>
 </section>
     <!-- Tags START -->
@@ -215,8 +185,8 @@
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#linux" >
-    <span class="tag-code">linux</span>
+  <a href="../../../../../tags#java" >
+    <span class="tag-code">java</span>
   </a>
 
       </div>
@@ -227,20 +197,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../23/data-structure/fibonacci-sequence/">
+      <a class="nav-left" href="../../../26/linux-os/linux-01/">
         <span class="nav-arrow">← </span>
         
-          斐波那契数列--学习笔记
+          linux文件系统挂载
         
       </a>
     
-    
-      <a class="nav-right" href="../../../29/java/java-class/">
-        
-          Java的接口与抽象类
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -286,7 +249,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#软连接和挂载有什么区别（ln和mount）"><span class="toc-nav-text">软连接和挂载有什么区别（ln和mount）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#linux文件系统挂载"><span class="toc-nav-text">linux文件系统挂载</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#linux服务器挂载例子"><span class="toc-nav-text">linux服务器挂载例子</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#服务器之间文件传输"><span class="toc-nav-text">服务器之间文件传输</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#为什么要使用接口"><span class="toc-nav-text">为什么要使用接口</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#为什么要使用抽象类"><span class="toc-nav-text">为什么要使用抽象类</span></a></li></ol>
     
   </div>
 </aside>
@@ -296,7 +259,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/26/linux-os/linux-01/';
+    var url = 'https://kenhinschan.github.io/2019/08/29/java/java-class/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -358,7 +321,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "linux文件系统挂载",
+        id: "Java的接口与抽象类",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

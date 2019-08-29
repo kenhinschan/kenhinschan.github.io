@@ -147,6 +147,29 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/08/15/tomcat/tomcat-01/">docker 安装 tomcat</a>
+      </h2>
+      <p class="article-date">August 15, 2019</p>
+      
+        
+  <a href="../../tags#docker, tomcat" >
+    <span class="tag-code">docker, tomcat</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          搜查镜像docker search tomcat
+拉取镜像docker pull tomcat
+运行docker run -d -p 8081:8080 tomcat
+开放端口后，要重启防火墙firewall-cmd –zone=public –add-port=8080/tcp –perm ...
+        
+      </div>
+      <a class="more" href="../../2019/08/15/tomcat/tomcat-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/08/14/FastDFS/fastdfs-02/">docker 安装FastDFS （tracker、storage）</a>
       </h2>
       <p class="article-date">August 14, 2019</p>
@@ -371,41 +394,6 @@ centos7系统（稳定,对docker支持友好）查看docker是否已安装 docke
         
       </div>
       <a class="more" href="../../2019/08/01/docker-learn/docker-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/01/mysql/mysql-learning/">mysql笔记</a>
-      </h2>
-      <p class="article-date">August 1, 2019</p>
-      
-        
-  <a href="../../tags#mysql" >
-    <span class="tag-code">mysql</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          mysql笔记
-mysql 结构
-1、连接层
-2、服务层
-3、引擎层
-常见的数据库引擎：
-MyIsAm 表锁、不支持事务、会死锁、不适合高并发
-InnoDB 行锁、支持事务，高并发
-
-
-
-
-4、存储层
-
-mysql 开启慢查询日志 （抓取sql语句）
-要使用慢查询日志，要先开启，（抓取超过5 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/01/mysql/mysql-learning/">Read more</a>
     </article>
   
 
