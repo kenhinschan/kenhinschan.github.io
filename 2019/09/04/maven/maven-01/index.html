@@ -10,7 +10,7 @@
   
   <title>
     
-      项目线上运行突然变慢了 | 个人笔记
+      dependencies与dependencyManagement的区别 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>项目线上运行突然变慢了</h2>
-  <p class="post-date">2019-08-29</p>
+  <h2>dependencies与dependencyManagement的区别</h2>
+  <p class="post-date">2019-09-04</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,40 +153,13 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="项目线上运行突然变慢了"><a href="#项目线上运行突然变慢了" class="headerlink" title="项目线上运行突然变慢了"></a>项目线上运行突然变慢了</h2><ul>
-<li><p>什么原因导致项目运行变慢？</p>
+    <section class="markdown-content"><p>如果一个项目有多个模块组成，各个模块各自引入自己的bao，难免出现同一个包出现在项目的不同模块中的情况。<br>这时候就会产生冲突，进而导致打包失败。此时就要用到统一的依赖管理，目的就是统一项目使用到的依赖</p>
+<h2 id="dependencies与dependencyManagement的区别"><a href="#dependencies与dependencyManagement的区别" class="headerlink" title="dependencies与dependencyManagement的区别"></a>dependencies与dependencyManagement的区别</h2><ul>
+<li><p>dependencyManagement 依赖版本一致，防止多模块项目中依赖冲突</p>
 </li>
-<li><p>项目肯定出现了问题（这点毋庸置疑）</p>
+<li><p>dependencyManagement 用于在父类项目声明依赖，只声明，不引入，子项目实际要使用道依赖，还需要在子项目引入（这时不需要指定版本）</p>
 </li>
-<li><p>程序问题导致（日志分析，jvm内存监控，服务器内存监控）</p>
-</li>
-<li><p>sql问题导致，数量增大导致 （慢查询分析）</p>
-</li>
-<li><p>高并发环境下造成，一台服务器扛不住压力 （考虑集群、nginx做负载均衡）</p>
-</li>
-</ul>
-<h2 id="怎样排查、定位问题所在"><a href="#怎样排查、定位问题所在" class="headerlink" title="怎样排查、定位问题所在"></a>怎样排查、定位问题所在</h2><ul>
-<li><p>首先想到的是查看日志、看有没有异常</p>
-</li>
-<li><p>查看服务器cpu、内存使用情况，或者监控jvm内存使用情况，服务器压力大</p>
-<ul>
-<li><p>可能是高并发造成的</p>
-</li>
-<li><p>可能程序问题</p>
-</li>
-</ul>
-</li>
-<li><p>开启慢查询分析（加索引优化sql）</p>
-</li>
-</ul>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ul>
-<li><p>定位到程序问题，优化程序</p>
-</li>
-<li><p>定位到sql问题，sql优化、索引优化</p>
-</li>
-<li><p>定位到高并发问题，加redis缓存</p>
-</li>
-<li><p>定位到业务急速发展，带来大访问量；准备集群，并做负载均衡处理</p>
+<li><p>dependencies 引入依赖</p>
 </li>
 </ul>
 </section>
@@ -195,8 +168,8 @@
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#linux" >
-    <span class="tag-code">linux</span>
+  <a href="../../../../../tags#maven" >
+    <span class="tag-code">maven</span>
   </a>
 
       </div>
@@ -207,17 +180,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../java/java-class/">
+      <a class="nav-left" href="../../../../08/29/linux-os/linux-project-run/">
         <span class="nav-arrow">← </span>
         
-          Java的接口与抽象类
+          项目线上运行突然变慢了
         
       </a>
     
     
-      <a class="nav-right" href="../../../../09/04/maven/maven-01/">
+      <a class="nav-right" href="../../java/java-queue/">
         
-          dependencies与dependencyManagement的区别
+          Java队列
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -266,7 +239,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#项目线上运行突然变慢了"><span class="toc-nav-text">项目线上运行突然变慢了</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#怎样排查、定位问题所在"><span class="toc-nav-text">怎样排查、定位问题所在</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解决方案"><span class="toc-nav-text">解决方案</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#dependencies与dependencyManagement的区别"><span class="toc-nav-text">dependencies与dependencyManagement的区别</span></a></li></ol>
     
   </div>
 </aside>
@@ -276,7 +249,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/29/linux-os/linux-project-run/';
+    var url = 'https://kenhinschan.github.io/2019/09/04/maven/maven-01/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -338,7 +311,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "项目线上运行突然变慢了",
+        id: "dependencies与dependencyManagement的区别",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

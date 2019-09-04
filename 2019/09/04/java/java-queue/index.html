@@ -10,7 +10,7 @@
   
   <title>
     
-      项目线上运行突然变慢了 | 个人笔记
+      Java队列 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>项目线上运行突然变慢了</h2>
-  <p class="post-date">2019-08-29</p>
+  <h2>Java队列</h2>
+  <p class="post-date">2019-09-04</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,50 +153,24 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="项目线上运行突然变慢了"><a href="#项目线上运行突然变慢了" class="headerlink" title="项目线上运行突然变慢了"></a>项目线上运行突然变慢了</h2><ul>
-<li><p>什么原因导致项目运行变慢？</p>
-</li>
-<li><p>项目肯定出现了问题（这点毋庸置疑）</p>
-</li>
-<li><p>程序问题导致（日志分析，jvm内存监控，服务器内存监控）</p>
-</li>
-<li><p>sql问题导致，数量增大导致 （慢查询分析）</p>
-</li>
-<li><p>高并发环境下造成，一台服务器扛不住压力 （考虑集群、nginx做负载均衡）</p>
-</li>
+    <section class="markdown-content"><ul>
+<li>ArrayBlockingQueue ：一个由数组支持的有界队列。</li>
+<li>LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。</li>
+<li>PriorityBlockingQueue ：一个由优先级堆支持的无界优先级队列。</li>
+<li>DelayQueue ：一个由优先级堆支持的、基于时间的调度队列。</li>
+<li>SynchronousQueue ：一个利用 BlockingQueue 接口的简单聚集（rendezvous）机制。</li>
 </ul>
-<h2 id="怎样排查、定位问题所在"><a href="#怎样排查、定位问题所在" class="headerlink" title="怎样排查、定位问题所在"></a>怎样排查、定位问题所在</h2><ul>
-<li><p>首先想到的是查看日志、看有没有异常</p>
-</li>
-<li><p>查看服务器cpu、内存使用情况，或者监控jvm内存使用情况，服务器压力大</p>
 <ul>
-<li><p>可能是高并发造成的</p>
-</li>
-<li><p>可能程序问题</p>
-</li>
+<li>例子：打印输出最后三个字符串，不足三个用0补上，只用0可以重复</li>
 </ul>
-</li>
-<li><p>开启慢查询分析（加索引优化sql）</p>
-</li>
-</ul>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ul>
-<li><p>定位到程序问题，优化程序</p>
-</li>
-<li><p>定位到sql问题，sql优化、索引优化</p>
-</li>
-<li><p>定位到高并发问题，加redis缓存</p>
-</li>
-<li><p>定位到业务急速发展，带来大访问量；准备集群，并做负载均衡处理</p>
-</li>
-</ul>
-</section>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/**</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@author</span> <span class="string">qixuan.chen</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@date</span> <span class="number">2019</span><span class="bullet">-09</span><span class="bullet">-04</span> <span class="number">14</span><span class="string">:54</span></span><br><span class="line"> <span class="string">*/</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">QueueDemo</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">private</span> <span class="string">static</span> <span class="string">Queue&lt;String&gt;</span> <span class="string">queue</span> <span class="string">=</span> <span class="string">new</span> <span class="string">ArrayBlockingQueue&lt;String&gt;(3);</span></span><br><span class="line"></span><br><span class="line">    <span class="string">private</span> <span class="string">static</span> <span class="string">List&lt;String&gt;</span> <span class="string">list</span> <span class="string">=</span> <span class="string">new</span> <span class="string">ArrayList&lt;&gt;();</span></span><br><span class="line"></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">void</span> <span class="string">main(String[]</span> <span class="string">args)&#123;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">listFun();</span></span><br><span class="line"></span><br><span class="line">        <span class="string">//queueFun();</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">private</span> <span class="string">static</span> <span class="string">void</span> <span class="string">listFun()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">System.out.println("请输入：");</span></span><br><span class="line">        <span class="string">for</span> <span class="string">(int</span> <span class="string">i=1;i&lt;=3;i++)&#123;</span></span><br><span class="line">            <span class="string">list.add("0");</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">while</span> <span class="string">(true)&#123;</span></span><br><span class="line">            <span class="string">Scanner</span> <span class="string">sc</span> <span class="string">=</span> <span class="string">new</span> <span class="string">Scanner(System.in);</span></span><br><span class="line">            <span class="string">String</span> <span class="string">str</span> <span class="string">=</span> <span class="string">sc.nextLine();</span></span><br><span class="line">            <span class="string">if(!list.contains(str))&#123;</span></span><br><span class="line">                <span class="string">list.remove(0);//移除最先输入的</span></span><br><span class="line">            <span class="string">&#125;else&#123;</span></span><br><span class="line">                <span class="string">list.remove(str);//移除重复删除的</span></span><br><span class="line">            <span class="string">&#125;</span></span><br><span class="line">            <span class="string">list.add(str);//重新压进队列</span></span><br><span class="line"></span><br><span class="line">            <span class="string">for</span> <span class="string">(String</span> <span class="attr">s:list)</span> <span class="string">&#123;</span></span><br><span class="line">                <span class="string">System.out.println("======"+s);</span></span><br><span class="line">            <span class="string">&#125;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">队列实现</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">private</span> <span class="string">static</span> <span class="string">void</span> <span class="string">queueFun()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">System.out.println("请输入：");</span></span><br><span class="line">        <span class="string">for</span> <span class="string">(int</span> <span class="string">i=1;i&lt;=3;i++)&#123;</span></span><br><span class="line">            <span class="string">queue.add("0");</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">while</span> <span class="string">(true)&#123;</span></span><br><span class="line">            <span class="string">Scanner</span> <span class="string">sc</span> <span class="string">=</span> <span class="string">new</span> <span class="string">Scanner(System.in);</span></span><br><span class="line">            <span class="string">String</span> <span class="string">str</span> <span class="string">=</span> <span class="string">sc.nextLine();</span></span><br><span class="line">            <span class="string">if(!queue.contains(str))&#123;</span></span><br><span class="line">                <span class="string">queue.remove();//移除最先输入的</span></span><br><span class="line">            <span class="string">&#125;else&#123;</span></span><br><span class="line">                <span class="string">queue.remove(str);//移除重复删除的</span></span><br><span class="line">            <span class="string">&#125;</span></span><br><span class="line">            <span class="string">queue.add(str);//重新压进队列</span></span><br><span class="line"></span><br><span class="line">            <span class="string">for</span> <span class="string">(String</span> <span class="attr">s:queue)</span> <span class="string">&#123;</span></span><br><span class="line">                <span class="string">System.out.println("======"+s);</span></span><br><span class="line">            <span class="string">&#125;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#linux" >
-    <span class="tag-code">linux</span>
+  <a href="../../../../../tags#java" >
+    <span class="tag-code">java</span>
   </a>
 
       </div>
@@ -207,20 +181,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../java/java-class/">
+      <a class="nav-left" href="../../maven/maven-01/">
         <span class="nav-arrow">← </span>
-        
-          Java的接口与抽象类
-        
-      </a>
-    
-    
-      <a class="nav-right" href="../../../../09/04/maven/maven-01/">
         
           dependencies与dependencyManagement的区别
         
-        <span class="nav-arrow"> →</span>
       </a>
+    
     
   </div>
 
@@ -266,7 +233,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#项目线上运行突然变慢了"><span class="toc-nav-text">项目线上运行突然变慢了</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#怎样排查、定位问题所在"><span class="toc-nav-text">怎样排查、定位问题所在</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解决方案"><span class="toc-nav-text">解决方案</span></a></li></ol>
+      <ol class="nav">none</ol>
     
   </div>
 </aside>
@@ -276,7 +243,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/29/linux-os/linux-project-run/';
+    var url = 'https://kenhinschan.github.io/2019/09/04/java/java-queue/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -338,7 +305,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "项目线上运行突然变慢了",
+        id: "Java队列",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {
