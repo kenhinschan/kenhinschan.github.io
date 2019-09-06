@@ -10,7 +10,7 @@
   
   <title>
     
-      斐波那契数列--学习笔记 | 个人笔记
+      基于elasticsearch的IK中文分词笔记 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>斐波那契数列--学习笔记</h2>
-  <p class="post-date">2019-08-23</p>
+  <h2>基于elasticsearch的IK中文分词笔记</h2>
+  <p class="post-date">2019-09-05</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,18 +153,25 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p>–</p>
-<ul>
-<li>斐波那契数列</li>
+    <section class="markdown-content"><h2 id="基于elasticsearch的IK中文分词笔记"><a href="#基于elasticsearch的IK中文分词笔记" class="headerlink" title="基于elasticsearch的IK中文分词笔记"></a>基于elasticsearch的IK中文分词笔记</h2><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li>自带的分词（对中文支持不好）</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> qixuan.chen</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019-08-23 12:01</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">fibonacci</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">8</span>;</span><br><span class="line">        System.out.println(Foo(i));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 斐波那契数列 (递归实现)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Foo</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; i &lt;= <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> Foo(i - <span class="number">1</span>) + Foo(i - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></section>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">GET</span> <span class="string">/_analyze</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="attr">  "analyzer":</span> <span class="string">"standard"</span><span class="string">,</span></span><br><span class="line"><span class="attr">  "text":</span> <span class="string">"我是程序员，我是帅哥"</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>IK分词（有多种模式）</li>
+</ul>
+<p>ik_max_word 和 ik_smart</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">GET</span> <span class="string">/_analyze</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="attr">  "analyzer":</span> <span class="string">"ik_smart"</span><span class="string">,</span></span><br><span class="line"><span class="attr">  "text":</span> <span class="string">"我是程序员，我是帅哥"</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+</section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#数据结构" >
-    <span class="tag-code">数据结构</span>
+  <a href="../../../../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
   </a>
 
       </div>
@@ -175,17 +182,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../21/elasticsearch/es-01/">
+      <a class="nav-left" href="../../../04/java/java-queue/">
         <span class="nav-arrow">← </span>
         
-          docker安装elasticsearch
+          Java队列
         
       </a>
     
     
-      <a class="nav-right" href="../../../26/linux-os/linux-01/">
+      <a class="nav-right" href="../es-02/">
         
-          linux文件系统挂载
+          elasticsearch全文检索
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -234,7 +241,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="nav">none</ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#基于elasticsearch的IK中文分词笔记"><span class="toc-nav-text">基于elasticsearch的IK中文分词笔记</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#使用"><span class="toc-nav-text">使用</span></a></li></ol>
     
   </div>
 </aside>
@@ -244,7 +251,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/23/data-structure/fibonacci-sequence/';
+    var url = 'https://kenhinschan.github.io/2019/09/05/elasticsearch/es-03/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -306,7 +313,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "斐波那契数列--学习笔记",
+        id: "基于elasticsearch的IK中文分词笔记",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

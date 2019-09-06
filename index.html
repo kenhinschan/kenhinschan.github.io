@@ -147,6 +147,103 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="2019/09/06/elasticsearch/es-04/">docker 安装 logstash</a>
+      </h2>
+      <p class="article-date">September 6, 2019</p>
+      
+        
+  <a href="/tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+ELK构建日志分析系统
+
+
+E：elasticsearch 数据存储
+L：logstash 数据采集，数据过滤，数据传输(对比其他数据采集插件，logstash的数据处理能力比较突出)
+K：kibana 数据分析
+
+1、拉取镜像1docker pull logstash:7.1.1
+
+2、 ...
+        
+      </div>
+      <a class="more" href="2019/09/06/elasticsearch/es-04/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/09/05/elasticsearch/es-02/">elasticsearch全文检索</a>
+      </h2>
+      <p class="article-date">September 5, 2019</p>
+      
+        
+  <a href="/tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          基于Lucene全文搜索引擎的全文检索技术框架
+elasticsearch（分布式的）（推荐）
+
+solr（出现比较早）
+
+
+es与mysql数据库对比
+
+
+关系型数据库
+Elasticsearch
+
+
+
+database（数据库）
+index（索引）
+
+
+table（表）
+type（类型） ...
+        
+      </div>
+      <a class="more" href="2019/09/05/elasticsearch/es-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/09/05/elasticsearch/es-03/">基于elasticsearch的IK中文分词笔记</a>
+      </h2>
+      <p class="article-date">September 5, 2019</p>
+      
+        
+  <a href="/tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          基于elasticsearch的IK中文分词笔记使用
+自带的分词（对中文支持不好）
+
+123456GET /_analyze&#123;  "analyzer": "standard",  "text": "我是程序员，我是帅哥"&#125;
+
+
+IK分词（有多种模式）
+
+ik_max_wo ...
+        
+      </div>
+      <a class="more" href="2019/09/05/elasticsearch/es-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="2019/09/04/java/java-queue/">Java队列</a>
       </h2>
       <p class="article-date">September 4, 2019</p>
@@ -312,75 +409,6 @@ sql问题导致，数量增大导致 （慢查询分析）
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="2019/08/21/elasticsearch/es-02/">elasticsearch全文检索</a>
-      </h2>
-      <p class="article-date">August 21, 2019</p>
-      
-        
-  <a href="/tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          基于Lucene全文搜索引擎的全文检索技术框架
-elasticsearch（分布式的）（推荐）
-
-solr（出现比较早）
-
-
-es与mysql数据库对比
-
-
-关系型数据库
-Elasticsearch
-
-
-
-数据库（数据库）
-指数（索引）
-
-
-表（表）
-类型（类型）
-
-
-行（行）
-文档（文档） ...
-        
-      </div>
-      <a class="more" href="2019/08/21/elasticsearch/es-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/21/elasticsearch/es-03/">基于elasticsearch的IK中文分词笔记</a>
-      </h2>
-      <p class="article-date">August 21, 2019</p>
-      
-        
-  <a href="/tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          基于elasticsearch的IK中文分词笔记使用
-自带的分词（对中文支持不好）
-
-123456GET /_analyze&#123;  "analyzer": "standard",  "text": "我是程序员，我是帅哥"&#125;
-
-
-IK分词（有多种模式）123456GET / ...
-        
-      </div>
-      <a class="more" href="2019/08/21/elasticsearch/es-03/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
         <a href="2019/08/21/elasticsearch/es-01/">docker安装elasticsearch</a>
       </h2>
       <p class="article-date">August 21, 2019</p>
@@ -401,37 +429,6 @@ IK分词（有多种模式）123456GET / ...
         
       </div>
       <a class="more" href="2019/08/21/elasticsearch/es-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/20/data-structure/data-structure/">数据结构--学习笔记</a>
-      </h2>
-      <p class="article-date">August 20, 2019</p>
-      
-        
-  <a href="/tags#数据结构" >
-    <span class="tag-code">数据结构</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          数据结构可视化数据结构可视化
-B + Tree存储演示
-数据存储在叶子节点（即：最底的一层）
-
-根据MaxDegree设定的数值（节点存储个数）
-
-每个节点存储个数小于MaxDegree设定的数值，达到这个数值，就要提取节点，扩建树结构
-
-
-
-
-
-        
-      </div>
-      <a class="more" href="2019/08/20/data-structure/data-structure/">Read more</a>
     </article>
   
 

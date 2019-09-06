@@ -10,7 +10,7 @@
   
   <title>
     
-      斐波那契数列--学习笔记 | 个人笔记
+      docker 安装 logstash | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>斐波那契数列--学习笔记</h2>
-  <p class="post-date">2019-08-23</p>
+  <h2>docker 安装 logstash</h2>
+  <p class="post-date">2019-09-06</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,18 +153,33 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p>–</p>
-<ul>
-<li>斐波那契数列</li>
+    <section class="markdown-content"><ul>
+<li>ELK构建日志分析系统</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> qixuan.chen</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019-08-23 12:01</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">fibonacci</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">8</span>;</span><br><span class="line">        System.out.println(Foo(i));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 斐波那契数列 (递归实现)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> i</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Foo</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; i &lt;= <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> Foo(i - <span class="number">1</span>) + Foo(i - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></section>
+<ul>
+<li>E：elasticsearch 数据存储</li>
+<li>L：logstash 数据采集，数据过滤，数据传输(对比其他数据采集插件，logstash的数据处理能力比较突出)</li>
+<li>K：kibana 数据分析</li>
+</ul>
+<h2 id="1、拉取镜像"><a href="#1、拉取镜像" class="headerlink" title="1、拉取镜像"></a>1、拉取镜像</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">pull</span> <span class="attr">logstash:7.1.1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、创建挂载目录"><a href="#2、创建挂载目录" class="headerlink" title="2、创建挂载目录"></a>2、创建挂载目录</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mkdir</span> <span class="string">/home/logstash/config</span></span><br><span class="line"></span><br><span class="line"> <span class="string">拷贝logstash</span> <span class="string">docker容器里的配置文件到挂载目录下</span></span><br><span class="line"> <span class="string">docker</span> <span class="string">cp</span> <span class="attr">logstash:/usr/share/logstash/config/</span> <span class="string">/home/logstash/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">--name</span> <span class="string">logstash</span> <span class="bullet">-d</span> <span class="bullet">-p</span> <span class="number">5044</span><span class="string">:5044</span> <span class="bullet">-p</span> <span class="number">9600</span><span class="string">:9600</span> <span class="attr">logstash:7.1.1</span></span><br><span class="line"></span><br><span class="line"><span class="string">设置挂载运行</span></span><br><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">--name</span> <span class="string">logstash</span> <span class="bullet">-d</span> <span class="bullet">-p</span> <span class="number">5044</span><span class="string">:5044</span> <span class="bullet">-p</span> <span class="number">9600</span><span class="string">:9600</span> <span class="bullet">-it</span> <span class="bullet">-v</span> <span class="string">/home/logstash/config/:/usr/share/logstash/config/</span>  <span class="attr">logstash:7.1.1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="进入logstash的docker容器查看配置文件"><a href="#进入logstash的docker容器查看配置文件" class="headerlink" title="进入logstash的docker容器查看配置文件"></a>进入logstash的docker容器查看配置文件</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">exec</span> <span class="bullet">-it</span> <span class="number">76</span><span class="string">f8e2e8c416</span> <span class="string">/bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">logs</span> <span class="bullet">-f</span> <span class="bullet">--tail=30</span> <span class="number">76</span><span class="string">f8e2e8c416</span></span><br><span class="line"></span><br><span class="line"><span class="string">启动容器并查看日志</span></span><br><span class="line"><span class="string">docker</span> <span class="string">start</span> <span class="string">e8d4911f9ca2</span> <span class="string">&amp;&amp;</span> <span class="string">docker</span> <span class="string">logs</span> <span class="bullet">-f</span> <span class="string">e8d4911f9ca2</span></span><br><span class="line"></span><br><span class="line"><span class="string">docker</span> <span class="string">start</span> <span class="number">76</span><span class="string">f8e2e8c416</span> <span class="string">&amp;&amp;</span> <span class="string">docker</span> <span class="string">logs</span> <span class="bullet">-f</span> <span class="number">76</span><span class="string">f8e2e8c416</span></span><br></pre></td></tr></table></figure>
+
+<p>集成了elk的镜像<br>这里推荐一个镜像：docker pull sebp/elk<br><a href="https://github.com/spujadas/elk-docker" target="_blank" rel="noopener">https://github.com/spujadas/elk-docker</a></p>
+</section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#数据结构" >
-    <span class="tag-code">数据结构</span>
+  <a href="../../../../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
   </a>
 
       </div>
@@ -175,20 +190,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../21/elasticsearch/es-01/">
+      <a class="nav-left" href="../../../05/elasticsearch/es-02/">
         <span class="nav-arrow">← </span>
         
-          docker安装elasticsearch
+          elasticsearch全文检索
         
       </a>
     
-    
-      <a class="nav-right" href="../../../26/linux-os/linux-01/">
-        
-          linux文件系统挂载
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -234,7 +242,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="nav">none</ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1、拉取镜像"><span class="toc-nav-text">1、拉取镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2、创建挂载目录"><span class="toc-nav-text">2、创建挂载目录</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#运行"><span class="toc-nav-text">运行</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#进入logstash的docker容器查看配置文件"><span class="toc-nav-text">进入logstash的docker容器查看配置文件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#查看日志"><span class="toc-nav-text">查看日志</span></a></li></ol>
     
   </div>
 </aside>
@@ -244,7 +252,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/23/data-structure/fibonacci-sequence/';
+    var url = 'https://kenhinschan.github.io/2019/09/06/elasticsearch/es-04/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -306,7 +314,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "斐波那契数列--学习笔记",
+        id: "docker 安装 logstash",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

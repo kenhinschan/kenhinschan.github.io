@@ -147,6 +147,32 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/08/16/mysql/mysql-03/">千万、百万级数据量的快速分页limit 优化</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="../../tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          千万、百万级数据量的快速分页limit 优化
+随着数据量增大查询会变慢，百万级数据量开始变慢（无索引情况下）
+
+例子limit n,10; n会全表扫描
+
+
+12345678910111213141516SELECT count(*) from t_advertise_view_record ...
+        
+      </div>
+      <a class="more" href="../../2019/08/16/mysql/mysql-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/08/16/redis/redis-04/">redis应用场景</a>
       </h2>
       <p class="article-date">August 16, 2019</p>
@@ -369,41 +395,6 @@ Virtual Hosts 相当于mysql的db
         
       </div>
       <a class="more" href="../../2019/08/06/mq/rabbitmq-03/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/06/mq/rabbitmq-02/">rabbitmq 消息延迟推送</a>
-      </h2>
-      <p class="article-date">August 6, 2019</p>
-      
-        
-  <a href="../../tags#rabbitmq" >
-    <span class="tag-code">rabbitmq</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          rabbitmq 消息推送 （实时）
-生产者
-
-消费者
-
-
-rabbitmq 消息推送 （延迟、定时）
-实战场景
-
-
-订单未支付，2小时删除
-
-方式1
-在RabbitMQ 3.6.x 之前我们一般采用死信队列+TTL过期时间来实现延迟队列 （会有阻塞，因为队列是先进先出）
-
-其实精华就是两个 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/06/mq/rabbitmq-02/">Read more</a>
     </article>
   
 
