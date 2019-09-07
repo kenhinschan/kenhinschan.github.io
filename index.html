@@ -147,6 +147,116 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="2019/09/07/docker-learn/docker-03/">centos7 安装 ELK</a>
+      </h2>
+      <p class="article-date">September 7, 2019</p>
+      
+        
+  <a href="/tags#docker" >
+    <span class="tag-code">docker</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+之前docker使用分别安装E、L、K
+
+觉得还是不够方便，使用docker安装别人现成的ELK镜像
+
+
+1、安装ELK镜像
+安装7.1.1版本
+
+1docker pull sebp/elk:711
+
+2、运行123docker run -p 5601:5601 -p 9200:9200  ...
+        
+      </div>
+      <a class="more" href="2019/09/07/docker-learn/docker-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/09/07/elasticsearch/elk-05/">logstash同步mysql数据到es</a>
+      </h2>
+      <p class="article-date">September 7, 2019</p>
+      
+        
+  <a href="/tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          logstash同步mysql到es
+进入elk容器
+
+1docker exec -it elk /bin/bash
+
+
+把mysql的t_case_cpws表的部分字段导入到es的mysql-test索引库
+
+可以设置定时
+
+进入/opt/logstash/config目录vi mysql ...
+        
+      </div>
+      <a class="more" href="2019/09/07/elasticsearch/elk-05/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/09/07/docker-learn/docker-01/">centos7 安装 docker</a>
+      </h2>
+      <p class="article-date">September 7, 2019</p>
+      
+        
+  <a href="/tags#docker" >
+    <span class="tag-code">docker</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          centos7 安装 docker
+centos7系统（稳定,对docker支持友好）查看docker是否已安装 docker -v1、使用yum命令进行安装1yum install -y docker
+
+2、查看是否安装成功1234[root@localhost qixuan]# yum  ...
+        
+      </div>
+      <a class="more" href="2019/09/07/docker-learn/docker-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/09/07/docker-learn/docker-compose-01/">centos7 安装 docker-compose</a>
+      </h2>
+      <p class="article-date">September 7, 2019</p>
+      
+        
+  <a href="/tags#docker" >
+    <span class="tag-code">docker</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+1、安装docker-compose之前必须已经安装docker
+
+1、安装
+1、运行此命令以下载Docker Compose的当前稳定版本：
+
+1sudo curl -L "https://github.com/docker/compose/releases/download/1.24. ...
+        
+      </div>
+      <a class="more" href="2019/09/07/docker-learn/docker-compose-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="2019/09/06/elasticsearch/es-04/">docker 安装 logstash</a>
       </h2>
       <p class="article-date">September 6, 2019</p>
@@ -318,117 +428,6 @@ sql问题导致，数量增大导致 （慢查询分析）
         
       </div>
       <a class="more" href="2019/08/29/linux-os/linux-project-run/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/29/java/java-class/">Java的接口与抽象类</a>
-      </h2>
-      <p class="article-date">August 29, 2019</p>
-      
-        
-  <a href="/tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          为什么要使用接口
-平时项目当中经常使用到接口，那你有思考过为什么要使用接口？
-
-我们都知道接口里只做方法的声明，没有方法的具体实现
-
-接口的好处
-
-接口是产品经理等站在项目一层的人发起的动作，底层的码农必须按照接口要求进行实现
-
-业务功能扩展性
-
-
-
-
-为什么要使用抽象类
-平时项目中抽象类使 ...
-        
-      </div>
-      <a class="more" href="2019/08/29/java/java-class/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/26/linux-os/linux-01/">linux文件系统挂载</a>
-      </h2>
-      <p class="article-date">August 26, 2019</p>
-      
-        
-  <a href="/tags#linux" >
-    <span class="tag-code">linux</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          软连接和挂载有什么区别（ln和mount）
-挂载
-
-12挂载是将其他机器上的磁盘映射到本机器上来，使得在本机器上可以访问其他机器的文件；如在IP1服务器上可以访问IP2上的资源
-
-
-命令
-
-123mount [-t vfstype] [-o options] device dir 挂载命令: ...
-        
-      </div>
-      <a class="more" href="2019/08/26/linux-os/linux-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/23/data-structure/fibonacci-sequence/">斐波那契数列--学习笔记</a>
-      </h2>
-      <p class="article-date">August 23, 2019</p>
-      
-        
-  <a href="/tags#数据结构" >
-    <span class="tag-code">数据结构</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          –
-
-斐波那契数列
-
-123456789101112131415161718192021222324/** * @author qixuan.chen * @date 2019-08-23 12:01 */public class fibonacci &#123;        public ...
-        
-      </div>
-      <a class="more" href="2019/08/23/data-structure/fibonacci-sequence/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/08/21/elasticsearch/es-01/">docker安装elasticsearch</a>
-      </h2>
-      <p class="article-date">August 21, 2019</p>
-      
-        
-  <a href="/tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          前言ElasticSearch是一个基于Lucene的搜索服务器.
-它提供了一个分布式多用户能力的全文搜索引擎,
-基于Restfulweb接口.ES是用java开发的,
-是当前流行的企业级搜索引擎.在本系列博文中,
-我们将来一起学习ElasticSearch的相关知识在docker安装ela ...
-        
-      </div>
-      <a class="more" href="2019/08/21/elasticsearch/es-01/">Read more</a>
     </article>
   
 

@@ -10,7 +10,7 @@
   
   <title>
     
-      Docker下安装rabbitmq | 个人笔记
+      centos7 安装 docker-compose | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>Docker下安装rabbitmq</h2>
-  <p class="post-date">2019-08-01</p>
+  <h2>centos7 安装 docker-compose</h2>
+  <p class="post-date">2019-09-07</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,46 +153,21 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="搜查镜像"><a href="#搜查镜像" class="headerlink" title="搜查镜像"></a>搜查镜像</h2><ul>
-<li>地址：<a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a>  找对应的tags：3.7-management </li>
+    <section class="markdown-content"><ul>
+<li>1、安装docker-compose之前必须已经安装docker</li>
 </ul>
-<h2 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">pull</span> <span class="attr">rabbitmq:3.7-management</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="启动镜像（默认用户名密码）-默认guest-用户，密码也是-guest"><a href="#启动镜像（默认用户名密码）-默认guest-用户，密码也是-guest" class="headerlink" title="启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest"></a>启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">-p</span> <span class="number">5672</span><span class="string">:5672</span> <span class="bullet">-p</span> <span class="number">15672</span><span class="string">:15672</span> <span class="bullet">--name</span> <span class="string">rabbitmq</span> <span class="attr">rabbitmq:3.7-management</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="启动镜像（设置用户名密码）"><a href="#启动镜像（设置用户名密码）" class="headerlink" title="启动镜像（设置用户名密码）"></a>启动镜像（设置用户名密码）</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">--hostname</span> <span class="string">my-rabbit</span> <span class="bullet">--name</span> <span class="string">rabbit</span> <span class="bullet">-e</span> <span class="string">RABBITMQ_DEFAULT_USER=admin</span> <span class="bullet">-e</span> <span class="string">RABBITMQ_DEFAULT_PASS=123456</span> <span class="bullet">-p</span> <span class="number">15672</span><span class="string">:15672</span> <span class="bullet">-p</span> <span class="number">5672</span><span class="string">:5672</span> <span class="attr">rabbitmq:3.7-management</span></span><br></pre></td></tr></table></figure>
+<h2 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h2><ul>
+<li>1、运行此命令以下载Docker Compose的当前稳定版本：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">sudo</span> <span class="string">curl</span> <span class="bullet">-L</span> <span class="string">"https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)"</span> <span class="bullet">-o</span> <span class="string">/usr/local/bin/docker-compose</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>参数说明：</p>
-<ul>
-<li><p>-d 后台运行容器；</p>
-</li>
-<li><p>–name 指定容器名；</p>
-</li>
-<li><p>-p 指定服务运行的端口（5672：应用访问端口；15672：控制台Web端口号）；</p>
-</li>
-<li><p>-v 映射目录或文件；</p>
-</li>
-<li><p>–hostname  主机名（RabbitMQ的一个重要注意事项是它根据所谓的 “节点名称” 存储数据，默认为主机名）；</p>
-</li>
-<li><p>-e 指定环境变量；（RABBITMQ_DEFAULT_VHOST：默认虚拟机名；RABBITMQ_DEFAULT_USER：默认的用户名；RABBITMQ_DEFAULT_PASS：默认用户名的密码）</p>
-</li>
+<li>2、对二进制文件应用可执行权限：</li>
 </ul>
-</li>
-</ul>
-<h2 id="停止容器"><a href="#停止容器" class="headerlink" title="停止容器"></a>停止容器</h2><ul>
-<li><p>停止容器 docker stop feb3e82503d9（feb3e82503d9：是容器ID）</p>
-</li>
-<li><p>查看已停止的容器 docker ps -l</p>
-</li>
-<li><p>启动容器 docker start &lt;容器名 or ID&gt; # 启动容器</p>
-</li>
-</ul>
-<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><ul>
-<li>地址：<a href="http://192.168.1.10:15672/" target="_blank" rel="noopener">http://192.168.1.10:15672/</a>  账户：admin 密码：123456</li>
-</ul>
-<p><img src="/image/rabbitmq-01.png" alt></p>
-<p>注意区分：镜像 与 容器</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">sudo</span> <span class="string">chmod</span> <span class="string">+x</span> <span class="string">/usr/local/bin/docker-compose</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、测试"><a href="#2、测试" class="headerlink" title="2、测试"></a>2、测试</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker-compose</span> <span class="bullet">--version</span></span><br></pre></td></tr></table></figure>
+
 </section>
     <!-- Tags START -->
     
@@ -211,17 +186,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../mysql/mysql-learning/">
+      <a class="nav-left" href="../../../06/elasticsearch/es-04/">
         <span class="nav-arrow">← </span>
         
-          mysql笔记
+          docker 安装 logstash
         
       </a>
     
     
-      <a class="nav-right" href="../../../05/springboot/sb-01/">
+      <a class="nav-right" href="../docker-01/">
         
-          springboot AOP
+          centos7 安装 docker
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -270,7 +245,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#搜查镜像"><span class="toc-nav-text">搜查镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#拉取镜像"><span class="toc-nav-text">拉取镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#启动镜像（默认用户名密码）-默认guest-用户，密码也是-guest"><span class="toc-nav-text">启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#启动镜像（设置用户名密码）"><span class="toc-nav-text">启动镜像（设置用户名密码）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#停止容器"><span class="toc-nav-text">停止容器</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#访问"><span class="toc-nav-text">访问</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1、安装"><span class="toc-nav-text">1、安装</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2、测试"><span class="toc-nav-text">2、测试</span></a></li></ol>
     
   </div>
 </aside>
@@ -280,7 +255,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/01/docker-learn/docker-02/';
+    var url = 'https://kenhinschan.github.io/2019/09/07/docker-learn/docker-compose-01/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -342,7 +317,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "Docker下安装rabbitmq",
+        id: "centos7 安装 docker-compose",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

@@ -10,7 +10,7 @@
   
   <title>
     
-      Docker下安装rabbitmq | 个人笔记
+      logstash同步mysql数据到es | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>Docker下安装rabbitmq</h2>
-  <p class="post-date">2019-08-01</p>
+  <h2>logstash同步mysql数据到es</h2>
+  <p class="post-date">2019-09-07</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,54 +153,40 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="搜查镜像"><a href="#搜查镜像" class="headerlink" title="搜查镜像"></a>搜查镜像</h2><ul>
-<li>地址：<a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a>  找对应的tags：3.7-management </li>
+    <section class="markdown-content"><h2 id="logstash同步mysql到es"><a href="#logstash同步mysql到es" class="headerlink" title="logstash同步mysql到es"></a>logstash同步mysql到es</h2><ul>
+<li>进入elk容器</li>
 </ul>
-<h2 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">pull</span> <span class="attr">rabbitmq:3.7-management</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="启动镜像（默认用户名密码）-默认guest-用户，密码也是-guest"><a href="#启动镜像（默认用户名密码）-默认guest-用户，密码也是-guest" class="headerlink" title="启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest"></a>启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">-p</span> <span class="number">5672</span><span class="string">:5672</span> <span class="bullet">-p</span> <span class="number">15672</span><span class="string">:15672</span> <span class="bullet">--name</span> <span class="string">rabbitmq</span> <span class="attr">rabbitmq:3.7-management</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="启动镜像（设置用户名密码）"><a href="#启动镜像（设置用户名密码）" class="headerlink" title="启动镜像（设置用户名密码）"></a>启动镜像（设置用户名密码）</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">--hostname</span> <span class="string">my-rabbit</span> <span class="bullet">--name</span> <span class="string">rabbit</span> <span class="bullet">-e</span> <span class="string">RABBITMQ_DEFAULT_USER=admin</span> <span class="bullet">-e</span> <span class="string">RABBITMQ_DEFAULT_PASS=123456</span> <span class="bullet">-p</span> <span class="number">15672</span><span class="string">:15672</span> <span class="bullet">-p</span> <span class="number">5672</span><span class="string">:5672</span> <span class="attr">rabbitmq:3.7-management</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">exec</span> <span class="bullet">-it</span> <span class="string">elk</span> <span class="string">/bin/bash</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>参数说明：</p>
+<li><p>把mysql的t_case_cpws表的部分字段导入到es的mysql-test索引库</p>
+</li>
+<li><p>可以设置定时</p>
+</li>
+<li><p>进入/opt/logstash/config目录vi mysql-test.conf</p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">input</span> <span class="string">&#123;</span></span><br><span class="line">  <span class="string">jdbc</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">jdbc_driver_library</span> <span class="string">=&gt;</span> <span class="string">"/usr/local/docker/mysql-connector-java-5.1.47.jar"</span></span><br><span class="line">    <span class="string">jdbc_driver_class</span> <span class="string">=&gt;</span> <span class="string">"com.mysql.jdbc.Driver"</span></span><br><span class="line">    <span class="string">jdbc_connection_string</span> <span class="string">=&gt;</span> <span class="string">"jdbc:mysql://192.168.1.5:3306/lanxum-court-xw?characterEncoding=UTF-8&amp;useSSL=false"</span></span><br><span class="line">    <span class="string">jdbc_user</span> <span class="string">=&gt;</span> <span class="string">"xuan"</span></span><br><span class="line">    <span class="string">jdbc_password</span> <span class="string">=&gt;</span> <span class="string">"123456"</span></span><br><span class="line">    <span class="string">statement</span> <span class="string">=&gt;</span> <span class="string">"SELECT wsid,ay,dsr,swwsmc,createtime  FROM t_case_cpws"</span></span><br><span class="line">    <span class="string">jdbc_paging_enabled</span> <span class="string">=&gt;</span> <span class="string">"true"</span></span><br><span class="line">    <span class="string">jdbc_page_size</span> <span class="string">=&gt;</span> <span class="string">"50000"</span></span><br><span class="line">    <span class="string">schedule</span> <span class="string">=&gt;</span> <span class="string">"* * * * *"</span></span><br><span class="line">  <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">output</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">elasticsearch</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">hosts</span> <span class="string">=&gt;</span> <span class="string">"127.0.0.1:9200"</span></span><br><span class="line">        <span class="comment"># port =&gt; "9200"</span></span><br><span class="line">        <span class="comment"># protocol =&gt; "http"</span></span><br><span class="line">        <span class="string">index</span> <span class="string">=&gt;</span> <span class="string">"mysql-test"</span></span><br><span class="line">        <span class="string">document_id</span> <span class="string">=&gt;</span> <span class="string">"<span class="template-variable">%&#123;id&#125;</span>"</span></span><br><span class="line">        <span class="comment"># cluster =&gt; "fulltext-application"</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">stdout</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">codec</span> <span class="string">=&gt;</span> <span class="string">json_lines</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><p>-d 后台运行容器；</p>
-</li>
-<li><p>–name 指定容器名；</p>
-</li>
-<li><p>-p 指定服务运行的端口（5672：应用访问端口；15672：控制台Web端口号）；</p>
-</li>
-<li><p>-v 映射目录或文件；</p>
-</li>
-<li><p>–hostname  主机名（RabbitMQ的一个重要注意事项是它根据所谓的 “节点名称” 存储数据，默认为主机名）；</p>
-</li>
-<li><p>-e 指定环境变量；（RABBITMQ_DEFAULT_VHOST：默认虚拟机名；RABBITMQ_DEFAULT_USER：默认的用户名；RABBITMQ_DEFAULT_PASS：默认用户名的密码）</p>
-</li>
+<li>拷贝jar到容器里</li>
 </ul>
-</li>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">cp</span> <span class="string">/usr/local/docker/mysql-connector-java-5.1.47.jar</span> <span class="attr">elk:/usr/local/docker</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用logstash执行配置文件</li>
 </ul>
-<h2 id="停止容器"><a href="#停止容器" class="headerlink" title="停止容器"></a>停止容器</h2><ul>
-<li><p>停止容器 docker stop feb3e82503d9（feb3e82503d9：是容器ID）</p>
-</li>
-<li><p>查看已停止的容器 docker ps -l</p>
-</li>
-<li><p>启动容器 docker start &lt;容器名 or ID&gt; # 启动容器</p>
-</li>
-</ul>
-<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><ul>
-<li>地址：<a href="http://192.168.1.10:15672/" target="_blank" rel="noopener">http://192.168.1.10:15672/</a>  账户：admin 密码：123456</li>
-</ul>
-<p><img src="/image/rabbitmq-01.png" alt></p>
-<p>注意区分：镜像 与 容器</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/opt/logstash/bin/logstash</span> <span class="bullet">-f</span> <span class="string">/opt/logstash/config/mysql-test.conf</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：如果执行失败，查看logstash是否已经正在运行中，<br>如果是可以在elk容器里service logstash stop<br>先停止logstash服务，再执行</p>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#docker" >
-    <span class="tag-code">docker</span>
+  <a href="../../../../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
   </a>
 
       </div>
@@ -211,17 +197,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../mysql/mysql-learning/">
+      <a class="nav-left" href="../../docker-learn/docker-01/">
         <span class="nav-arrow">← </span>
         
-          mysql笔记
+          centos7 安装 docker
         
       </a>
     
     
-      <a class="nav-right" href="../../../05/springboot/sb-01/">
+      <a class="nav-right" href="../../docker-learn/docker-03/">
         
-          springboot AOP
+          centos7 安装 ELK
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -270,7 +256,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#搜查镜像"><span class="toc-nav-text">搜查镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#拉取镜像"><span class="toc-nav-text">拉取镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#启动镜像（默认用户名密码）-默认guest-用户，密码也是-guest"><span class="toc-nav-text">启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#启动镜像（设置用户名密码）"><span class="toc-nav-text">启动镜像（设置用户名密码）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#停止容器"><span class="toc-nav-text">停止容器</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#访问"><span class="toc-nav-text">访问</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#logstash同步mysql到es"><span class="toc-nav-text">logstash同步mysql到es</span></a></li></ol>
     
   </div>
 </aside>
@@ -280,7 +266,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/08/01/docker-learn/docker-02/';
+    var url = 'https://kenhinschan.github.io/2019/09/07/elasticsearch/elk-05/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -342,7 +328,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "Docker下安装rabbitmq",
+        id: "logstash同步mysql数据到es",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

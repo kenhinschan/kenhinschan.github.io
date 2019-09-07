@@ -147,6 +147,105 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/08/09/FastDFS/fastdfs-03/">springboot 整合FastDFS</a>
+      </h2>
+      <p class="article-date">August 9, 2019</p>
+      
+        
+  <a href="../../tags#FastDFS" >
+    <span class="tag-code">FastDFS</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          1、加入maven坐标12345&lt;dependency&gt;    &lt;groupId&gt;com.github.tobato&lt;/groupId&gt;    &lt;artifactId&gt;fastdfs-client&lt;/artifactId&gt;    & ...
+        
+      </div>
+      <a class="more" href="../../2019/08/09/FastDFS/fastdfs-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/09/FastDFS/fastdfs-01/">docker 安装一键部署FastDFS （分布式文件存储）</a>
+      </h2>
+      <p class="article-date">August 9, 2019</p>
+      
+        
+  <a href="../../tags#FastDFS" >
+    <span class="tag-code">FastDFS</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          docker 安装FastDFS
+不利用docker安装，是比较复杂的
+
+利用docker安装镜像，可以安装别人配置好的FastDFS
+
+只要运行命令就可以了
+
+
+一键部署FastDFS 文件存储单机版拉取镜像
+
+封装好的fastDFS镜像：egistry.cn-beijing.aliyun ...
+        
+      </div>
+      <a class="more" href="../../2019/08/09/FastDFS/fastdfs-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/07/mq/rabbitmq-01/">rabbitmq笔记</a>
+      </h2>
+      <p class="article-date">August 7, 2019</p>
+      
+        
+  <a href="../../tags#rabbitmq" >
+    <span class="tag-code">rabbitmq</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          rabbitmq笔记
+官网文档教程：https://www.rabbitmq.com/getstarted.html
+
+参考代码git：https://github.com/1805455228/myrabbitmq
+
+
+Virtual Hosts 相当于mysql的db
+新建一个Virtu ...
+        
+      </div>
+      <a class="more" href="../../2019/08/07/mq/rabbitmq-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/06/mq/rabbitmq-03/">rabbitmq 消息延迟消费、延迟重试</a>
+      </h2>
+      <p class="article-date">August 6, 2019</p>
+      
+        
+  <a href="../../tags#rabbitmq" >
+    <span class="tag-code">rabbitmq</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          延迟消费过程（每个消息可以单独设置失效时间）：
+
+声明 delay_queue_per_message_ttl 队列：死信队列，设置 DLX 参数，包含 x-dead-letter-exchange 表示失效后进入的 exchange（值为 delay_exchange，即实际消费交换机）、 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/06/mq/rabbitmq-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/08/06/mq/rabbitmq-02/">rabbitmq 消息延迟推送</a>
       </h2>
       <p class="article-date">August 6, 2019</p>
@@ -226,29 +325,6 @@ rabbitmq 消息推送 （延迟、定时）
         
       </div>
       <a class="more" href="../../2019/08/01/docker-learn/docker-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/01/docker-learn/docker-01/">centos7 安装 docker</a>
-      </h2>
-      <p class="article-date">August 1, 2019</p>
-      
-        
-  <a href="../../tags#docker" >
-    <span class="tag-code">docker</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          centos7 安装 docker
-centos7系统（稳定,对docker支持友好）查看docker是否已安装 docker -v1、使用yum命令进行安装1yum install -y docker
-
-2、查看是否安装成功1234[root@localhost qixuan]# yum  ...
-        
-      </div>
-      <a class="more" href="../../2019/08/01/docker-learn/docker-01/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -336,80 +412,6 @@ eureka 定时检查入住的微服务，是否正常 ...
         
       </div>
       <a class="more" href="../../2019/07/28/springcould/sc-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/07/23/redis/基于redis的分布式锁/">基于redis的高并发分布式锁</a>
-      </h2>
-      <p class="article-date">July 23, 2019</p>
-      
-        
-  <a href="../../tags#redis" >
-    <span class="tag-code">redis</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          分布式锁一般有三种实现方式：
-
-数据库乐观锁；
-
-基于Redis的分布式锁；
-
-基于ZooKeeper的分布式锁。
-本篇博客将介绍第二种方式，基于Redis实现分布式锁。
-虽然网上已经有各种介绍Redis分布式锁实现的博客，
-然而他们的实现却有着各种各样的问题，为了避免误人子弟，
-本篇博客将 ...
-        
-      </div>
-      <a class="more" href="../../2019/07/23/redis/基于redis的分布式锁/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/07/23/redis/缓存穿透/">缓存穿透、缓存雪崩、缓存击穿</a>
-      </h2>
-      <p class="article-date">July 23, 2019</p>
-      
-        
-  <a href="../../tags#redis" >
-    <span class="tag-code">redis</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          缓存穿透、缓存雪崩、缓存击穿 （缓存失效）
-缓存穿透
-程序在处理缓存时，一般是先从缓存查询，如果缓存没有这个key获取为null，则会从DB中查询，并设置到缓存中去。
-按这种做法，那查询一个一定不存在的数据值，由于缓存是不命中时需要从数据库查询，查不到数据则不写入缓存，这将导致这个不存在的数 ...
-        
-      </div>
-      <a class="more" href="../../2019/07/23/redis/缓存穿透/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/07/07/springboot-swagger2的restful api文档/">springboot 集成 swagger2 展示restful api 文档</a>
-      </h2>
-      <p class="article-date">July 7, 2019</p>
-      
-        
-  <a href="../../tags#springboot" >
-    <span class="tag-code">springboot</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          springboot 集成 swagger2 展示restful api 文档
-1、在pom.xml文件，引入swagger2 maveny依赖12345678910&lt;dependency&gt;    &lt;groupId&gt;io.springfox&lt;/groupId&g ...
-        
-      </div>
-      <a class="more" href="../../2019/07/07/springboot-swagger2的restful api文档/">Read more</a>
     </article>
   
 
