@@ -147,40 +147,36 @@
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="2019/09/07/docker-learn/docker-03/">centos7 安装 ELK</a>
+        <a href="2019/09/15/elasticsearch/elk-nginx-01/">Logstash采集nginx日志输出到es</a>
       </h2>
-      <p class="article-date">September 7, 2019</p>
+      <p class="article-date">September 15, 2019</p>
       
         
-  <a href="/tags#docker" >
-    <span class="tag-code">docker</span>
+  <a href="/tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
   </a>
 
       
       <div class="article-summary">
         
-          
-之前docker使用分别安装E、L、K
+          注意：宿主机与docker容器的挂载、很重要、很重要
+Logstash采集nginx日志输出到es
+进入elk容器
 
-觉得还是不够方便，使用docker安装别人现成的ELK镜像
+1docker exec -it elkv2 /bin/bash
 
-
-1、安装ELK镜像
-安装7.1.1版本
-
-1docker pull sebp/elk:711
-
-2、运行123docker run -p 5601:5601 -p 9200:9200  ...
+修改nginx日志格式logs-nginx.conf
+12345678910111213input &#1 ...
         
       </div>
-      <a class="more" href="2019/09/07/docker-learn/docker-03/">Read more</a>
+      <a class="more" href="2019/09/15/elasticsearch/elk-nginx-01/">Read more</a>
     </article>
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="2019/09/07/elasticsearch/elk-05/">logstash同步mysql数据到es</a>
+        <a href="2019/09/15/elasticsearch/elk-mysql-05/">logstash同步mysql数据到es</a>
       </h2>
-      <p class="article-date">September 7, 2019</p>
+      <p class="article-date">September 15, 2019</p>
       
         
   <a href="/tags#elasticsearch" >
@@ -203,14 +199,66 @@
 进入/opt/logstash/config目录vi mysql ...
         
       </div>
-      <a class="more" href="2019/09/07/elasticsearch/elk-05/">Read more</a>
+      <a class="more" href="2019/09/15/elasticsearch/elk-mysql-05/">Read more</a>
     </article>
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="2019/09/07/docker-learn/docker-01/">centos7 安装 docker</a>
+        <a href="2019/09/15/elasticsearch/elk-mysql-06/">logstash数据采集之mysql-to-es（指定ik分词）</a>
       </h2>
-      <p class="article-date">September 7, 2019</p>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="/tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          注意：如果执行失败，查看logstash是否已经正在运行中，如果是可以在elk容器里service logstash stop先停止logstash服务，再执行
+logstash的配置123456789101112131415161718192021222324252627282930313 ...
+        
+      </div>
+      <a class="more" href="2019/09/15/elasticsearch/elk-mysql-06/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/09/15/docker-learn/docker-03/">centos7 安装 ELK</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="/tags#docker" >
+    <span class="tag-code">docker</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+之前docker使用分别安装E、L、K
+
+觉得还是不够方便，现在使用docker安装别人现成的ELK镜像
+
+
+1、安装ELK镜像
+安装7.1.1版本
+
+1docker pull sebp/elk:711
+
+2、运行123456789docker run -p 5601:5601 -p 92 ...
+        
+      </div>
+      <a class="more" href="2019/09/15/docker-learn/docker-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/09/15/docker-learn/docker-01/">centos7 安装 docker</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
       
         
   <a href="/tags#docker" >
@@ -226,137 +274,14 @@ centos7系统（稳定,对docker支持友好）查看docker是否已安装 docke
 2、查看是否安装成功1234[root@localhost qixuan]# yum  ...
         
       </div>
-      <a class="more" href="2019/09/07/docker-learn/docker-01/">Read more</a>
+      <a class="more" href="2019/09/15/docker-learn/docker-01/">Read more</a>
     </article>
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="2019/09/07/docker-learn/docker-compose-01/">centos7 安装 docker-compose</a>
+        <a href="2019/09/15/java/java-collections/">Java集合</a>
       </h2>
-      <p class="article-date">September 7, 2019</p>
-      
-        
-  <a href="/tags#docker" >
-    <span class="tag-code">docker</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          
-1、安装docker-compose之前必须已经安装docker
-
-1、安装
-1、运行此命令以下载Docker Compose的当前稳定版本：
-
-1sudo curl -L "https://github.com/docker/compose/releases/download/1.24. ...
-        
-      </div>
-      <a class="more" href="2019/09/07/docker-learn/docker-compose-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/09/06/elasticsearch/es-04/">docker 安装 logstash</a>
-      </h2>
-      <p class="article-date">September 6, 2019</p>
-      
-        
-  <a href="/tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          
-ELK构建日志分析系统
-
-
-E：elasticsearch 数据存储
-L：logstash 数据采集，数据过滤，数据传输(对比其他数据采集插件，logstash的数据处理能力比较突出)
-K：kibana 数据分析
-
-1、拉取镜像1docker pull logstash:7.1.1
-
-2、 ...
-        
-      </div>
-      <a class="more" href="2019/09/06/elasticsearch/es-04/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/09/05/elasticsearch/es-02/">elasticsearch全文检索</a>
-      </h2>
-      <p class="article-date">September 5, 2019</p>
-      
-        
-  <a href="/tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          基于Lucene全文搜索引擎的全文检索技术框架
-elasticsearch（分布式的）（推荐）
-
-solr（出现比较早）
-
-
-es与mysql数据库对比
-
-
-关系型数据库
-Elasticsearch
-
-
-
-database（数据库）
-index（索引）
-
-
-table（表）
-type（类型） ...
-        
-      </div>
-      <a class="more" href="2019/09/05/elasticsearch/es-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/09/05/elasticsearch/es-03/">基于elasticsearch的IK中文分词笔记</a>
-      </h2>
-      <p class="article-date">September 5, 2019</p>
-      
-        
-  <a href="/tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          基于elasticsearch的IK中文分词笔记使用
-自带的分词（对中文支持不好）
-
-123456GET /_analyze&#123;  "analyzer": "standard",  "text": "我是程序员，我是帅哥"&#125;
-
-
-IK分词（有多种模式）
-
-ik_max_wo ...
-        
-      </div>
-      <a class="more" href="2019/09/05/elasticsearch/es-03/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/09/04/java/java-queue/">Java队列</a>
-      </h2>
-      <p class="article-date">September 4, 2019</p>
+      <p class="article-date">September 15, 2019</p>
       
         
   <a href="/tags#java" >
@@ -366,68 +291,120 @@ ik_max_wo ...
       
       <div class="article-summary">
         
-          
-ArrayBlockingQueue ：一个由数组支持的有界队列。
-LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。
-PriorityBlockingQueue ：一个由优先级堆支持的无界优先级队列。
-DelayQueue ：一个由优先级堆支持的、基于时间的调度 ...
+          Java集合
+Java集合线程是否安全
+非线程安全的，效率高
+线程安全的，效率低
+补充：ConcurrentHashMap （线程安全、效率高）
+
+
+List HashMap Set 线程安全声明使用方法注意：在高并发情况下，list，hashmap，set都会存在–并发修改异常
+
+1.使用 ...
         
       </div>
-      <a class="more" href="2019/09/04/java/java-queue/">Read more</a>
+      <a class="more" href="2019/09/15/java/java-collections/">Read more</a>
     </article>
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="2019/09/04/maven/maven-01/">dependencies与dependencyManagement的区别</a>
+        <a href="2019/09/15/springboot/sp-02/">springboot IOC容器</a>
       </h2>
-      <p class="article-date">September 4, 2019</p>
+      <p class="article-date">September 15, 2019</p>
       
         
-  <a href="/tags#maven" >
-    <span class="tag-code">maven</span>
+  <a href="/tags#springboot" >
+    <span class="tag-code">springboot</span>
   </a>
 
       
       <div class="article-summary">
         
-          如果一个项目有多个模块组成，各个模块各自引入自己的bao，难免出现同一个包出现在项目的不同模块中的情况。这时候就会产生冲突，进而导致打包失败。此时就要用到统一的依赖管理，目的就是统一项目使用到的依赖
-dependencies与dependencyManagement的区别
-dependenc ...
+          1、spring bean的作用域
+默认作用域是单例，可以通过@scope修改
+
+2、spring bean的生命周期把bean交给ioc管理（@Controller @Service @Repository @Component）
+
+1、调用构造实例化（默认情况下，spring ioc容器 ...
         
       </div>
-      <a class="more" href="2019/09/04/maven/maven-01/">Read more</a>
+      <a class="more" href="2019/09/15/springboot/sp-02/">Read more</a>
     </article>
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="2019/08/29/linux-os/linux-project-run/">项目线上运行突然变慢了</a>
+        <a href="2019/09/15/java/java-single/">Java的设计模式</a>
       </h2>
-      <p class="article-date">August 29, 2019</p>
+      <p class="article-date">September 15, 2019</p>
       
         
-  <a href="/tags#linux" >
-    <span class="tag-code">linux</span>
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
   </a>
 
       
       <div class="article-summary">
         
-          项目线上运行突然变慢了
-什么原因导致项目运行变慢？
-
-项目肯定出现了问题（这点毋庸置疑）
-
-程序问题导致（日志分析，jvm内存监控，服务器内存监控）
-
-sql问题导致，数量增大导致 （慢查询分析）
-
-高并发环境下造成，一台服务器扛不住压力 （考虑集群、nginx做负载均衡）
-
-
-怎样排查、定 ...
+          1、单例模式（线程安全-双端检测）12345678910111213141516171819public class SingleObject &#123;    //在类加载到内存时候静态成员变量就存在了，而对象还不存在，volatile内存可见（防止指令重排，出现）    private ...
         
       </div>
-      <a class="more" href="2019/08/29/linux-os/linux-project-run/">Read more</a>
+      <a class="more" href="2019/09/15/java/java-single/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/09/15/java/java-static/">Java的静态与非静态</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Java的静态与非静态
+静态成员、静态方法随着类的加载而加载（先于非静态存在jvm内存中）
+
+静态成员、静态方法可以通过类名直接调用（类名.静态方法/成员变量）
+
+静态方法不能调用非静态的方法、非静态的成员变量（编译不通过，因为静态先于非静态存在jvm内存中）
+
+非静态成员方法、成员变量必须 ...
+        
+      </div>
+      <a class="more" href="2019/09/15/java/java-static/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2019/09/11/java/java-class/">Java的接口与抽象类</a>
+      </h2>
+      <p class="article-date">September 11, 2019</p>
+      
+        
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          接口与抽象类的区别
+（1）抽象类可以有构造方法，接口中不能有构造方法。
+
+（2）抽象类中可以有普通成员变量，接口中没有普通成员变量
+
+（3）抽象类中可以包含静态方法，接口中不能包含静态方法
+
+（4）一个类可以实现多个接口，但只能继承一个抽象类。
+
+（5）接口可以被多重实现，抽象类只能被单一继 ...
+        
+      </div>
+      <a class="more" href="2019/09/11/java/java-class/">Read more</a>
     </article>
   
 

@@ -147,6 +147,133 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/08/16/redis/redis-04/">redis应用场景</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis应用场景1、热点数据的缓存由于redis访问速度块、支持的数据类型比较丰富，所以redis很适合用来存储热点数据，另外结合expire，
+我们可以设置过期时间然后再进行缓存更新操作，这个功能最为常见，我们几乎所有的项目都有所运用。2、限时业务的运用redis中可以使用expire命 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/16/redis/redis-04/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/16/mysql/mysql-02/">数据库连接池满的问题</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="../../tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          数据库连接池满的问题
+连接池参数调休—首先调大最大连接池数
+
+因为代码的错误而导致的数据库连接没有释放的问题
+
+查看什么原因链接池没有被释放，或者一直被占用
+
+
+
+        
+      </div>
+      <a class="more" href="../../2019/08/16/mysql/mysql-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/16/jvm/jvm-02/">JVM 笔记</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="../../tags#jvm" >
+    <span class="tag-code">jvm</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          JVM
+了解jvm有助于理解Java编程、程序性能调休
+
+mac查看Java安装目录 /usr/libexec/java_home -V
+
+
+jvm结构
+TODO
+
+1、类加载器 （class文件）2、运行时数据区 （5块区域）（重点）
+结构
+
+1、虚拟机栈 （栈）== 先进后出 生命周期： ...
+        
+      </div>
+      <a class="more" href="../../2019/08/16/jvm/jvm-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/15/tomcat/tomcat-01/">docker 安装 tomcat</a>
+      </h2>
+      <p class="article-date">August 15, 2019</p>
+      
+        
+  <a href="../../tags#docker, tomcat" >
+    <span class="tag-code">docker, tomcat</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          搜查镜像docker search tomcat
+拉取镜像docker pull tomcat
+运行docker run -d -p 8081:8080 tomcat
+开放端口后，要重启防火墙firewall-cmd –zone=public –add-port=8080/tcp –perm ...
+        
+      </div>
+      <a class="more" href="../../2019/08/15/tomcat/tomcat-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/14/FastDFS/fastdfs-02/">docker 安装FastDFS （tracker、storage）</a>
+      </h2>
+      <p class="article-date">August 14, 2019</p>
+      
+        
+  <a href="../../tags#FastDFS" >
+    <span class="tag-code">FastDFS</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          docker 安装FastDFS搜查FastDFS镜像docker search fastdfs
+1、拉取镜像1docker pull ` luhuiguo/fastdfs
+
+2、启动tracker、storage123456789101112# 启动一个tracker服务器docker r ...
+        
+      </div>
+      <a class="more" href="../../2019/08/14/FastDFS/fastdfs-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/08/09/FastDFS/fastdfs-03/">springboot 整合FastDFS</a>
       </h2>
       <p class="article-date">August 9, 2019</p>
@@ -277,141 +404,6 @@ rabbitmq 消息推送 （延迟、定时）
         
       </div>
       <a class="more" href="../../2019/08/06/mq/rabbitmq-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/05/springboot/sb-01/">springboot AOP</a>
-      </h2>
-      <p class="article-date">August 5, 2019</p>
-      
-        
-  <a href="../../tags#springboot" >
-    <span class="tag-code">springboot</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          springboot AOP笔记springboot AOP 面向切面编程
-加入maven坐标
-
-1234&lt;dependency&gt;        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;        &lt; ...
-        
-      </div>
-      <a class="more" href="../../2019/08/05/springboot/sb-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/01/docker-learn/docker-02/">Docker下安装rabbitmq</a>
-      </h2>
-      <p class="article-date">August 1, 2019</p>
-      
-        
-  <a href="../../tags#docker" >
-    <span class="tag-code">docker</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          搜查镜像
-地址：https://hub.docker.com/  找对应的tags：3.7-management 
-
-拉取镜像1docker pull rabbitmq:3.7-management
-
-启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest1docker ru ...
-        
-      </div>
-      <a class="more" href="../../2019/08/01/docker-learn/docker-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/01/mysql/mysql-learning/">mysql笔记</a>
-      </h2>
-      <p class="article-date">August 1, 2019</p>
-      
-        
-  <a href="../../tags#mysql" >
-    <span class="tag-code">mysql</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          mysql笔记
-mysql 结构
-1、连接层
-2、服务层
-3、引擎层
-常见的数据库引擎：
-MyIsAm 表锁、不支持事务、会死锁、不适合高并发
-InnoDB 行锁、支持事务，高并发
-
-
-
-
-4、存储层
-
-mysql 开启慢查询日志 （抓取sql语句）
-要使用慢查询日志，要先开启，（抓取超过5 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/01/mysql/mysql-learning/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/07/31/java/java-node/">Java线程池笔记</a>
-      </h2>
-      <p class="article-date">July 31, 2019</p>
-      
-        
-  <a href="../../tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          Java线程池
-线程池可类比数据库连接池线程池好处
-1、降低资源消耗：可以重复利用已创建的线程降低线程创建和销毁造成的消耗。
-
-2、提高响应速度：当任务到达时，任务可以不需要等到线程创建就能立即执行。
-
-3、提高线程的可管理性：线程是稀缺资源，如果无限制地创建，不仅会消耗系统资源，还会降低系 ...
-        
-      </div>
-      <a class="more" href="../../2019/07/31/java/java-node/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/07/28/springcould/sc-01/">springcould 技术栈笔记</a>
-      </h2>
-      <p class="article-date">July 28, 2019</p>
-      
-        
-  <a href="../../tags#springcould" >
-    <span class="tag-code">springcould</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          springcould 技术栈笔记
-Eureka 服务注册与发现（物业公司）
-eureka_service（物业公司）与 eureka_client 入住的公司 （需要到物业公司登记、注册）
-
-eureka_service自我保护机制 （心跳）
-
-eureka 定时检查入住的微服务，是否正常 ...
-        
-      </div>
-      <a class="more" href="../../2019/07/28/springcould/sc-01/">Read more</a>
     </article>
   
 

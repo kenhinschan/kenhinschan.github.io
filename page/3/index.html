@@ -147,6 +147,134 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/08/20/data-structure/data-structure/">数据结构--学习笔记</a>
+      </h2>
+      <p class="article-date">August 20, 2019</p>
+      
+        
+  <a href="../../tags#数据结构" >
+    <span class="tag-code">数据结构</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          数据结构可视化数据结构可视化
+B + Tree存储演示
+数据存储在叶子节点（即：最底的一层）
+
+根据MaxDegree设定的数值（节点存储个数）
+
+每个节点存储个数小于MaxDegree设定的数值，达到这个数值，就要提取节点，扩建树结构
+
+
+
+
+
+        
+      </div>
+      <a class="more" href="../../2019/08/20/data-structure/data-structure/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/18/java/java-hash-sf/">Java 获取存储槽点hash算法</a>
+      </h2>
+      <p class="article-date">August 18, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Java 获取存储槽点hash算法12345678910111213141516171819202122232425262728293031323334353637383940414243/** * @author qixuan.chen * @date 2019-07-31 16:02 * ...
+        
+      </div>
+      <a class="more" href="../../2019/08/18/java/java-hash-sf/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/18/redis/redis-07/">redis集群</a>
+      </h2>
+      <p class="article-date">August 18, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis集群（默认有哨兵模式）
+至少6台机器（3组，每组是一个主从哨兵模式（master主机 salve从机））
+
+三台主机创建集群时，划分槽点
+
+存储槽点分配：如主机1（05000）主机1（500010000）主机1（10000~15000）
+
+集群是一个整体（数据分布存储在3个mast ...
+        
+      </div>
+      <a class="more" href="../../2019/08/18/redis/redis-07/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/18/redis/redis-06/">redis主从复制</a>
+      </h2>
+      <p class="article-date">August 18, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis主从复制 区别redis集群
+至少2台机器（一主一从），最好3台机器（一主二仆）
+
+主从复制时读写分离（从机不能写入，只有主机才能写入）
+
+主从复制较好好的方式是：一主二仆，再增加哨兵模式
+
+哨兵模式是（心跳）监听：主机服务器宕机，会从两个从机中选择一个变为主机
+
+从机启动时 主机 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/18/redis/redis-06/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/17/java/java-list-copy/">Java集合List的浅复制、深复制</a>
+      </h2>
+      <p class="article-date">August 17, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Java集合List的浅复制、深复制
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/17/java/java-list-copy/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/08/17/redis/redis-03/">redis数据持久化（备份和恢复）</a>
       </h2>
       <p class="article-date">August 17, 2019</p>
@@ -280,133 +408,6 @@ redis事务使用123456789101112131415161718192021222324252627282930313233343536
         
       </div>
       <a class="more" href="../../2019/08/16/mysql/mysql-03/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/16/redis/redis-04/">redis应用场景</a>
-      </h2>
-      <p class="article-date">August 16, 2019</p>
-      
-        
-  <a href="../../tags#redis" >
-    <span class="tag-code">redis</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          redis应用场景1、热点数据的缓存由于redis访问速度块、支持的数据类型比较丰富，所以redis很适合用来存储热点数据，另外结合expire，
-我们可以设置过期时间然后再进行缓存更新操作，这个功能最为常见，我们几乎所有的项目都有所运用。2、限时业务的运用redis中可以使用expire命 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/16/redis/redis-04/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/16/mysql/mysql-02/">数据库连接池满的问题</a>
-      </h2>
-      <p class="article-date">August 16, 2019</p>
-      
-        
-  <a href="../../tags#mysql" >
-    <span class="tag-code">mysql</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          数据库连接池满的问题
-连接池参数调休—首先调大最大连接池数
-
-因为代码的错误而导致的数据库连接没有释放的问题
-
-查看什么原因链接池没有被释放，或者一直被占用
-
-
-
-        
-      </div>
-      <a class="more" href="../../2019/08/16/mysql/mysql-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/16/jvm/jvm-02/">JVM 笔记</a>
-      </h2>
-      <p class="article-date">August 16, 2019</p>
-      
-        
-  <a href="../../tags#jvm" >
-    <span class="tag-code">jvm</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          JVM
-了解jvm有助于理解Java编程、程序性能调休
-
-mac查看Java安装目录 /usr/libexec/java_home -V
-
-
-jvm结构
-TODO
-
-1、类加载器 （class文件）2、运行时数据区 （5块区域）（重点）
-结构
-
-1、虚拟机栈 （栈）== 先进后出 生命周期： ...
-        
-      </div>
-      <a class="more" href="../../2019/08/16/jvm/jvm-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/15/tomcat/tomcat-01/">docker 安装 tomcat</a>
-      </h2>
-      <p class="article-date">August 15, 2019</p>
-      
-        
-  <a href="../../tags#docker, tomcat" >
-    <span class="tag-code">docker, tomcat</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          搜查镜像docker search tomcat
-拉取镜像docker pull tomcat
-运行docker run -d -p 8081:8080 tomcat
-开放端口后，要重启防火墙firewall-cmd –zone=public –add-port=8080/tcp –perm ...
-        
-      </div>
-      <a class="more" href="../../2019/08/15/tomcat/tomcat-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/14/FastDFS/fastdfs-02/">docker 安装FastDFS （tracker、storage）</a>
-      </h2>
-      <p class="article-date">August 14, 2019</p>
-      
-        
-  <a href="../../tags#FastDFS" >
-    <span class="tag-code">FastDFS</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          docker 安装FastDFS搜查FastDFS镜像docker search fastdfs
-1、拉取镜像1docker pull ` luhuiguo/fastdfs
-
-2、启动tracker、storage123456789101112# 启动一个tracker服务器docker r ...
-        
-      </div>
-      <a class="more" href="../../2019/08/14/FastDFS/fastdfs-02/">Read more</a>
     </article>
   
 

@@ -147,9 +147,132 @@
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="../../2019/08/29/java/java-class/">Java的接口与抽象类</a>
+        <a href="../../2019/09/07/docker-learn/docker-compose-01/">centos7 安装 docker-compose</a>
       </h2>
-      <p class="article-date">August 29, 2019</p>
+      <p class="article-date">September 7, 2019</p>
+      
+        
+  <a href="../../tags#docker" >
+    <span class="tag-code">docker</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+1、安装docker-compose之前必须已经安装docker
+
+1、安装
+1、运行此命令以下载Docker Compose的当前稳定版本：
+
+1sudo curl -L "https://github.com/docker/compose/releases/download/1.24. ...
+        
+      </div>
+      <a class="more" href="../../2019/09/07/docker-learn/docker-compose-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/06/elasticsearch/es-04/">docker 安装 logstash</a>
+      </h2>
+      <p class="article-date">September 6, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+ELK构建日志分析系统
+
+
+E：elasticsearch 数据存储
+L：logstash 数据采集，数据过滤，数据传输(对比其他数据采集插件，logstash的数据处理能力比较突出)
+K：kibana 数据分析
+
+1、拉取镜像1docker pull logstash:7.1.1
+
+2、 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/06/elasticsearch/es-04/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/05/elasticsearch/es-02/">elasticsearch全文检索</a>
+      </h2>
+      <p class="article-date">September 5, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          基于Lucene全文搜索引擎的全文检索技术框架
+elasticsearch（分布式的）（推荐）
+
+solr（出现比较早）
+
+
+es与mysql数据库对比
+
+
+关系型数据库
+Elasticsearch
+
+
+
+database（数据库）
+index（索引）
+
+
+table（表）
+type（类型） ...
+        
+      </div>
+      <a class="more" href="../../2019/09/05/elasticsearch/es-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/05/elasticsearch/es-03/">基于elasticsearch的IK中文分词笔记</a>
+      </h2>
+      <p class="article-date">September 5, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          基于elasticsearch的IK中文分词笔记使用
+自带的分词（对中文支持不好）
+
+123456GET /_analyze&#123;  "analyzer": "standard",  "text": "我是程序员，我是帅哥"&#125;
+
+
+IK分词（有多种模式）
+
+ik_max_wo ...
+        
+      </div>
+      <a class="more" href="../../2019/09/05/elasticsearch/es-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/04/java/java-queue/">Java队列</a>
+      </h2>
+      <p class="article-date">September 4, 2019</p>
       
         
   <a href="../../tags#java" >
@@ -159,25 +282,68 @@
       
       <div class="article-summary">
         
-          为什么要使用接口
-平时项目当中经常使用到接口，那你有思考过为什么要使用接口？
-
-我们都知道接口里只做方法的声明，没有方法的具体实现
-
-接口的好处
-
-接口是产品经理等站在项目一层的人发起的动作，底层的码农必须按照接口要求进行实现
-
-业务功能扩展性
-
-
-
-
-为什么要使用抽象类
-平时项目中抽象类使 ...
+          
+ArrayBlockingQueue ：一个由数组支持的有界队列。
+LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。
+PriorityBlockingQueue ：一个由优先级堆支持的无界优先级队列。
+DelayQueue ：一个由优先级堆支持的、基于时间的调度 ...
         
       </div>
-      <a class="more" href="../../2019/08/29/java/java-class/">Read more</a>
+      <a class="more" href="../../2019/09/04/java/java-queue/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/04/maven/maven-01/">dependencies与dependencyManagement的区别</a>
+      </h2>
+      <p class="article-date">September 4, 2019</p>
+      
+        
+  <a href="../../tags#maven" >
+    <span class="tag-code">maven</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          如果一个项目有多个模块组成，各个模块各自引入自己的bao，难免出现同一个包出现在项目的不同模块中的情况。这时候就会产生冲突，进而导致打包失败。此时就要用到统一的依赖管理，目的就是统一项目使用到的依赖
+dependencies与dependencyManagement的区别
+dependenc ...
+        
+      </div>
+      <a class="more" href="../../2019/09/04/maven/maven-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/29/linux-os/linux-project-run/">项目线上运行突然变慢了</a>
+      </h2>
+      <p class="article-date">August 29, 2019</p>
+      
+        
+  <a href="../../tags#linux" >
+    <span class="tag-code">linux</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          项目线上运行突然变慢了
+什么原因导致项目运行变慢？
+
+项目肯定出现了问题（这点毋庸置疑）
+
+程序问题导致（日志分析，jvm内存监控，服务器内存监控）
+
+sql问题导致，数量增大导致 （慢查询分析）
+
+高并发环境下造成，一台服务器扛不住压力 （考虑集群、nginx做负载均衡）
+
+
+怎样排查、定 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/29/linux-os/linux-project-run/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -254,164 +420,6 @@
         
       </div>
       <a class="more" href="../../2019/08/21/elasticsearch/es-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/20/data-structure/data-structure/">数据结构--学习笔记</a>
-      </h2>
-      <p class="article-date">August 20, 2019</p>
-      
-        
-  <a href="../../tags#数据结构" >
-    <span class="tag-code">数据结构</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          数据结构可视化数据结构可视化
-B + Tree存储演示
-数据存储在叶子节点（即：最底的一层）
-
-根据MaxDegree设定的数值（节点存储个数）
-
-每个节点存储个数小于MaxDegree设定的数值，达到这个数值，就要提取节点，扩建树结构
-
-
-
-
-
-        
-      </div>
-      <a class="more" href="../../2019/08/20/data-structure/data-structure/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/18/java/java-hash-sf/">Java 获取存储槽点hash算法</a>
-      </h2>
-      <p class="article-date">August 18, 2019</p>
-      
-        
-  <a href="../../tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          Java 获取存储槽点hash算法12345678910111213141516171819202122232425262728293031323334353637383940414243/** * @author qixuan.chen * @date 2019-07-31 16:02 * ...
-        
-      </div>
-      <a class="more" href="../../2019/08/18/java/java-hash-sf/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/18/redis/redis-07/">redis集群</a>
-      </h2>
-      <p class="article-date">August 18, 2019</p>
-      
-        
-  <a href="../../tags#redis" >
-    <span class="tag-code">redis</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          redis集群（默认有哨兵模式）
-至少6台机器（3组，每组是一个主从哨兵模式（master主机 salve从机））
-
-三台主机创建集群时，划分槽点
-
-存储槽点分配：如主机1（05000）主机1（500010000）主机1（10000~15000）
-
-集群是一个整体（数据分布存储在3个mast ...
-        
-      </div>
-      <a class="more" href="../../2019/08/18/redis/redis-07/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/18/redis/redis-06/">redis主从复制</a>
-      </h2>
-      <p class="article-date">August 18, 2019</p>
-      
-        
-  <a href="../../tags#redis" >
-    <span class="tag-code">redis</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          redis主从复制 区别redis集群
-至少2台机器（一主一从），最好3台机器（一主二仆）
-
-主从复制时读写分离（从机不能写入，只有主机才能写入）
-
-主从复制较好好的方式是：一主二仆，再增加哨兵模式
-
-哨兵模式是（心跳）监听：主机服务器宕机，会从两个从机中选择一个变为主机
-
-从机启动时 主机 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/18/redis/redis-06/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/17/java/java-list-copy/">Java集合List的浅复制、深复制</a>
-      </h2>
-      <p class="article-date">August 17, 2019</p>
-      
-        
-  <a href="../../tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          Java集合List的浅复制、深复制
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/17/java/java-list-copy/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/17/java/java-collections/">Java集合</a>
-      </h2>
-      <p class="article-date">August 17, 2019</p>
-      
-        
-  <a href="../../tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          Java集合
-Java集合线程是否安全
-非线程安全的，效率高
-线程安全的，效率低
-补充：ConcurrentHashMap （线程安全、效率高）
-
-
-List HashMap Set 线程安全声明使用方法
-1.使用Collections. 构建同步
-
-123456789101112//mak ...
-        
-      </div>
-      <a class="more" href="../../2019/08/17/java/java-collections/">Read more</a>
     </article>
   
 
