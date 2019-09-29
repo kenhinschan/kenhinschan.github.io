@@ -147,28 +147,78 @@
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="../../2019/09/07/docker-learn/docker-compose-01/">centos7 安装 docker-compose</a>
+        <a href="../../2019/09/15/java/java-single/">Java的设计模式</a>
       </h2>
-      <p class="article-date">September 7, 2019</p>
+      <p class="article-date">September 15, 2019</p>
       
         
-  <a href="../../tags#docker" >
-    <span class="tag-code">docker</span>
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
   </a>
 
       
       <div class="article-summary">
         
-          
-1、安装docker-compose之前必须已经安装docker
-
-1、安装
-1、运行此命令以下载Docker Compose的当前稳定版本：
-
-1sudo curl -L "https://github.com/docker/compose/releases/download/1.24. ...
+          1、单例模式（线程安全-双端检测）12345678910111213141516171819public class SingleObject &#123;    //在类加载到内存时候静态成员变量就存在了，而对象还不存在，volatile内存可见（防止指令重排，出现）    private ...
         
       </div>
-      <a class="more" href="../../2019/09/07/docker-learn/docker-compose-01/">Read more</a>
+      <a class="more" href="../../2019/09/15/java/java-single/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/java/java-static/">Java的静态与非静态</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Java的静态与非静态
+静态成员、静态方法随着类的加载而加载（先于非静态存在jvm内存中）
+
+静态成员、静态方法可以通过类名直接调用（类名.静态方法/成员变量）
+
+静态方法不能调用非静态的方法、非静态的成员变量（编译不通过，因为静态先于非静态存在jvm内存中）
+
+非静态成员方法、成员变量必须 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/java/java-static/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/11/java/java-class/">Java的接口与抽象类</a>
+      </h2>
+      <p class="article-date">September 11, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          接口与抽象类的区别
+（1）抽象类可以有构造方法，接口中不能有构造方法。
+
+（2）抽象类中可以有普通成员变量，接口中没有普通成员变量
+
+（3）抽象类中可以包含静态方法，接口中不能包含静态方法
+
+（4）一个类可以实现多个接口，但只能继承一个抽象类。
+
+（5）接口可以被多重实现，抽象类只能被单一继 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/11/java/java-class/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -372,54 +422,6 @@ sql问题导致，数量增大导致 （慢查询分析）
         
       </div>
       <a class="more" href="../../2019/08/26/linux-os/linux-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/23/data-structure/fibonacci-sequence/">斐波那契数列--学习笔记</a>
-      </h2>
-      <p class="article-date">August 23, 2019</p>
-      
-        
-  <a href="../../tags#数据结构" >
-    <span class="tag-code">数据结构</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          –
-
-斐波那契数列
-
-123456789101112131415161718192021222324/** * @author qixuan.chen * @date 2019-08-23 12:01 */public class fibonacci &#123;        public ...
-        
-      </div>
-      <a class="more" href="../../2019/08/23/data-structure/fibonacci-sequence/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/21/elasticsearch/es-01/">docker安装elasticsearch</a>
-      </h2>
-      <p class="article-date">August 21, 2019</p>
-      
-        
-  <a href="../../tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          前言ElasticSearch是一个基于Lucene的搜索服务器.
-它提供了一个分布式多用户能力的全文搜索引擎,
-基于Restfulweb接口.ES是用java开发的,
-是当前流行的企业级搜索引擎.在本系列博文中,
-我们将来一起学习ElasticSearch的相关知识在docker安装ela ...
-        
-      </div>
-      <a class="more" href="../../2019/08/21/elasticsearch/es-01/">Read more</a>
     </article>
   
 

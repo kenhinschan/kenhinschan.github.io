@@ -10,7 +10,7 @@
   
   <title>
     
-      Logstash采集nginx日志输出到es | 个人笔记
+      Java枚举 | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>Logstash采集nginx日志输出到es</h2>
-  <p class="post-date">2019-09-15</p>
+  <h2>Java枚举</h2>
+  <p class="post-date">2019-09-29</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,26 +153,17 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p>注意：宿主机与docker容器的挂载、很重要、很重要</p>
-<h2 id="Logstash采集nginx日志输出到es"><a href="#Logstash采集nginx日志输出到es" class="headerlink" title="Logstash采集nginx日志输出到es"></a>Logstash采集nginx日志输出到es</h2><ul>
-<li>进入elk容器</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">exec</span> <span class="bullet">-it</span> <span class="string">elkv2</span> <span class="string">/bin/bash</span></span><br></pre></td></tr></table></figure>
+    <section class="markdown-content"><p>java枚举类似一个小型的数据库</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/**</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@author</span> <span class="string">qixuan.chen</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@date</span> <span class="number">2019</span><span class="bullet">-09</span><span class="bullet">-25</span> <span class="number">21</span><span class="string">:56</span></span><br><span class="line"> <span class="string">*/</span></span><br><span class="line"><span class="string">public</span> <span class="string">enum</span> <span class="string">BookType</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">SERIALIZED(0,"连载中"),</span></span><br><span class="line">    <span class="string">FINISH(1,"已完结");</span></span><br><span class="line"></span><br><span class="line">    <span class="string">private</span> <span class="string">int</span> <span class="string">value;</span></span><br><span class="line">    <span class="string">private</span> <span class="string">String</span> <span class="string">text;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">public</span> <span class="string">int</span> <span class="string">getValue()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">value;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">public</span> <span class="string">void</span> <span class="string">setValue(int</span> <span class="string">value)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">this.value</span> <span class="string">=</span> <span class="string">value;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">getText()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">text;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">public</span> <span class="string">void</span> <span class="string">setText(String</span> <span class="string">text)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">this.text</span> <span class="string">=</span> <span class="string">text;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">BookType(int</span> <span class="string">value,</span> <span class="string">String</span> <span class="string">text)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">this.value</span> <span class="string">=</span> <span class="string">value;</span></span><br><span class="line">        <span class="string">this.text</span> <span class="string">=</span> <span class="string">text;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">自己定义一个静态方法,通过code返回枚举常量对象</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">BookType</span> <span class="string">getValue(int</span> <span class="string">value)&#123;</span></span><br><span class="line">        <span class="string">for</span> <span class="string">(BookType</span> <span class="string">mo</span> <span class="string">:</span> <span class="string">values())</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">if(mo.getValue()==</span> <span class="string">value)&#123;</span></span><br><span class="line">                <span class="string">return</span> <span class="string">mo;</span></span><br><span class="line">            <span class="string">&#125;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">        <span class="string">return</span> <span class="literal">null</span><span class="string">;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="修改nginx日志格式"><a href="#修改nginx日志格式" class="headerlink" title="修改nginx日志格式"></a>修改nginx日志格式</h2><p>logs-nginx.conf</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">input</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">file</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">path</span> <span class="string">=&gt;</span> <span class="string">"/data/logs/access.log"</span></span><br><span class="line">        <span class="string">codec</span> <span class="string">=&gt;</span> <span class="string">"json"</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">output</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">elasticsearch</span> <span class="string">&#123;</span> </span><br><span class="line">      <span class="string">hosts</span> <span class="string">=&gt;</span> <span class="string">["127.0.0.1:9200"]</span></span><br><span class="line">      <span class="string">index</span> <span class="string">=&gt;</span> <span class="string">"rsyslog-nginx-<span class="template-variable">%&#123;+YYYY.MM.dd&#125;</span>"</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">stdout</span> <span class="string">&#123;</span> <span class="string">codec</span> <span class="string">=&gt;</span> <span class="string">rubydebug</span> <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>/opt/logstash/bin/logstash -f /opt/logstash/config/logsconfig/nginx-logs.conf</p>
-<h2 id="监控效果kibana"><a href="#监控效果kibana" class="headerlink" title="监控效果kibana"></a>监控效果kibana</h2><p><img src="/image/kibana-01.png" alt></p>
-<p>注意：如果执行失败，查看logstash是否已经正在运行中，<br>如果是可以在elk容器里service logstash stop<br>先停止logstash服务，再执行</p>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
+  <a href="../../../../../tags#java" >
+    <span class="tag-code">java</span>
   </a>
 
       </div>
@@ -183,20 +174,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../elk-mysql-05/">
+      <a class="nav-left" href="../../../17/docker-learn/docker-compose-01/">
         <span class="nav-arrow">← </span>
         
-          logstash同步mysql数据到es
+          centos7 安装 docker-compose
         
       </a>
     
-    
-      <a class="nav-right" href="../../../17/java/java-cas/">
-        
-          高并发下抢车票业务
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -242,7 +226,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Logstash采集nginx日志输出到es"><span class="toc-nav-text">Logstash采集nginx日志输出到es</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#修改nginx日志格式"><span class="toc-nav-text">修改nginx日志格式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#监控效果kibana"><span class="toc-nav-text">监控效果kibana</span></a></li></ol>
+      <ol class="nav">none</ol>
     
   </div>
 </aside>
@@ -252,7 +236,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/09/15/elasticsearch/elk-nginx-01/';
+    var url = 'https://kenhinschan.github.io/2019/09/29/java/java-enum/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -314,7 +298,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "Logstash采集nginx日志输出到es",
+        id: "Java枚举",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

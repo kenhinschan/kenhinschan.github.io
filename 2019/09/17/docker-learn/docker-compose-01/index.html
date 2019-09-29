@@ -10,7 +10,7 @@
   
   <title>
     
-      Logstash采集nginx日志输出到es | 个人笔记
+      centos7 安装 docker-compose | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>Logstash采集nginx日志输出到es</h2>
-  <p class="post-date">2019-09-15</p>
+  <h2>centos7 安装 docker-compose</h2>
+  <p class="post-date">2019-09-17</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,26 +153,43 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p>注意：宿主机与docker容器的挂载、很重要、很重要</p>
-<h2 id="Logstash采集nginx日志输出到es"><a href="#Logstash采集nginx日志输出到es" class="headerlink" title="Logstash采集nginx日志输出到es"></a>Logstash采集nginx日志输出到es</h2><ul>
-<li>进入elk容器</li>
+    <section class="markdown-content"><ul>
+<li>1、安装docker-compose之前必须已经安装docker</li>
 </ul>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">exec</span> <span class="bullet">-it</span> <span class="string">elkv2</span> <span class="string">/bin/bash</span></span><br></pre></td></tr></table></figure>
+<h2 id="安装方式一（需要翻墙，下载很慢）"><a href="#安装方式一（需要翻墙，下载很慢）" class="headerlink" title="安装方式一（需要翻墙，下载很慢）"></a>安装方式一（需要翻墙，下载很慢）</h2><h3 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h3><ul>
+<li>1、运行此命令以下载Docker Compose的当前稳定版本：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">sudo</span> <span class="string">curl</span> <span class="bullet">-L</span> <span class="string">"https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)"</span> <span class="bullet">-o</span> <span class="string">/usr/local/bin/docker-compose</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="修改nginx日志格式"><a href="#修改nginx日志格式" class="headerlink" title="修改nginx日志格式"></a>修改nginx日志格式</h2><p>logs-nginx.conf</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">input</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">file</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">path</span> <span class="string">=&gt;</span> <span class="string">"/data/logs/access.log"</span></span><br><span class="line">        <span class="string">codec</span> <span class="string">=&gt;</span> <span class="string">"json"</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">output</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">elasticsearch</span> <span class="string">&#123;</span> </span><br><span class="line">      <span class="string">hosts</span> <span class="string">=&gt;</span> <span class="string">["127.0.0.1:9200"]</span></span><br><span class="line">      <span class="string">index</span> <span class="string">=&gt;</span> <span class="string">"rsyslog-nginx-<span class="template-variable">%&#123;+YYYY.MM.dd&#125;</span>"</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">stdout</span> <span class="string">&#123;</span> <span class="string">codec</span> <span class="string">=&gt;</span> <span class="string">rubydebug</span> <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>2、对二进制文件应用可执行权限：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">sudo</span> <span class="string">chmod</span> <span class="string">+x</span> <span class="string">/usr/local/bin/docker-compose</span></span><br></pre></td></tr></table></figure>
 
-<p>/opt/logstash/bin/logstash -f /opt/logstash/config/logsconfig/nginx-logs.conf</p>
-<h2 id="监控效果kibana"><a href="#监控效果kibana" class="headerlink" title="监控效果kibana"></a>监控效果kibana</h2><p><img src="/image/kibana-01.png" alt></p>
-<p>注意：如果执行失败，查看logstash是否已经正在运行中，<br>如果是可以在elk容器里service logstash stop<br>先停止logstash服务，再执行</p>
+<h3 id="2、测试"><a href="#2、测试" class="headerlink" title="2、测试"></a>2、测试</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker-compose</span> <span class="bullet">--version</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装方式二"><a href="#安装方式二" class="headerlink" title="安装方式二"></a>安装方式二</h2><ul>
+<li>1、检测是否安装python-pip包</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">、pip</span> <span class="bullet">-v</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span><span class="string">、如果没有安装需要执行命令</span> <span class="string">yum</span> <span class="bullet">-y</span> <span class="string">install</span> <span class="string">epel-release</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span><span class="string">、执行成功之后，需要执行命令，yum</span> <span class="bullet">-y</span> <span class="string">install</span> <span class="string">python-pip</span> <span class="string">安装pip</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span><span class="string">、安装好的pip进行升级,执行命令</span> <span class="string">pip</span> <span class="string">install</span> <span class="bullet">--upgrade</span> <span class="string">pip</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>2、开始安装docker compose</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">pip</span> <span class="string">install</span> <span class="string">docker-compose</span> <span class="bullet">--ignore-installed</span> <span class="string">requests</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3、安装完成，检测命令</p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker-compose</span> <span class="bullet">-version</span></span><br></pre></td></tr></table></figure>
+
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
+  <a href="../../../../../tags#docker" >
+    <span class="tag-code">docker</span>
   </a>
 
       </div>
@@ -183,17 +200,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../elk-mysql-05/">
+      <a class="nav-left" href="../../java/java-cas/">
         <span class="nav-arrow">← </span>
         
-          logstash同步mysql数据到es
+          高并发下抢车票业务
         
       </a>
     
     
-      <a class="nav-right" href="../../../17/java/java-cas/">
+      <a class="nav-right" href="../../../29/java/java-enum/">
         
-          高并发下抢车票业务
+          Java枚举
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -242,7 +259,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Logstash采集nginx日志输出到es"><span class="toc-nav-text">Logstash采集nginx日志输出到es</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#修改nginx日志格式"><span class="toc-nav-text">修改nginx日志格式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#监控效果kibana"><span class="toc-nav-text">监控效果kibana</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装方式一（需要翻墙，下载很慢）"><span class="toc-nav-text">安装方式一（需要翻墙，下载很慢）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1、安装"><span class="toc-nav-text">1、安装</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2、测试"><span class="toc-nav-text">2、测试</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装方式二"><span class="toc-nav-text">安装方式二</span></a></li></ol>
     
   </div>
 </aside>
@@ -252,7 +269,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/09/15/elasticsearch/elk-nginx-01/';
+    var url = 'https://kenhinschan.github.io/2019/09/17/docker-learn/docker-compose-01/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -314,7 +331,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "Logstash采集nginx日志输出到es",
+        id: "centos7 安装 docker-compose",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {

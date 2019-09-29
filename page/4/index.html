@@ -147,6 +147,66 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/08/17/jvm/jvm-memory/">jvm性能调休</a>
+      </h2>
+      <p class="article-date">August 17, 2019</p>
+      
+        
+  <a href="../../tags#jvm" >
+    <span class="tag-code">jvm</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          jvm性能调休
+堆内存溢出outofmemory
+堆区内存溢出
+
+12
+
+
+非堆区内存溢出
+
+代码模拟例子 （死循环向List不断添加对象，非堆区添加class）
+
+自动、手动导出jvm内存影像文件，分析
+
+
+生产环境死循环 导致内存、cpu飙升线程死锁 cpu飙升耗资源jvm性能调休工具使 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/17/jvm/jvm-memory/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/16/mysql/mysql-03/">千万、百万级数据量的快速分页limit 优化</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="../../tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          千万、百万级数据量的快速分页limit 优化
+随着数据量增大查询会变慢，百万级数据量开始变慢（无索引情况下）
+
+例子limit n,10; n会全表扫描
+
+
+12345678910111213141516SELECT count(*) from t_advertise_view_record ...
+        
+      </div>
+      <a class="more" href="../../2019/08/16/mysql/mysql-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/08/16/redis/redis-04/">redis应用场景</a>
       </h2>
       <p class="article-date">August 16, 2019</p>
@@ -347,63 +407,6 @@ Virtual Hosts 相当于mysql的db
         
       </div>
       <a class="more" href="../../2019/08/07/mq/rabbitmq-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/06/mq/rabbitmq-03/">rabbitmq 消息延迟消费、延迟重试</a>
-      </h2>
-      <p class="article-date">August 6, 2019</p>
-      
-        
-  <a href="../../tags#rabbitmq" >
-    <span class="tag-code">rabbitmq</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          延迟消费过程（每个消息可以单独设置失效时间）：
-
-声明 delay_queue_per_message_ttl 队列：死信队列，设置 DLX 参数，包含 x-dead-letter-exchange 表示失效后进入的 exchange（值为 delay_exchange，即实际消费交换机）、 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/06/mq/rabbitmq-03/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/06/mq/rabbitmq-02/">rabbitmq 消息延迟推送</a>
-      </h2>
-      <p class="article-date">August 6, 2019</p>
-      
-        
-  <a href="../../tags#rabbitmq" >
-    <span class="tag-code">rabbitmq</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          rabbitmq 消息推送 （实时）
-生产者
-
-消费者
-
-
-rabbitmq 消息推送 （延迟、定时）
-实战场景
-
-
-订单未支付，2小时删除
-
-方式1
-在RabbitMQ 3.6.x 之前我们一般采用死信队列+TTL过期时间来实现延迟队列 （会有阻塞，因为队列是先进先出）
-
-其实精华就是两个 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/06/mq/rabbitmq-02/">Read more</a>
     </article>
   
 
