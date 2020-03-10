@@ -10,7 +10,7 @@
   
   <title>
     
-      Java枚举 | 个人笔记
+      Netty 自定义任务taskQueue | 个人笔记
     
   </title>
   <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
@@ -144,8 +144,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>Java枚举</h2>
-  <p class="post-date">2019-09-29</p>
+  <h2>Netty 自定义任务taskQueue</h2>
+  <p class="post-date">2020-03-10</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -153,17 +153,54 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p>java枚举类似一个小型的数据库</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/**</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@author</span> <span class="string">qixuan.chen</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@date</span> <span class="number">2019</span><span class="bullet">-09</span><span class="bullet">-25</span> <span class="number">21</span><span class="string">:56</span></span><br><span class="line"> <span class="string">*/</span></span><br><span class="line"><span class="string">public</span> <span class="string">enum</span> <span class="string">BookType</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">SERIALIZED(0,"连载中"),</span></span><br><span class="line">    <span class="string">FINISH(1,"已完结");</span></span><br><span class="line"></span><br><span class="line">    <span class="string">private</span> <span class="string">int</span> <span class="string">value;</span></span><br><span class="line">    <span class="string">private</span> <span class="string">String</span> <span class="string">text;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">public</span> <span class="string">int</span> <span class="string">getValue()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">value;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">public</span> <span class="string">void</span> <span class="string">setValue(int</span> <span class="string">value)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">this.value</span> <span class="string">=</span> <span class="string">value;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">getText()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">text;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">public</span> <span class="string">void</span> <span class="string">setText(String</span> <span class="string">text)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">this.text</span> <span class="string">=</span> <span class="string">text;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">BookType(int</span> <span class="string">value,</span> <span class="string">String</span> <span class="string">text)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">this.value</span> <span class="string">=</span> <span class="string">value;</span></span><br><span class="line">        <span class="string">this.text</span> <span class="string">=</span> <span class="string">text;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">自己定义一个静态方法,通过code返回枚举常量对象</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">BookType</span> <span class="string">getValue(int</span> <span class="string">value)&#123;</span></span><br><span class="line">        <span class="string">for</span> <span class="string">(BookType</span> <span class="string">mo</span> <span class="string">:</span> <span class="string">values())</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">if(mo.getValue()==</span> <span class="string">value)&#123;</span></span><br><span class="line">                <span class="string">return</span> <span class="string">mo;</span></span><br><span class="line">            <span class="string">&#125;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">        <span class="string">return</span> <span class="literal">null</span><span class="string">;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+    <section class="markdown-content"><h2 id="netty-自定义任务taskQueue"><a href="#netty-自定义任务taskQueue" class="headerlink" title="netty 自定义任务taskQueue"></a>netty 自定义任务taskQueue</h2><h3 id="任务队列中的Task有3种典型使用场景"><a href="#任务队列中的Task有3种典型使用场景" class="headerlink" title="任务队列中的Task有3种典型使用场景"></a>任务队列中的Task有3种典型使用场景</h3><ol>
+<li><p><strong>用户程序自定义的普通任务</strong></p>
+<p>这里有一个非常耗费时间的业务   -&gt;  异步执行    -&gt; 提交到该Channel对应的NioEventLoop的<strong>taskQueue</strong>中即可；</p>
+<p>服务器端读取到数据的时候处理方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelRead</span><span class="params">(ChannelHandlerContext ctx, Object msg)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">// 这里有一个非常耗费时间的业务   -&gt;  异步执行    -&gt; 提交到该Channel对应的NioEventLoop的taskQueue中即可</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解决方案1：用户程序自定义的普通任务</span></span><br><span class="line">    ctx.channel().eventLoop().execute(()-&gt;&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">10</span>*<span class="number">1000</span>);</span><br><span class="line">            ctx.writeAndFlush(Unpooled.copiedBuffer(<span class="string">"hello,服务端10秒了"</span>,CharsetUtil.UTF_8));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    System.out.println(<span class="string">"go on..."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>如果是多个普通任务：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ctx.channel().eventLoop().execute(()-&gt;&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Thread.sleep(<span class="number">10</span>*<span class="number">1000</span>);</span><br><span class="line">        ctx.writeAndFlush(Unpooled.copiedBuffer(<span class="string">"hello,服务端10秒了"</span>,CharsetUtil.UTF_8));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">ctx.channel().eventLoop().execute(()-&gt;&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Thread.sleep(<span class="number">20</span>*<span class="number">1000</span>);</span><br><span class="line">        ctx.writeAndFlush(Unpooled.copiedBuffer(<span class="string">"hello,服务端30秒了"</span>,CharsetUtil.UTF_8));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>将会按顺序执行，比如第一个10秒，第二个20秒，那么第二个真正执行完的时间是30秒，因为他们是在同一个线程里的；</p>
+</li>
+<li><p><strong>用户自定义定时任务</strong></p>
+<p>用户自定义定时任务    -&gt;  该任务是提交到<strong>scheduleTaskQueue</strong>中；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用户自定义定时任务    -&gt;  该任务是提交到scheduleTaskQueue中</span></span><br><span class="line">ctx.channel().eventLoop().schedule(()-&gt;&#123;</span><br><span class="line">    ctx.writeAndFlush(Unpooled.copiedBuffer(<span class="string">"hello,服务端5秒了"</span>,CharsetUtil.UTF_8));</span><br><span class="line">&#125;,<span class="number">5</span>, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
+
+<p>跟第一种类似，不过是丢到了scheduleTaskQueue中；    </p>
+</li>
+<li><p><strong>非当前Reactor线程调用Channel的各种方法</strong></p>
+<p>可以在初始化Channel的时候，存起客户端的SocketChannel，在推送的时候将业务塞给各个Channel的queue中即可；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initChannel</span><span class="params">(SocketChannel ch)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"客户端SocketChannel的hashCode："</span> + ch.hashCode());<span class="comment">// 可以使用一个集合管理所有的Channel，在推送消息的时候，可以将业务加入到各个Channel对应的NioEventLoop的taskQueue或者scheduleTaskQueue</span></span><br><span class="line">    ch.pipeline().addLast(<span class="keyword">new</span> NettyServerHandler());<span class="comment">//添加处理器到pipeline尾部</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="Netty模型再说明"><a href="#Netty模型再说明" class="headerlink" title="Netty模型再说明"></a>Netty模型再说明</h2><ol>
+<li>Netty抽象出两组<strong>线程池</strong>，BossGroup专门负责接收客户端连接，<strong>WorkerGroup</strong>专门负责网络读写操作；</li>
+<li>NioEventLoop表示一个不断循环执行处理任务的线程，每个NioEventLoop都有一个Selector，用于监听绑定在其上的Socket网络通道；</li>
+<li>NioEventLoop内部采用<strong>串行化</strong>设计，从消息的读取-&gt;解码-&gt;处理-&gt;编码-&gt;发送，始终由IO线程NioEventLoop负责；</li>
+</ol>
+<ul>
+<li><p>NioEventLoopGroup下包含多个NioEventLoop</p>
+</li>
+<li><p>每个NioEventLoop中包含有一个Selector，一个taskQueue</p>
+</li>
+<li><p>每个NioEventLoop的Selector上可以注册监听多个NioChannel</p>
+</li>
+<li><p>每个NioChannel只会绑定在唯一一个NioEventLoop上</p>
+</li>
+<li><p>每个NioChannel都绑定有一个自己的ChannelPipeline</p>
+</li>
+</ul>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="../../../../../tags#java" >
-    <span class="tag-code">java</span>
+  <a href="../../../../../tags#netty" >
+    <span class="tag-code">netty</span>
   </a>
 
       </div>
@@ -174,20 +211,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="../../../17/docker-learn/docker-compose-01/">
+      <a class="nav-left" href="../../../../../2019/09/29/java/java-enum/">
         <span class="nav-arrow">← </span>
         
-          centos7 安装 docker-compose
+          Java枚举
         
       </a>
     
-    
-      <a class="nav-right" href="../../../../../2020/03/10/netty/netty-taskQueue/">
-        
-          Netty 自定义任务taskQueue
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -233,7 +263,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="nav">none</ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#netty-自定义任务taskQueue"><span class="toc-nav-text">netty 自定义任务taskQueue</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#任务队列中的Task有3种典型使用场景"><span class="toc-nav-text">任务队列中的Task有3种典型使用场景</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Netty模型再说明"><span class="toc-nav-text">Netty模型再说明</span></a></li></ol>
     
   </div>
 </aside>
@@ -243,7 +273,7 @@
 
 <script>
   (function () {
-    var url = 'https://kenhinschan.github.io/2019/09/29/java/java-enum/';
+    var url = 'https://kenhinschan.github.io/2020/03/10/netty/netty-taskQueue/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -305,7 +335,7 @@
     var gitmentConfig = "kenhinschan";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "Java枚举",
+        id: "Netty 自定义任务taskQueue",
         owner: "kenhinschan",
         repo: "kenhinschan.github.io",
         oauth: {
