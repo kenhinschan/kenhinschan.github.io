@@ -147,6 +147,141 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="2020/03/12/ali/ali-pay-1/">支付宝支付接口（手机网站支付（跳到APP支付）、PC网站支付（扫码支付））</a>
+      </h2>
+      <p class="article-date">March 12, 2020</p>
+      
+        
+  <a href="/tags#netty" >
+    <span class="tag-code">netty</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          支付宝支付接口（手机网站支付、PC网站支付扫码支付）
+手机网站支付（跳到APP支付）
+
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546/**    * 跳转APP内支付（手 ...
+        
+      </div>
+      <a class="more" href="2020/03/12/ali/ali-pay-1/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2020/03/11/SSE/sse-1/">服务器推送技术之SSE</a>
+      </h2>
+      <p class="article-date">March 11, 2020</p>
+      
+        
+  <a href="/tags#SSE" >
+    <span class="tag-code">SSE</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          服务器推送技术之SSE
+需要浏览器支持
+
+服务端相应需要指定Content-type:text/event-stream
+
+
+模拟股票行情数据
+后端代码
+
+1234567891011121314151617181920212223242526272829/** * @author qixua ...
+        
+      </div>
+      <a class="more" href="2020/03/11/SSE/sse-1/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2020/03/11/netty/netty-im/">模拟简单群聊、私聊系统</a>
+      </h2>
+      <p class="article-date">March 11, 2020</p>
+      
+        
+  <a href="/tags#netty" >
+    <span class="tag-code">netty</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          模拟简单群聊、私聊系统（即时通信）
+使用技术（netty的websoket）
+
+即时通信需要双向协议
+
+由于http协议是单向的，所以http协议一般不会被选中做即时通信技术
+
+websocket 就是：http协议升级
+
+
+
+
+        
+      </div>
+      <a class="more" href="2020/03/11/netty/netty-im/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2020/03/11/netty/netty-server/">服务器推送技术</a>
+      </h2>
+      <p class="article-date">March 11, 2020</p>
+      
+        
+  <a href="/tags#netty" >
+    <span class="tag-code">netty</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          服务器推送技术（短轮询）Ajax短轮询：http 短轮询是 server 收到请求不管是否有数据到达都直接响应http请求；
+如果浏览器收到的数据为空，则隔一段时间，浏览器又会发送相同的http请求到server 
+以获取数据响应，就是用一个定时器不停的去网站上请求数据
+缺点：消息交互的实时 ...
+        
+      </div>
+      <a class="more" href="2020/03/11/netty/netty-server/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="2020/03/11/netty/netty-model/">Netty模型</a>
+      </h2>
+      <p class="article-date">March 11, 2020</p>
+      
+        
+  <a href="/tags#netty" >
+    <span class="tag-code">netty</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Netty模型
+bio 模型（单线程）
+
+nio 模型（双线程（一个线程负责接收连接，一个线程池负责数据读取处理））
+
+netty 模型（主从线程池）
+
+
+
+
+        
+      </div>
+      <a class="more" href="2020/03/11/netty/netty-model/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="2020/03/10/netty/netty-taskQueue/">Netty 自定义任务taskQueue</a>
       </h2>
       <p class="article-date">March 10, 2020</p>
@@ -261,140 +396,6 @@ Logstash采集nginx日志输出到es
         
       </div>
       <a class="more" href="2019/09/15/elasticsearch/elk-nginx-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/09/15/elasticsearch/elk-mysql-05/">logstash同步mysql数据到es</a>
-      </h2>
-      <p class="article-date">September 15, 2019</p>
-      
-        
-  <a href="/tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          logstash同步mysql到es
-进入elk容器
-
-1docker exec -it elk /bin/bash
-
-
-把mysql的t_case_cpws表的部分字段导入到es的mysql-test索引库
-
-可以设置定时
-
-进入/opt/logstash/config目录vi mysql ...
-        
-      </div>
-      <a class="more" href="2019/09/15/elasticsearch/elk-mysql-05/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/09/15/elasticsearch/elk-mysql-06/">logstash数据采集之mysql-to-es（指定ik分词）</a>
-      </h2>
-      <p class="article-date">September 15, 2019</p>
-      
-        
-  <a href="/tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          注意：如果执行失败，查看logstash是否已经正在运行中，如果是可以在elk容器里service logstash stop先停止logstash服务，再执行
-logstash的配置123456789101112131415161718192021222324252627282930313 ...
-        
-      </div>
-      <a class="more" href="2019/09/15/elasticsearch/elk-mysql-06/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/09/15/docker-learn/docker-03/">centos7 安装 ELK</a>
-      </h2>
-      <p class="article-date">September 15, 2019</p>
-      
-        
-  <a href="/tags#docker" >
-    <span class="tag-code">docker</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          
-之前docker使用分别安装E、L、K
-
-觉得还是不够方便，现在使用docker安装别人现成的ELK镜像
-
-
-1、安装ELK镜像
-安装7.1.1版本
-
-1docker pull sebp/elk:711
-
-2、运行123456789docker run -p 5601:5601 -p 92 ...
-        
-      </div>
-      <a class="more" href="2019/09/15/docker-learn/docker-03/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/09/15/docker-learn/docker-01/">centos7 安装 docker</a>
-      </h2>
-      <p class="article-date">September 15, 2019</p>
-      
-        
-  <a href="/tags#docker" >
-    <span class="tag-code">docker</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          centos7 安装 docker
-centos7系统（稳定,对docker支持友好）查看docker是否已安装 docker -v1、使用yum命令进行安装1yum install -y docker
-
-2、查看是否安装成功1234[root@localhost qixuan]# yum  ...
-        
-      </div>
-      <a class="more" href="2019/09/15/docker-learn/docker-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="2019/09/15/java/java-collections/">Java集合</a>
-      </h2>
-      <p class="article-date">September 15, 2019</p>
-      
-        
-  <a href="/tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          Java集合
-Java集合线程是否安全
-非线程安全的，效率高
-线程安全的，效率低
-补充：ConcurrentHashMap （线程安全、效率高）
-
-
-List HashMap Set 线程安全声明使用方法注意：在高并发情况下，list，hashmap，set都会存在–并发修改异常
-
-1.使用 ...
-        
-      </div>
-      <a class="more" href="2019/09/15/java/java-collections/">Read more</a>
     </article>
   
 
