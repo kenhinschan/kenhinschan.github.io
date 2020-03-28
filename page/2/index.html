@@ -147,6 +147,28 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/09/17/java/java-cas/">高并发下抢车票业务</a>
+      </h2>
+      <p class="article-date">September 17, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          高并发下抢车票业务，使用CAS设计锁（jvm层面的多线程安全）CAS（Compare and swap），即比较并交换，也是实现我们平时所说的自旋锁或乐观锁的核心操作。
+它的实现很简单，就是用一个预期的值和内存值进行比较，如果两个值相等，就用预期的值替换内存值，
+并返回 true。否则，返回 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/17/java/java-cas/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/09/15/elasticsearch/elk-nginx-01/">Logstash采集nginx日志输出到es</a>
       </h2>
       <p class="article-date">September 15, 2019</p>
@@ -376,35 +398,6 @@ List HashMap Set 线程安全声明使用方法注意：在高并发情况下，
         
       </div>
       <a class="more" href="../../2019/09/15/java/java-static/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/09/11/java/java-class/">Java的接口与抽象类</a>
-      </h2>
-      <p class="article-date">September 11, 2019</p>
-      
-        
-  <a href="../../tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          接口与抽象类的区别
-（1）抽象类可以有构造方法，接口中不能有构造方法。
-
-（2）抽象类中可以有普通成员变量，接口中没有普通成员变量
-
-（3）抽象类中可以包含静态方法，接口中不能包含静态方法
-
-（4）一个类可以实现多个接口，但只能继承一个抽象类。
-
-（5）接口可以被多重实现，抽象类只能被单一继 ...
-        
-      </div>
-      <a class="more" href="../../2019/09/11/java/java-class/">Read more</a>
     </article>
   
 
