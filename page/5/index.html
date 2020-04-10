@@ -147,6 +147,63 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/08/17/mysql/lock-01/">乐观锁与悲观锁</a>
+      </h2>
+      <p class="article-date">August 17, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          乐观锁与悲观锁1、悲观锁 （加锁）总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，
+所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁
+（共享资源每次只给一个线程使用，其它线程阻塞，用完后再把资源转让给其它线程）。
+传统的关系型数据库里边就用到了很多这种锁机制， ...
+        
+      </div>
+      <a class="more" href="../../2019/08/17/mysql/lock-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/17/jvm/jvm-memory/">jvm性能调休</a>
+      </h2>
+      <p class="article-date">August 17, 2019</p>
+      
+        
+  <a href="../../tags#jvm" >
+    <span class="tag-code">jvm</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          jvm性能调休
+堆内存溢出outofmemory
+堆区内存溢出
+
+12
+
+
+非堆区内存溢出
+
+代码模拟例子 （死循环向List不断添加对象，非堆区添加class）
+
+自动、手动导出jvm内存影像文件，分析
+
+
+生产环境死循环 导致内存、cpu飙升线程死锁 cpu飙升耗资源jvm性能调休工具使 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/17/jvm/jvm-memory/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/08/16/mysql/mysql-03/">千万、百万级数据量的快速分页limit 优化</a>
       </h2>
       <p class="article-date">August 16, 2019</p>
@@ -346,55 +403,6 @@ TODO
         
       </div>
       <a class="more" href="../../2019/08/09/FastDFS/fastdfs-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/07/mq/rabbitmq-01/">rabbitmq笔记</a>
-      </h2>
-      <p class="article-date">August 7, 2019</p>
-      
-        
-  <a href="../../tags#rabbitmq" >
-    <span class="tag-code">rabbitmq</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          rabbitmq笔记
-官网文档教程：https://www.rabbitmq.com/getstarted.html
-
-参考代码git：https://github.com/1805455228/myrabbitmq
-
-
-Virtual Hosts 相当于mysql的db
-新建一个Virtu ...
-        
-      </div>
-      <a class="more" href="../../2019/08/07/mq/rabbitmq-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/06/mq/rabbitmq-03/">rabbitmq 消息延迟消费、延迟重试</a>
-      </h2>
-      <p class="article-date">August 6, 2019</p>
-      
-        
-  <a href="../../tags#rabbitmq" >
-    <span class="tag-code">rabbitmq</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          延迟消费过程（每个消息可以单独设置失效时间）：
-
-声明 delay_queue_per_message_ttl 队列：死信队列，设置 DLX 参数，包含 x-dead-letter-exchange 表示失效后进入的 exchange（值为 delay_exchange，即实际消费交换机）、 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/06/mq/rabbitmq-03/">Read more</a>
     </article>
   
 

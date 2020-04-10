@@ -147,6 +147,58 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/08/26/linux-os/linux-01/">linux文件系统挂载</a>
+      </h2>
+      <p class="article-date">August 26, 2019</p>
+      
+        
+  <a href="../../tags#linux" >
+    <span class="tag-code">linux</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          软连接和挂载有什么区别（ln和mount）
+挂载
+
+12挂载是将其他机器上的磁盘映射到本机器上来，使得在本机器上可以访问其他机器的文件；如在IP1服务器上可以访问IP2上的资源
+
+
+命令
+
+123mount [-t vfstype] [-o options] device dir 挂载命令: ...
+        
+      </div>
+      <a class="more" href="../../2019/08/26/linux-os/linux-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/23/data-structure/fibonacci-sequence/">斐波那契数列--学习笔记</a>
+      </h2>
+      <p class="article-date">August 23, 2019</p>
+      
+        
+  <a href="../../tags#数据结构" >
+    <span class="tag-code">数据结构</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          –
+
+斐波那契数列
+
+123456789101112131415161718192021222324/** * @author qixuan.chen * @date 2019-08-23 12:01 */public class fibonacci &#123;        public ...
+        
+      </div>
+      <a class="more" href="../../2019/08/23/data-structure/fibonacci-sequence/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/08/21/elasticsearch/es-01/">docker安装elasticsearch</a>
       </h2>
       <p class="article-date">August 21, 2019</p>
@@ -349,63 +401,6 @@ redis事务使用123456789101112131415161718192021222324252627282930313233343536
         
       </div>
       <a class="more" href="../../2019/08/17/redis/redis-05/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/17/mysql/lock-01/">乐观锁与悲观锁</a>
-      </h2>
-      <p class="article-date">August 17, 2019</p>
-      
-        
-  <a href="../../tags#redis" >
-    <span class="tag-code">redis</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          乐观锁与悲观锁1、悲观锁 （加锁）总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，
-所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁
-（共享资源每次只给一个线程使用，其它线程阻塞，用完后再把资源转让给其它线程）。
-传统的关系型数据库里边就用到了很多这种锁机制， ...
-        
-      </div>
-      <a class="more" href="../../2019/08/17/mysql/lock-01/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/08/17/jvm/jvm-memory/">jvm性能调休</a>
-      </h2>
-      <p class="article-date">August 17, 2019</p>
-      
-        
-  <a href="../../tags#jvm" >
-    <span class="tag-code">jvm</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          jvm性能调休
-堆内存溢出outofmemory
-堆区内存溢出
-
-12
-
-
-非堆区内存溢出
-
-代码模拟例子 （死循环向List不断添加对象，非堆区添加class）
-
-自动、手动导出jvm内存影像文件，分析
-
-
-生产环境死循环 导致内存、cpu飙升线程死锁 cpu飙升耗资源jvm性能调休工具使 ...
-        
-      </div>
-      <a class="more" href="../../2019/08/17/jvm/jvm-memory/">Read more</a>
     </article>
   
 

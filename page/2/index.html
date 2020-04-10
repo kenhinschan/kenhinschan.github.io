@@ -147,6 +147,49 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2020/03/10/netty/netty-taskQueue/">Netty 自定义任务taskQueue</a>
+      </h2>
+      <p class="article-date">March 10, 2020</p>
+      
+        
+  <a href="../../tags#netty" >
+    <span class="tag-code">netty</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          任务队列中的Task有3种典型使用场景用户程序自定义的普通任务   这里有一个非常耗费时间的业务   -&gt;  异步执行    -&gt; 提交到该Channel对应的NioEventLoop的taskQueue中即可；
+   服务器端读取到数据的时候处理方法：
+   123456789 ...
+        
+      </div>
+      <a class="more" href="../../2020/03/10/netty/netty-taskQueue/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/29/java/java-enum/">Java枚举</a>
+      </h2>
+      <p class="article-date">September 29, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          java枚举类似一个小型的数据库
+1234567891011121314151617181920212223242526272829303132333435363738394041/** * @author qixuan.chen * @date 2019-09-25 21:56 */pub ...
+        
+      </div>
+      <a class="more" href="../../2019/09/29/java/java-enum/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/09/17/docker-learn/docker-compose-01/">centos7 安装 docker-compose</a>
       </h2>
       <p class="article-date">September 17, 2019</p>
@@ -352,51 +395,6 @@ List HashMap Set 线程安全声明使用方法注意：在高并发情况下，
         
       </div>
       <a class="more" href="../../2019/09/15/java/java-collections/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/09/15/springboot/sp-02/">springboot IOC容器</a>
-      </h2>
-      <p class="article-date">September 15, 2019</p>
-      
-        
-  <a href="../../tags#springboot" >
-    <span class="tag-code">springboot</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          1、spring bean的作用域
-默认作用域是单例，可以通过@scope修改
-
-2、spring bean的生命周期把bean交给ioc管理（@Controller @Service @Repository @Component）
-
-1、调用构造实例化（默认情况下，spring ioc容器 ...
-        
-      </div>
-      <a class="more" href="../../2019/09/15/springboot/sp-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/09/15/java/java-single/">Java的设计模式</a>
-      </h2>
-      <p class="article-date">September 15, 2019</p>
-      
-        
-  <a href="../../tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          1、单例模式（线程安全-双端检测）12345678910111213141516171819public class SingleObject &#123;    //在类加载到内存时候静态成员变量就存在了，而对象还不存在，volatile内存可见（防止指令重排，出现）    private ...
-        
-      </div>
-      <a class="more" href="../../2019/09/15/java/java-single/">Read more</a>
     </article>
   
 
