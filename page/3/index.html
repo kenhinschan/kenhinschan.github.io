@@ -147,6 +147,111 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="../../2019/09/15/elasticsearch/elk-mysql-05/">logstash同步mysql数据到es</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          logstash同步mysql到es
+进入elk容器
+
+1docker exec -it elk /bin/bash
+
+
+把mysql的t_case_cpws表的部分字段导入到es的mysql-test索引库
+
+可以设置定时
+
+进入/opt/logstash/config目录vi mysql ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/elasticsearch/elk-mysql-05/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/elasticsearch/elk-mysql-06/">logstash数据采集之mysql-to-es（指定ik分词）</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          注意：如果执行失败，查看logstash是否已经正在运行中，如果是可以在elk容器里service logstash stop先停止logstash服务，再执行
+logstash的配置123456789101112131415161718192021222324252627282930313 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/elasticsearch/elk-mysql-06/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/docker-learn/docker-03/">centos7 安装 ELK</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#docker" >
+    <span class="tag-code">docker</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+之前docker使用分别安装E、L、K
+
+觉得还是不够方便，现在使用docker安装别人现成的ELK镜像
+
+
+1、安装ELK镜像
+安装7.1.1版本
+
+1docker pull sebp/elk:711
+
+2、运行123456789docker run -p 5601:5601 -p 92 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/docker-learn/docker-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/docker-learn/docker-01/">centos7 安装 docker</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#docker" >
+    <span class="tag-code">docker</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          centos7 安装 docker
+centos7系统（稳定,对docker支持友好）查看docker是否已安装 docker -v1、使用yum命令进行安装1yum install -y docker
+
+2、查看是否安装成功1234[root@localhost qixuan]# yum  ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/docker-learn/docker-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="../../2019/09/15/java/java-collections/">Java集合</a>
       </h2>
       <p class="article-date">September 15, 2019</p>
@@ -303,119 +408,6 @@ K：kibana 数据分析
         
       </div>
       <a class="more" href="../../2019/09/06/elasticsearch/es-04/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/09/05/elasticsearch/es-02/">elasticsearch全文检索</a>
-      </h2>
-      <p class="article-date">September 5, 2019</p>
-      
-        
-  <a href="../../tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          基于Lucene全文搜索引擎的全文检索技术框架
-elasticsearch（分布式的）（推荐）
-
-solr（出现比较早）
-
-
-es与mysql数据库对比
-
-
-关系型数据库
-Elasticsearch
-
-
-
-database（数据库）
-index（索引）
-
-
-table（表）
-type（类型） ...
-        
-      </div>
-      <a class="more" href="../../2019/09/05/elasticsearch/es-02/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/09/05/elasticsearch/es-03/">基于elasticsearch的IK中文分词笔记</a>
-      </h2>
-      <p class="article-date">September 5, 2019</p>
-      
-        
-  <a href="../../tags#elasticsearch" >
-    <span class="tag-code">elasticsearch</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          基于elasticsearch的IK中文分词笔记使用
-自带的分词（对中文支持不好）
-
-123456GET /_analyze&#123;  "analyzer": "standard",  "text": "我是程序员，我是帅哥"&#125;
-
-
-IK分词（有多种模式）
-
-ik_max_wo ...
-        
-      </div>
-      <a class="more" href="../../2019/09/05/elasticsearch/es-03/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/09/04/java/java-queue/">Java队列</a>
-      </h2>
-      <p class="article-date">September 4, 2019</p>
-      
-        
-  <a href="../../tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          
-ArrayBlockingQueue ：一个由数组支持的有界队列。
-LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。
-PriorityBlockingQueue ：一个由优先级堆支持的无界优先级队列。
-DelayQueue ：一个由优先级堆支持的、基于时间的调度 ...
-        
-      </div>
-      <a class="more" href="../../2019/09/04/java/java-queue/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="../../2019/09/04/maven/maven-01/">dependencies与dependencyManagement的区别</a>
-      </h2>
-      <p class="article-date">September 4, 2019</p>
-      
-        
-  <a href="../../tags#maven" >
-    <span class="tag-code">maven</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          如果一个项目有多个模块组成，各个模块各自引入自己的bao，难免出现同一个包出现在项目的不同模块中的情况。这时候就会产生冲突，进而导致打包失败。此时就要用到统一的依赖管理，目的就是统一项目使用到的依赖
-dependencies与dependencyManagement的区别
-dependenc ...
-        
-      </div>
-      <a class="more" href="../../2019/09/04/maven/maven-01/">Read more</a>
     </article>
   
 
