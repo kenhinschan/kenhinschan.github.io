@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      rabbitmq 消息延迟推送 | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>rabbitmq 消息延迟推送</h2>
+  <p class="post-date">2019-08-06</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="rabbitmq-消息推送-（实时）"><a href="#rabbitmq-消息推送-（实时）" class="headerlink" title="rabbitmq 消息推送 （实时）"></a>rabbitmq 消息推送 （实时）</h2><ul>
+<li><p>生产者</p>
+</li>
+<li><p>消费者</p>
+</li>
+</ul>
+<h2 id="rabbitmq-消息推送-（延迟、定时）"><a href="#rabbitmq-消息推送-（延迟、定时）" class="headerlink" title="rabbitmq 消息推送 （延迟、定时）"></a>rabbitmq 消息推送 （延迟、定时）</h2><ul>
+<li>实战场景</li>
+</ul>
+<ul>
+<li>订单未支付，2小时删除</li>
+</ul>
+<h3 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h3><ul>
+<li><p>在RabbitMQ 3.6.x 之前我们一般采用死信队列+TTL过期时间来实现延迟队列 （会有阻塞，因为队列是先进先出）</p>
+</li>
+<li><p>其实精华就是两个队列是一组，一个队列用来缓存消息并绑定超时时间，另一个队列是真正的消费队列，中间用一个DLX关联起来，缓存队列绝对不能被直接消费</p>
+</li>
+<li><p>RabbitmqConfig配置类</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">//================延迟消息队列（死信</span> <span class="string">消息的TTL</span> <span class="string">dlx）========================</span></span><br><span class="line"><span class="string">//定时消息推送（如订单1小时候未支付，删除订单）、或者焦点文章发布消息通知提醒</span></span><br><span class="line"><span class="string">//过期消息队列</span> <span class="string">（不需要消费者监听）</span></span><br><span class="line"><span class="string">public</span> <span class="string">static</span> <span class="string">final</span> <span class="string">String</span> <span class="string">TTL_EXCHANGE</span> <span class="string">=</span> <span class="string">"ttl_exchange"</span><span class="string">;</span></span><br><span class="line"><span class="string">public</span> <span class="string">static</span> <span class="string">final</span> <span class="string">String</span> <span class="string">TTL_QUEUE</span> <span class="string">=</span> <span class="string">"ttl_queue"</span><span class="string">;//（过期消息队列，不需要消费者监听）</span></span><br><span class="line"><span class="string">public</span> <span class="string">static</span> <span class="string">final</span> <span class="string">String</span> <span class="string">TTL_ROUTINGKEY</span> <span class="string">=</span> <span class="string">"ttl_routingkey"</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line"><span class="string">//死信消息队列</span> <span class="string">（需要消费者监听）</span></span><br><span class="line"><span class="string">public</span> <span class="string">static</span> <span class="string">final</span> <span class="string">String</span> <span class="string">DELAY_EXCHANGE</span> <span class="string">=</span> <span class="string">"delay_exchange"</span><span class="string">;</span></span><br><span class="line"><span class="string">public</span> <span class="string">static</span> <span class="string">final</span> <span class="string">String</span> <span class="string">DELAY_QUEUE</span> <span class="string">=</span> <span class="string">"delay_queue"</span><span class="string">;//（需要消费者监听）</span></span><br><span class="line"><span class="string">public</span> <span class="string">static</span> <span class="string">final</span> <span class="string">String</span> <span class="string">DELAY_ROUTINGKEY</span> <span class="string">=</span> <span class="string">"delay_routingkey"</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//================延迟消息队列（ttl过期</span> <span class="string">dlx死信）</span> <span class="string">=====begin========================</span></span><br><span class="line">    <span class="string">//定时消息推送（如订单1小时候未支付，删除订单）、或者焦点文章发布消息通知提醒</span></span><br><span class="line">    <span class="string">@Bean</span></span><br><span class="line">    <span class="string">public</span> <span class="string">DirectExchange</span> <span class="string">ttlExchange()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">new</span> <span class="string">DirectExchange(TTL_EXCHANGE,</span> <span class="literal">true</span><span class="string">,</span> <span class="literal">false</span><span class="string">);</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//队列</span> <span class="string">(TTL队列)</span></span><br><span class="line">    <span class="string">@Bean</span></span><br><span class="line">    <span class="string">public</span> <span class="string">Queue</span> <span class="string">ttlQueue()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">//过期转发---配置</span></span><br><span class="line">        <span class="string">Map&lt;String,</span> <span class="string">Object&gt;</span> <span class="string">params</span> <span class="string">=</span> <span class="string">new</span> <span class="string">HashMap&lt;&gt;();</span></span><br><span class="line">        <span class="string">params.put("x-dead-letter-exchange",</span> <span class="string">DELAY_EXCHANGE);</span></span><br><span class="line">        <span class="string">params.put("x-dead-letter-routing-key",</span> <span class="string">DELAY_ROUTINGKEY);</span></span><br><span class="line">        <span class="string">//params.put("x-message-ttl",3*1000);</span></span><br><span class="line">        <span class="string">return</span> <span class="string">new</span> <span class="string">Queue(TTL_QUEUE,</span> <span class="literal">true</span><span class="string">,</span> <span class="literal">false</span><span class="string">,</span> <span class="literal">false</span><span class="string">,</span> <span class="string">params);</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//TTL队列</span> <span class="string">和</span> <span class="string">交换机绑定</span></span><br><span class="line">    <span class="string">@Bean</span></span><br><span class="line">    <span class="string">public</span> <span class="string">Binding</span> <span class="string">ttlBinding()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">BindingBuilder.bind(ttlQueue()).to(ttlExchange()).with(RabbitConfig.TTL_ROUTINGKEY);</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//死信</span></span><br><span class="line">    <span class="string">@Bean</span></span><br><span class="line">    <span class="string">public</span> <span class="string">DirectExchange</span> <span class="string">delayExchange()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">new</span> <span class="string">DirectExchange(DELAY_EXCHANGE,</span> <span class="literal">true</span><span class="string">,</span> <span class="literal">false</span><span class="string">);</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@Bean</span></span><br><span class="line">    <span class="string">public</span> <span class="string">Queue</span> <span class="string">delayQueue()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">new</span> <span class="string">Queue(DELAY_QUEUE,</span> <span class="literal">true</span><span class="string">);</span> <span class="string">//</span> <span class="string">队列持久</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//转发队列</span> <span class="string">和</span> <span class="string">交换机</span> <span class="string">绑定</span></span><br><span class="line">    <span class="string">@Bean</span></span><br><span class="line">    <span class="string">public</span> <span class="string">Binding</span> <span class="string">delayBinding()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">BindingBuilder.bind(delayQueue()).to(delayExchange()).with(RabbitConfig.DELAY_ROUTINGKEY);</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">//================延迟消息队列</span> <span class="string">（ttl过期</span> <span class="string">dlx死信）</span> <span class="string">=====end========================</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生产者：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">@RestController</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">ScheduleSender</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@Autowired</span></span><br><span class="line">    <span class="string">private</span> <span class="string">RabbitTemplate</span> <span class="string">rabbitTemplate;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="string">@RequestMapping(value="/send1",method</span> <span class="string">=</span> <span class="string">&#123;RequestMethod.POST,RequestMethod.GET&#125;)</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">send1()&#123;</span></span><br><span class="line">        <span class="string">User</span> <span class="string">user</span> <span class="string">=</span> <span class="string">new</span> <span class="string">User();</span></span><br><span class="line">        <span class="string">user.setId("111");</span></span><br><span class="line">        <span class="string">user.setEmail("1805455228@qq.com");</span></span><br><span class="line">        <span class="string">user.setUsername("xuan你是");</span></span><br><span class="line"></span><br><span class="line">        <span class="string">send(user,</span> <span class="number">5</span><span class="string">*1000);//发送消息</span></span><br><span class="line">        <span class="string">return</span> <span class="string">"success"</span><span class="string">;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@RequestMapping(value="/send2",method</span> <span class="string">=</span> <span class="string">&#123;RequestMethod.POST,RequestMethod.GET&#125;)</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">send2()&#123;</span></span><br><span class="line">        <span class="string">User</span> <span class="string">user</span> <span class="string">=</span> <span class="string">new</span> <span class="string">User();</span></span><br><span class="line">        <span class="string">user.setId("222");</span></span><br><span class="line">        <span class="string">user.setEmail("1805455228@qq.com");</span></span><br><span class="line">        <span class="string">user.setUsername("xuan你是1222222");</span></span><br><span class="line"></span><br><span class="line">        <span class="string">send(user,</span> <span class="number">30</span><span class="string">*1000);//发送消息</span></span><br><span class="line">        <span class="string">return</span> <span class="string">"success"</span><span class="string">;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@RequestMapping(value="/send3",method</span> <span class="string">=</span> <span class="string">&#123;RequestMethod.POST,RequestMethod.GET&#125;)</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">send3()&#123;</span></span><br><span class="line">        <span class="string">User</span> <span class="string">user</span> <span class="string">=</span> <span class="string">new</span> <span class="string">User();</span></span><br><span class="line">        <span class="string">user.setId("333");</span></span><br><span class="line">        <span class="string">user.setEmail("1805455228@qq.com");</span></span><br><span class="line">        <span class="string">user.setUsername("xuan你是1222222");</span></span><br><span class="line"></span><br><span class="line">        <span class="string">send(user,</span> <span class="number">60</span><span class="string">*1000);//发送消息</span></span><br><span class="line">        <span class="string">return</span> <span class="string">"success"</span><span class="string">;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">发送消息</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">user</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">delayTime</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">public</span> <span class="string">void</span> <span class="string">send(User</span> <span class="string">user,</span> <span class="string">int</span> <span class="string">delayTime)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">System.out.println("delayTime"</span> <span class="string">+</span> <span class="string">delayTime);</span></span><br><span class="line">        <span class="string">SimpleDateFormat</span> <span class="string">sdf</span> <span class="string">=</span> <span class="string">new</span> <span class="string">SimpleDateFormat("yyyy-MM-dd</span> <span class="attr">HH:mm:ss");</span></span><br><span class="line"></span><br><span class="line">        <span class="string">this.rabbitTemplate.convertAndSend(RabbitConfig.TTL_EXCHANGE,</span> <span class="string">RabbitConfig.TTL_ROUTINGKEY,</span> <span class="string">user,</span> <span class="string">message</span> <span class="bullet">-&gt;</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">message.getMessageProperties().setExpiration(delayTime</span> <span class="string">+</span> <span class="string">""</span><span class="string">);</span></span><br><span class="line">            <span class="string">System.out.println(sdf.format(new</span> <span class="string">Date())</span> <span class="string">+</span> <span class="string">" Delay sent."</span><span class="string">);</span></span><br><span class="line">            <span class="string">return</span> <span class="string">message;</span></span><br><span class="line">        <span class="string">&#125;);</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>消费者：</p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">@Component</span></span><br><span class="line"><span class="string">@RabbitListener(queues</span> <span class="string">=</span> <span class="string">RabbitConfig.DELAY_QUEUE)</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">ScheduleReceiver</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">private</span> <span class="string">final</span> <span class="string">Logger</span> <span class="string">logger</span> <span class="string">=</span> <span class="string">LoggerFactory.getLogger(this.getClass());</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@Autowired</span></span><br><span class="line">    <span class="string">private</span> <span class="string">RabbitTemplate</span> <span class="string">rabbitTemplate;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@RabbitHandler</span></span><br><span class="line">    <span class="string">public</span> <span class="string">void</span> <span class="string">receive(User</span> <span class="string">content)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">logger.info("=======收到====延迟====发送的消息：</span> <span class="string">&#123;&#125;"</span> <span class="string">,</span> <span class="string">content);</span></span><br><span class="line">        <span class="string">//TODO</span> <span class="string">处理你需要实现的业务代码</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h3><ul>
+<li><p>生产者</p>
+</li>
+<li><p>消费者</p>
+</li>
+</ul>
+<h2 id="设计-死信-机制-（）"><a href="#设计-死信-机制-（）" class="headerlink" title="设计 死信 机制 （）"></a>设计 死信 机制 （）</h2><ul>
+<li><p>要让生产发送的消息过期，所以不要设置消费者监听这个队列，除非在channel中应答模式为reject，并且不再重新投回，否则不会转发到死信队列</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">@Component</span></span><br><span class="line"><span class="string">@RabbitListener(queues</span> <span class="string">=</span> <span class="string">"X-Queue-ttl"</span><span class="string">)</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">TtlMessageListener</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@RabbitHandler</span></span><br><span class="line">    <span class="string">public</span> <span class="string">void</span> <span class="string">receive(@Payload</span> <span class="string">String</span> <span class="string">message,Channel</span> <span class="string">channel,</span> <span class="string">@Header(AmqpHeaders.DELIVERY_TAG)</span> <span class="string">long</span> <span class="string">tag)</span> <span class="string">throws</span> <span class="string">IOException</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">log.info("接受到消息》》》》》》"</span> <span class="string">+</span> <span class="string">message);</span></span><br><span class="line">        <span class="string">if</span> <span class="string">("reject".equals(message))</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">//应答模式为拒绝，并且不再投回</span></span><br><span class="line">            <span class="string">channel.basicReject(tag,false);</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不能让这个队列里面的消息被接受到，否则消息一旦被消费，就不存在过期了</p>
+</li>
+<li><p>等待过时后进入死信队列</p>
+<pre><code>注意：由于队列的先进先出特性，只有当过期的消息到了队列的顶端（队首），才会被真正的丢弃或者进入死信队列。
+所以在考虑使用RabbitMQ来实现延迟任务队列的时候，需要确保业务上每个任务的延迟时间是一致的。
+如果遇到不同的任务类型需要不同的延时的话，需要为每一种不同延迟时间的消息建立单独的消息队列。</code></pre></li>
+</ul>
+<ul>
+<li>git项目地址：<a href="https://github.com/1805455228/springboot-learning" target="_blank" rel="noopener">https://github.com/1805455228/springboot-learning</a>   </li>
+</ul>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#rabbitmq" >
+    <span class="tag-code">rabbitmq</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../../../05/springboot/sb-01/">
+        <span class="nav-arrow">← </span>
+        
+          springboot AOP
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../rabbitmq-03/">
+        
+          rabbitmq 消息延迟消费、延迟重试
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#rabbitmq-消息推送-（实时）"><span class="toc-nav-text">rabbitmq 消息推送 （实时）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#rabbitmq-消息推送-（延迟、定时）"><span class="toc-nav-text">rabbitmq 消息推送 （延迟、定时）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#方式1"><span class="toc-nav-text">方式1</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#方式2"><span class="toc-nav-text">方式2</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#设计-死信-机制-（）"><span class="toc-nav-text">设计 死信 机制 （）</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2019/08/06/mq/rabbitmq-02/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "rabbitmq 消息延迟推送",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

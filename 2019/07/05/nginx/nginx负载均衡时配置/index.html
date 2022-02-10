@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      nginx负载均衡时配置 | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>nginx负载均衡时配置</h2>
+  <p class="post-date">2019-07-05</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="nginx负载均衡时配置"><a href="#nginx负载均衡时配置" class="headerlink" title="nginx负载均衡时配置"></a>nginx负载均衡时配置</h2><hr>
+<ul>
+<li>　在服务器集群中，Nginx起到一个代理服务器的角色（即反向代理），<br>为了避免单独一个服务器压力过大，将来自用户的请求转发给不同的服务器</li>
+</ul>
+<h3 id="1、内置负载策略"><a href="#1、内置负载策略" class="headerlink" title="1、内置负载策略"></a>1、内置负载策略</h3><ul>
+<li>Nginx负载均衡是通过upstream模块来实现的，内置实现了三种负载策略，配置还是比较简单的。<br>官网负载均衡配置说明：<a href="http://nginx.org/en/docs/http/load_balancing.html" target="_blank" rel="noopener">http://nginx.org/en/docs/http/load_balancing.html</a></li>
+</ul>
+<ul>
+<li><p>轮循（默认）<br>Nginx根据请求次数，将每个请求均匀分配到每台服务器</p>
+</li>
+<li><p>最少连接<br>将请求分配给连接数最少的服务器。Nginx会统计哪些服务器的连接数最少。</p>
+</li>
+<li><p>IP Hash<br>绑定处理请求的服务器。第一次请求时，根据该客户端的IP算出一个HASH值，<br>将请求分配到集群中的某一台服务器上。后面该客户端的所有请求，<br>都将通过HASH算法，找到之前处理这台客户端请求的服务器，<br>然后将请求交给它来处理。（虽然解决了session的问题，但用了iphash你的集群就没有意义了）</p>
+</li>
+</ul>
+<h3 id="2、负载均衡配置参考"><a href="#2、负载均衡配置参考" class="headerlink" title="2、负载均衡配置参考"></a>2、负载均衡配置参考</h3><ul>
+<li>负载均衡用于从“upstream”模块定义的后端服务器列表中选取一台服务器接受用户的请求。<br>一个最基本的upstream模块是这样的，模块内的server是服务器列表：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line"> </span><br><span class="line">    # ... 省略其它配置</span><br><span class="line"> </span><br><span class="line">    upstream tomcats &#123;</span><br><span class="line">        server 192.168.0.100:8080 weight=6;</span><br><span class="line">        server 192.168.0.101:8080 weight=1 backup;</span><br><span class="line">        server example.com:8080 weight=3;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line"> </span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://tomcats;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # ... 省略其它配置</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、负载均衡策略"><a href="#3、负载均衡策略" class="headerlink" title="3、负载均衡策略"></a>3、负载均衡策略</h3><ul>
+<li>轮询        - 默认方式</li>
+<li>weight    - 权重方式</li>
+<li>ip_hash    - 依据ip分配方式</li>
+<li>least_conn    - 最少连接方式</li>
+<li>fair（第三方）    - 响应时间方式</li>
+<li>url_hash（第三方）    - 依据URL分配方式</li>
+</ul>
+<h3 id="4、负载均衡实践"><a href="#4、负载均衡实践" class="headerlink" title="4、负载均衡实践"></a>4、负载均衡实践</h3><ul>
+<li>服务器节点1   - 127.0.0.1:8081</li>
+<li>服务器节点2   - 127.0.0.1:8082</li>
+<li>服务器节点3   - 127.0.0.1:8083</li>
+</ul>
+<hr>
+<p>nginx启动运行命令：</p>
+<pre><code>/usr/local/Cellar/nginx/1.8.1/bin/nginx -c /usr/local/etc/nginx/nginx.conf </code></pre><p>nginx配置文件nginx.conf</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#user  nobody;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">#error_log  logs/error.log;</span><br><span class="line">#error_log  logs/error.log  notice;</span><br><span class="line">#error_log  logs/error.log  info;</span><br><span class="line"></span><br><span class="line">#pid        logs/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    # 负载均衡策略</span><br><span class="line">    upstream tomcats &#123;</span><br><span class="line">        server 127.0.0.1:8081 weight=4;</span><br><span class="line">        server 127.0.0.1:8082 weight=3 backup; # 备用机</span><br><span class="line">        server 127.0.0.1:8083 weight=3;</span><br><span class="line">        # ip_hash;</span><br><span class="line">        least_conn;    #把请求转发给连接数较少的后端服务器</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">    #                  '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">    #                  '"$http_user_agent" "$http_x_forwarded_for"';</span><br><span class="line"></span><br><span class="line">    #access_log  logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    #keepalive_timeout  0;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line">        charset utf-8;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        # 负载均衡</span><br><span class="line">        location /node &#123;</span><br><span class="line">            proxy_pass http://tomcats;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        # 静态资源-虚拟目录</span><br><span class="line">        location /test &#123;</span><br><span class="line">            alias  /Users/chenqixuan/Documents/Javaworkspace/temp/;</span><br><span class="line">            autoindex on; </span><br><span class="line">            autoindex_exact_size off;  </span><br><span class="line">            autoindex_localtime on;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">        # redirect server error pages to the static page /50x.html</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    include servers/*;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建三个springboot项目，配置不同的端口，三个项目运行在不同的端口上</li>
+</ul>
+<p><img src="/image/nginx-cl-1.png" alt></p>
+<ul>
+<li>运行测试：轮询策略：节点1与节点3轮询访问；<br>依次关闭节点1、节点3，再测试访问；然后再开启节点1、节点3，恢复正常<br><img src="/image/nginx-cl-2.jpg" alt><br><img src="/image/nginx-cl-3.jpg" alt></li>
+</ul>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#nginx" >
+    <span class="tag-code">nginx</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../../../../06/29/hello-world/">
+        <span class="nav-arrow">← </span>
+        
+          Hello World
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../../../06/springboot配置devtools实现热部署/">
+        
+          springboot配置devtools实现热部署
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#nginx负载均衡时配置"><span class="toc-nav-text">nginx负载均衡时配置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1、内置负载策略"><span class="toc-nav-text">1、内置负载策略</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2、负载均衡配置参考"><span class="toc-nav-text">2、负载均衡配置参考</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#3、负载均衡策略"><span class="toc-nav-text">3、负载均衡策略</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#4、负载均衡实践"><span class="toc-nav-text">4、负载均衡实践</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2019/07/05/nginx/nginx负载均衡时配置/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "nginx负载均衡时配置",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

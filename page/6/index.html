@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../css/images/logo.png">
+  
+  <title>
+    
+      个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../js/qrious.js"></script>
+  
+  
+    <script src="../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/16/mysql/mysql-02/">数据库连接池满的问题</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="../../tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          数据库连接池满的问题
+连接池参数调休—首先调大最大连接池数
+
+因为代码的错误而导致的数据库连接没有释放的问题
+
+查看什么原因链接池没有被释放，或者一直被占用
+
+
+
+        
+      </div>
+      <a class="more" href="../../2019/08/16/mysql/mysql-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/16/jvm/jvm-02/">JVM 笔记</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="../../tags#jvm" >
+    <span class="tag-code">jvm</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          JVM
+了解jvm有助于理解Java编程、程序性能调休
+
+mac查看Java安装目录 /usr/libexec/java_home -V
+
+
+jvm结构
+TODO
+
+1、类加载器 （class文件）2、运行时数据区 （5块区域）（重点）
+结构
+
+1、虚拟机栈 （栈）== 先进后出 生命周期： ...
+        
+      </div>
+      <a class="more" href="../../2019/08/16/jvm/jvm-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/15/tomcat/tomcat-01/">docker 安装 tomcat</a>
+      </h2>
+      <p class="article-date">August 15, 2019</p>
+      
+        
+  <a href="../../tags#docker, tomcat" >
+    <span class="tag-code">docker, tomcat</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          搜查镜像docker search tomcat
+拉取镜像docker pull tomcat
+运行docker run -d -p 8081:8080 tomcat
+开放端口后，要重启防火墙firewall-cmd –zone=public –add-port=8080/tcp –perm ...
+        
+      </div>
+      <a class="more" href="../../2019/08/15/tomcat/tomcat-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/14/FastDFS/fastdfs-02/">docker 安装FastDFS （tracker、storage）</a>
+      </h2>
+      <p class="article-date">August 14, 2019</p>
+      
+        
+  <a href="../../tags#FastDFS" >
+    <span class="tag-code">FastDFS</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          docker 安装FastDFS搜查FastDFS镜像docker search fastdfs
+1、拉取镜像1docker pull ` luhuiguo/fastdfs
+
+2、启动tracker、storage123456789101112# 启动一个tracker服务器docker r ...
+        
+      </div>
+      <a class="more" href="../../2019/08/14/FastDFS/fastdfs-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/09/FastDFS/fastdfs-03/">springboot 整合FastDFS</a>
+      </h2>
+      <p class="article-date">August 9, 2019</p>
+      
+        
+  <a href="../../tags#FastDFS" >
+    <span class="tag-code">FastDFS</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          1、加入maven坐标12345&lt;dependency&gt;    &lt;groupId&gt;com.github.tobato&lt;/groupId&gt;    &lt;artifactId&gt;fastdfs-client&lt;/artifactId&gt;    & ...
+        
+      </div>
+      <a class="more" href="../../2019/08/09/FastDFS/fastdfs-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/09/FastDFS/fastdfs-01/">docker 安装一键部署FastDFS （分布式文件存储）</a>
+      </h2>
+      <p class="article-date">August 9, 2019</p>
+      
+        
+  <a href="../../tags#FastDFS" >
+    <span class="tag-code">FastDFS</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          docker 安装FastDFS
+不利用docker安装，是比较复杂的
+
+利用docker安装镜像，可以安装别人配置好的FastDFS
+
+只要运行命令就可以了
+
+
+一键部署FastDFS 文件存储单机版拉取镜像
+
+封装好的fastDFS镜像：egistry.cn-beijing.aliyun ...
+        
+      </div>
+      <a class="more" href="../../2019/08/09/FastDFS/fastdfs-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/07/mq/rabbitmq-01/">rabbitmq笔记</a>
+      </h2>
+      <p class="article-date">August 7, 2019</p>
+      
+        
+  <a href="../../tags#rabbitmq" >
+    <span class="tag-code">rabbitmq</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          rabbitmq笔记
+官网文档教程：https://www.rabbitmq.com/getstarted.html
+
+参考代码git：https://github.com/1805455228/myrabbitmq
+
+
+Virtual Hosts 相当于mysql的db
+新建一个Virtu ...
+        
+      </div>
+      <a class="more" href="../../2019/08/07/mq/rabbitmq-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/06/mq/rabbitmq-03/">rabbitmq 消息延迟消费、延迟重试</a>
+      </h2>
+      <p class="article-date">August 6, 2019</p>
+      
+        
+  <a href="../../tags#rabbitmq" >
+    <span class="tag-code">rabbitmq</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          延迟消费过程（每个消息可以单独设置失效时间）：
+
+声明 delay_queue_per_message_ttl 队列：死信队列，设置 DLX 参数，包含 x-dead-letter-exchange 表示失效后进入的 exchange（值为 delay_exchange，即实际消费交换机）、 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/06/mq/rabbitmq-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/06/mq/rabbitmq-02/">rabbitmq 消息延迟推送</a>
+      </h2>
+      <p class="article-date">August 6, 2019</p>
+      
+        
+  <a href="../../tags#rabbitmq" >
+    <span class="tag-code">rabbitmq</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          rabbitmq 消息推送 （实时）
+生产者
+
+消费者
+
+
+rabbitmq 消息推送 （延迟、定时）
+实战场景
+
+
+订单未支付，2小时删除
+
+方式1
+在RabbitMQ 3.6.x 之前我们一般采用死信队列+TTL过期时间来实现延迟队列 （会有阻塞，因为队列是先进先出）
+
+其实精华就是两个 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/06/mq/rabbitmq-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/05/springboot/sb-01/">springboot AOP</a>
+      </h2>
+      <p class="article-date">August 5, 2019</p>
+      
+        
+  <a href="../../tags#springboot" >
+    <span class="tag-code">springboot</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          springboot AOP笔记springboot AOP 面向切面编程
+加入maven坐标
+
+1234&lt;dependency&gt;        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;        &lt; ...
+        
+      </div>
+      <a class="more" href="../../2019/08/05/springboot/sb-01/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="../5/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a href="../7/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../js/script.js"></script>
+  </body>
+</html>

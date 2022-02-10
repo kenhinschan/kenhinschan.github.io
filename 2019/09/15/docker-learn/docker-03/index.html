@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      centos7 安装 ELK | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>centos7 安装 ELK</h2>
+  <p class="post-date">2019-09-15</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><ul>
+<li><p>之前docker使用分别安装E、L、K</p>
+</li>
+<li><p>觉得还是不够方便，现在使用docker安装别人现成的ELK镜像</p>
+</li>
+</ul>
+<h2 id="1、安装ELK镜像"><a href="#1、安装ELK镜像" class="headerlink" title="1、安装ELK镜像"></a>1、安装ELK镜像</h2><ul>
+<li>安装7.1.1版本</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">pull</span> <span class="string">sebp/elk:711</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、运行"><a href="#2、运行" class="headerlink" title="2、运行"></a>2、运行</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-p</span> <span class="number">5601</span><span class="string">:5601</span> <span class="bullet">-p</span> <span class="number">9200</span><span class="string">:9200</span> <span class="bullet">-p</span> <span class="number">5044</span><span class="string">:5044</span> <span class="bullet">-it</span> <span class="bullet">--name</span> <span class="string">elk</span> <span class="string">sebp/elk:711</span></span><br><span class="line"></span><br><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-p</span> <span class="number">5601</span><span class="string">:5601</span> <span class="bullet">-p</span> <span class="number">9200</span><span class="string">:9200</span> <span class="bullet">-p</span> <span class="number">5044</span><span class="string">:5044</span> <span class="bullet">-e</span> <span class="string">ES_MIN_MEM=128m</span> <span class="bullet">-e</span> <span class="string">ES_MAX_MEM=2048m</span> <span class="bullet">-it</span> <span class="bullet">--name</span> <span class="string">elk</span> <span class="string">sebp/elk:711</span></span><br><span class="line"></span><br><span class="line"><span class="string">运行此容器的时候，需要将宿主机的端口转发到该容器，其中ES端口为9200，kibana端口为5601，</span></span><br><span class="line"><span class="string">logbate端口为5044；另外笔者建议将配置文件和数据存放在宿主机，便于后期维护，</span></span><br><span class="line"><span class="string">因此还需要将宿主机目录挂载到容器/data当中；最后构造的命令如下:</span></span><br><span class="line"></span><br><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-p</span>  <span class="number">5601</span><span class="string">:5601</span> <span class="bullet">-p</span> <span class="number">9200</span><span class="string">:9200</span> <span class="bullet">-p</span> <span class="number">5044</span><span class="string">:5044</span>  <span class="bullet">-v</span> <span class="string">/home/logs:/data/logs</span> <span class="bullet">-v</span> <span class="string">/home/logstash/config2:/opt/logstash/config/logsconfig</span> <span class="bullet">-it</span> <span class="bullet">-d</span> <span class="bullet">--name</span> <span class="string">elkv2</span> <span class="string">elk_v7</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>5601：kibana web接口</p>
+</li>
+<li><p>9200：elasticsearch JSON接口</p>
+</li>
+<li><p>5044：logstash 日志接受接口</p>
+</li>
+</ul>
+<h2 id="启动失败"><a href="#启动失败" class="headerlink" title="启动失败"></a>启动失败</h2><ul>
+<li><p>启动报错</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[2019-09-07T01:31:34,749][ERROR][o.e.b.Bootstrap</span>          <span class="string">]</span> <span class="string">[elk]</span> <span class="string">node</span> <span class="string">validation</span> <span class="string">exception</span></span><br><span class="line"><span class="string">[1]</span> <span class="string">bootstrap</span> <span class="string">checks</span> <span class="string">failed</span></span><br><span class="line"><span class="string">[1]:</span> <span class="string">max</span> <span class="string">virtual</span> <span class="string">memory</span> <span class="string">areas</span> <span class="string">vm.max_map_count</span> <span class="string">[65530]</span> <span class="string">is</span> <span class="string">too</span> <span class="string">low,</span> <span class="string">increase</span> <span class="string">to</span> <span class="string">at</span> <span class="string">least</span> <span class="string">[262144]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决办法</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">在/etc/sysctl.conf下添加</span></span><br><span class="line"><span class="string">vm.max_map_count=262144</span></span><br><span class="line"><span class="string">保存退出后，执行一下命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看配置是否生效</span></span><br><span class="line"><span class="string">sysctl</span> <span class="bullet">-p</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新启动容器</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">start</span> <span class="number">067</span><span class="string">eba4c5e70</span> <span class="string">&amp;&amp;</span> <span class="string">docker</span> <span class="string">logs</span> <span class="bullet">-f</span> <span class="number">067</span><span class="string">eba4c5e70</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="配置使用"><a href="#配置使用" class="headerlink" title="配置使用"></a>配置使用</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">exec</span> <span class="bullet">-it</span> <span class="string">elk</span> <span class="string">/bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在docker容器里测试logstash<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/opt/logstash/bin/logstash</span> <span class="bullet">-e</span> <span class="string">'input &#123; stdin &#123; &#125; &#125; output &#123; elasticsearch &#123; hosts =&gt; ["127.0.0.1"] &#125; &#125;'</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">注意：如果看到这样的报错信息</span> </span><br><span class="line"><span class="string">Logstash</span> <span class="string">could</span> <span class="string">not</span> <span class="string">be</span> <span class="string">started</span> <span class="string">because</span> <span class="string">there</span> <span class="string">is</span> <span class="string">already</span> <span class="string">another</span> <span class="string">instance</span> <span class="string">using</span> <span class="string">the</span> <span class="string">configured</span> <span class="string">data</span> <span class="string">directory.</span> </span><br><span class="line"><span class="string">If</span> <span class="string">you</span> <span class="string">wish</span> <span class="string">to</span> <span class="string">run</span> <span class="string">multiple</span> <span class="string">instances,</span> <span class="string">you</span> <span class="string">must</span> <span class="string">change</span> <span class="string">the</span> <span class="string">“path.data”</span> <span class="string">setting.</span> </span><br><span class="line"></span><br><span class="line"><span class="string">请执行命令：</span></span><br><span class="line"><span class="string">service</span> <span class="string">logstash</span> <span class="string">stop</span></span><br><span class="line"><span class="string">然后在执行就可以了。（提示logstash服务关闭失败，这里可以忽略）</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在容器里面重新执行测试logstash的命令</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">当命令成功被执行后，看到：Successfully</span> <span class="string">started</span> <span class="string">Logstash</span> <span class="string">API</span> <span class="string">endpoint</span> <span class="string">&#123;:port=&gt;9600&#125;</span> <span class="string">信息后，</span></span><br><span class="line"><span class="string">输入：this</span> <span class="string">is</span> <span class="string">a</span> <span class="string">dummy</span> <span class="string">entry</span> <span class="string">然后回车，模拟一条日志进行测试</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开浏览器，输入：http://你的ip:9200/_search?pretty 就会看到我们刚刚输入的日志内容：</p>
+</li>
+</ul>
+<p><a href="http://192.168.1.4:9200/_search?pretty" target="_blank" rel="noopener">http://192.168.1.4:9200/_search?pretty</a></p>
+<h2 id="在容器里logstash的使用"><a href="#在容器里logstash的使用" class="headerlink" title="在容器里logstash的使用"></a>在容器里logstash的使用</h2><ul>
+<li>编辑logstash的配置文件</li>
+</ul>
+<p>进入/opt/logstash/config目录<br>logstash-sample.conf 是默认的配置文件</p>
+<p>新建配置文件<br>vi  test.conf </p>
+<ul>
+<li><p>test.conf内容</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">input</span> <span class="string">&#123;</span></span><br><span class="line">  <span class="string">tcp</span> <span class="string">&#123;</span> </span><br><span class="line">    <span class="string">port</span> <span class="string">=&gt;</span> <span class="number">5044</span> </span><br><span class="line">	<span class="string">codec</span> <span class="string">=&gt;</span> <span class="string">json_lines</span></span><br><span class="line">  <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">output</span> <span class="string">&#123;</span> </span><br><span class="line">  <span class="string">elasticsearch</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">action=&gt;"index"</span> </span><br><span class="line">    <span class="string">hosts</span>  <span class="string">=&gt;</span> <span class="string">"127.0.0.1:9200"</span>   </span><br><span class="line">    <span class="string">index</span>  <span class="string">=&gt;</span> <span class="string">"log"</span></span><br><span class="line">	<span class="string">document_id=&gt;"ignore"</span></span><br><span class="line">	<span class="string">&#125;</span> </span><br><span class="line">    <span class="string">stdout&#123;</span></span><br><span class="line">	  <span class="string">codec=&gt;rubydebug</span></span><br><span class="line">  <span class="string">&#125;</span>  	</span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用logstash执行配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">./bin/logstash</span> <span class="bullet">-f</span> <span class="string">../config/test.conf</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="logstash同步mysql到es"><a href="#logstash同步mysql到es" class="headerlink" title="logstash同步mysql到es"></a>logstash同步mysql到es</h2><ul>
+<li><p>把mysql的t_case_cpws表的部分字段导入到es的mysql-test索引库</p>
+</li>
+<li><p>可以设置定时</p>
+</li>
+<li><p>进入/opt/logstash/config目录vi mysql-test.conf</p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">input</span> <span class="string">&#123;</span></span><br><span class="line">  <span class="string">jdbc</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">jdbc_driver_library</span> <span class="string">=&gt;</span> <span class="string">"/usr/local/docker/mysql-connector-java-5.1.47.jar"</span></span><br><span class="line">    <span class="string">jdbc_driver_class</span> <span class="string">=&gt;</span> <span class="string">"com.mysql.jdbc.Driver"</span></span><br><span class="line">    <span class="string">jdbc_connection_string</span> <span class="string">=&gt;</span> <span class="string">"jdbc:mysql://192.168.1.5:3306/lanxum-court-xw?characterEncoding=UTF-8&amp;useSSL=false"</span></span><br><span class="line">    <span class="string">jdbc_user</span> <span class="string">=&gt;</span> <span class="string">"xuan"</span></span><br><span class="line">    <span class="string">jdbc_password</span> <span class="string">=&gt;</span> <span class="string">"123456"</span></span><br><span class="line">    <span class="string">statement</span> <span class="string">=&gt;</span> <span class="string">"SELECT wsid,ay,dsr,swwsmc,createtime  FROM t_case_cpws"</span></span><br><span class="line">    <span class="string">jdbc_paging_enabled</span> <span class="string">=&gt;</span> <span class="string">"true"</span></span><br><span class="line">    <span class="string">jdbc_page_size</span> <span class="string">=&gt;</span> <span class="string">"50000"</span></span><br><span class="line">    <span class="string">schedule</span> <span class="string">=&gt;</span> <span class="string">"* * * * *"</span></span><br><span class="line">  <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">output</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">elasticsearch</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">hosts</span> <span class="string">=&gt;</span> <span class="string">"127.0.0.1:9200"</span></span><br><span class="line">        <span class="comment"># port =&gt; "9200"</span></span><br><span class="line">        <span class="comment"># protocol =&gt; "http"</span></span><br><span class="line">        <span class="string">index</span> <span class="string">=&gt;</span> <span class="string">"mysql-test"</span></span><br><span class="line">        <span class="string">document_id</span> <span class="string">=&gt;</span> <span class="string">"<span class="template-variable">%&#123;id&#125;</span>"</span></span><br><span class="line">        <span class="comment"># cluster =&gt; "fulltext-application"</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">stdout</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">codec</span> <span class="string">=&gt;</span> <span class="string">json_lines</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>拷贝jar到容器里</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">cp</span> <span class="string">/usr/local/docker/mysql-connector-java-5.1.47.jar</span> <span class="attr">elk:/usr/local/docker</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用logstash执行配置文件</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/opt/logstash/bin/logstash</span> <span class="bullet">-f</span> <span class="string">/opt/logstash/config/mysql-test.conf</span></span><br></pre></td></tr></table></figure>
+
+<p>docker cp /home/ik 067eba4c5e70:/opt/elasticsearch/plugins</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#docker" >
+    <span class="tag-code">docker</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../docker-01/">
+        <span class="nav-arrow">← </span>
+        
+          centos7 安装 docker
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../../elasticsearch/elk-mysql-06/">
+        
+          logstash数据采集之mysql-to-es（指定ik分词）
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1、安装ELK镜像"><span class="toc-nav-text">1、安装ELK镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2、运行"><span class="toc-nav-text">2、运行</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#启动失败"><span class="toc-nav-text">启动失败</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#配置使用"><span class="toc-nav-text">配置使用</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#在容器里logstash的使用"><span class="toc-nav-text">在容器里logstash的使用</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#logstash同步mysql到es"><span class="toc-nav-text">logstash同步mysql到es</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2019/09/15/docker-learn/docker-03/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "centos7 安装 ELK",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

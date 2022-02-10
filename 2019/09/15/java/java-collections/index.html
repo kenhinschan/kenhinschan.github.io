@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      Java集合 | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Java集合</h2>
+  <p class="post-date">2019-09-15</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><hr>
+<h2 id="Java集合线程是否安全"><a href="#Java集合线程是否安全" class="headerlink" title="Java集合线程是否安全"></a>Java集合线程是否安全</h2><ul>
+<li>非线程安全的，效率高</li>
+<li>线程安全的，效率低</li>
+<li>补充：ConcurrentHashMap （线程安全、效率高）</li>
+</ul>
+<p><img src="/image/java-colle-11.png" alt></p>
+<h2 id="List-HashMap-Set-线程安全声明使用方法"><a href="#List-HashMap-Set-线程安全声明使用方法" class="headerlink" title="List HashMap Set 线程安全声明使用方法"></a>List HashMap Set 线程安全声明使用方法</h2><p>注意：在高并发情况下，list，hashmap，set都会存在–并发修改异常</p>
+<ul>
+<li>1.使用Collections. 构建同步</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">//make</span> <span class="string">thread-safe</span> <span class="string">list</span></span><br><span class="line"> <span class="string">List</span> <span class="string">MyStrList</span> <span class="string">=</span> <span class="string">Collections.synchronizedList(new</span> <span class="string">ArrayList());</span></span><br><span class="line"> <span class="string">MyStrList.add("123");</span></span><br><span class="line"> <span class="string">MyStrList.add("abc");</span></span><br><span class="line"> <span class="string">//make</span> <span class="string">thread-safe</span> <span class="string">hashset</span></span><br><span class="line"> <span class="string">Set</span> <span class="string">set=Collections.synchronizedSet(new</span> <span class="string">HashSet());</span></span><br><span class="line"> <span class="string">set.add(123);</span></span><br><span class="line"> <span class="string">set.add(456);</span></span><br><span class="line"> <span class="string">//make</span> <span class="string">thread-safe</span> <span class="string">hashmap</span></span><br><span class="line"> <span class="string">Map</span> <span class="string">map=Collections.synchronizedMap(new</span> <span class="string">HashMap());</span></span><br><span class="line"> <span class="string">map.put(1,</span> <span class="string">"thb"</span><span class="string">);</span></span><br><span class="line"> <span class="string">map.put(12,</span> <span class="string">"bill tang"</span><span class="string">);</span></span><br><span class="line"> </span><br><span class="line"> <span class="string">//list</span> <span class="string">set</span> <span class="string">map集合之线程安全使用</span></span><br><span class="line"> <span class="string">//list</span></span><br><span class="line"> <span class="string">List&lt;String&gt;</span> <span class="string">synlist</span> <span class="string">=</span> <span class="string">Collections.synchronizedList(new</span> <span class="string">ArrayList&lt;&gt;());</span></span><br><span class="line"> <span class="string">List&lt;String&gt;</span> <span class="string">cwlist</span> <span class="string">=</span> <span class="string">new</span> <span class="string">CopyOnWriteArrayList();//写时复制技术（juc）</span></span><br><span class="line"></span><br><span class="line"> <span class="string">//HashSet底层是hashmap</span></span><br><span class="line"> <span class="string">Set&lt;String&gt;</span> <span class="string">synchronizedSet</span> <span class="string">=</span> <span class="string">Collections.synchronizedSet(new</span> <span class="string">HashSet&lt;&gt;());</span></span><br><span class="line"> <span class="string">Set&lt;String&gt;</span> <span class="string">cwSet</span> <span class="string">=</span> <span class="string">new</span> <span class="string">CopyOnWriteArraySet&lt;&gt;();//写时复制技术（juc）</span></span><br><span class="line"> </span><br><span class="line"> <span class="string">//map</span></span><br><span class="line"> <span class="string">Map&lt;String,Object&gt;</span> <span class="string">synchronizedMap</span> <span class="string">=</span> <span class="string">Collections.synchronizedMap(new</span> <span class="string">HashMap&lt;&gt;());</span></span><br><span class="line"> <span class="string">Map&lt;String,Object&gt;</span> <span class="string">map</span> <span class="string">=</span> <span class="string">new</span> <span class="string">ConcurrentHashMap&lt;&gt;();//juc</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2、使用ThreadLocal<t>封装</t></li>
+</ul>
+<h2 id="HashMap存储原理"><a href="#HashMap存储原理" class="headerlink" title="HashMap存储原理"></a>HashMap存储原理</h2><ul>
+<li>HashMap存储结构是：数组（bucket） + 单向链表 （源码：transient Node&lt;K,V&gt;[] table;）</li>
+</ul>
+<p><img src="/image/hashmap01.png" alt></p>
+<ul>
+<li><p>map.put(key,value) 存储键值对</p>
+</li>
+<li><p>为什么String, Interger这样的wrapper类适合作为键？因为String是不可变的，也是final的，而且已经重写了equals()和hashCode()方法了，减少hash碰撞</p>
+</li>
+<li><p>根据key的hashcode值计算（计算法则是：低16位、高16位 然后异或运算）出数组下标 </p>
+</li>
+<li><p>把key,value存储到链表当中</p>
+</li>
+<li><p>根据key获取值得原理： 根据key的hashcode计算出数组下标，然后遍历遍历链表</p>
+</li>
+<li><p>hashcode相同的key（hash碰撞）就要遍历链表，利用key.equals() 来找到存储的对象</p>
+</li>
+<li><p>HashMap使用链表来解决碰撞问题，当发生碰撞了，对象将会储存在链表的下一个节点中。 HashMap在每个链表节点中储存键值对对象</p>
+</li>
+<li><p>当两个不同的键对象的hashcode相同时会发生什么？ 它们会储存在同一个bucket位置的链表中。键对象的equals()方法用来找到键值对。</p>
+</li>
+<li><p>链表长度大于8，会将单向链表结构—-转为—红黑树结构（红黑树：TreeNode&lt;K,V&gt; 左右值）</p>
+</li>
+<li><p>链表长度小于6，会将红黑树结构—-转为—单向链表结构（单向链表：Node&lt;K,V&gt; 可以查看源码）</p>
+</li>
+<li><p>put()方法的执行过程如下所示：</p>
+</li>
+</ul>
+<p><img src="/image/hash-put.png" alt></p>
+<h2 id="HashMap扩容"><a href="#HashMap扩容" class="headerlink" title="HashMap扩容"></a>HashMap扩容</h2><ul>
+<li><p>如果HashMap的大小超过了负载因子(load factor)定义的容量，怎么办？</p>
+<pre><code>默认的负载因子大小为0.75，也就是说，当一个map填满了75%的bucket时候，
+和其它集合类(如ArrayList等)一样，将会创建原来HashMap大小的 2倍的bucket数组，
+来重新调整map的大小，并将原来的对象放入新的bucket数组中。这个过程叫作rehashing，
+因为它调用hash方法找到新的bucket位置</code></pre></li>
+<li><p>（jdk1.7会有这种情况，jdk1.8已经做了优化）多线程下，两个线程都发现HashMap需要重新调整大小了，会发生条件竞争，造成死循环</p>
+<pre><code>当重新调整HashMap大小的时候，确实存在条件竞争，因为如果两个线程都发现HashMap需要重新调整大小了，
+它们会同时试着调整大小。在调整大小的过程中，存储在链表中的元素的次序会反过来，
+因为移动到新的bucket位置的时候，HashMap并不会将元素放在链表的尾部，而是放在头部，
+这是为了避免尾部遍历(tail traversing)。如果条件竞争发生了，那么就死循环了</code></pre></li>
+<li><p>多线程下使用 ConcurrentHashMap（引入了分段锁）</p>
+</li>
+</ul>
+<h2 id="HashTable、SynchronizedMap（线程安全的HashMap）、ConcurrentHashMap"><a href="#HashTable、SynchronizedMap（线程安全的HashMap）、ConcurrentHashMap" class="headerlink" title="HashTable、SynchronizedMap（线程安全的HashMap）、ConcurrentHashMap"></a>HashTable、SynchronizedMap（线程安全的HashMap）、ConcurrentHashMap</h2><ul>
+<li>测试例子</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/**</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@author</span> <span class="string">qixuan.chen</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@date</span> <span class="number">2019</span><span class="bullet">-07</span><span class="bullet">-31</span> <span class="number">17</span><span class="string">:14</span></span><br><span class="line"> <span class="string">*/</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">CrunchifyConcurrentHashMapVsSynchronizedMap</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">public</span> <span class="string">final</span> <span class="string">static</span> <span class="string">int</span> <span class="string">THREAD_POOL_SIZE</span> <span class="string">=</span> <span class="number">5</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">Map&lt;String,</span> <span class="string">Integer&gt;</span> <span class="string">crunchifyHashTableObject</span> <span class="string">=</span> <span class="literal">null</span><span class="string">;</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">Map&lt;String,</span> <span class="string">Integer&gt;</span> <span class="string">crunchifySynchronizedMapObject</span> <span class="string">=</span> <span class="literal">null</span><span class="string">;</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">Map&lt;String,</span> <span class="string">Integer&gt;</span> <span class="string">crunchifyConcurrentHashMapObject</span> <span class="string">=</span> <span class="literal">null</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">存储100,000</span> <span class="string">(10万)数据时</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">args</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@throws</span> <span class="string">InterruptedException</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">void</span> <span class="string">main(String[]</span> <span class="string">args)</span> <span class="string">throws</span> <span class="string">InterruptedException</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">//</span> <span class="string">Hashtable</span> <span class="string">线程安全</span> <span class="string">效率低</span></span><br><span class="line">        <span class="string">crunchifyHashTableObject</span> <span class="string">=</span> <span class="string">new</span> <span class="string">Hashtable&lt;&gt;();</span></span><br><span class="line">        <span class="string">crunchifyPerformTest(crunchifyHashTableObject);</span></span><br><span class="line"></span><br><span class="line">        <span class="string">//</span> <span class="string">synchronizedMap</span> <span class="string">线程安全</span> <span class="string">效率低</span></span><br><span class="line">        <span class="string">crunchifySynchronizedMapObject</span> <span class="string">=</span> <span class="string">Collections.synchronizedMap(new</span> <span class="string">HashMap&lt;&gt;());</span></span><br><span class="line">        <span class="string">crunchifyPerformTest(crunchifySynchronizedMapObject);</span></span><br><span class="line"></span><br><span class="line">        <span class="string">//</span> <span class="string">ConcurrentHashMap</span> <span class="string">线程安全</span> <span class="string">效率高</span></span><br><span class="line">        <span class="string">crunchifyConcurrentHashMapObject</span> <span class="string">=</span> <span class="string">new</span> <span class="string">ConcurrentHashMap&lt;&gt;();</span></span><br><span class="line">        <span class="string">crunchifyPerformTest(crunchifyConcurrentHashMapObject);</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">void</span> <span class="string">crunchifyPerformTest(final</span> <span class="string">Map&lt;String,</span> <span class="string">Integer&gt;</span> <span class="string">crunchifyThreads)</span> <span class="string">throws</span> <span class="string">InterruptedException</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">System.out.println("Test</span> <span class="string">started</span> <span class="attr">for:</span> <span class="string">" + crunchifyThreads.getClass());</span></span><br><span class="line"><span class="string">        long averageTime = 0;</span></span><br><span class="line"><span class="string">        for (int i = 0; i &lt; 5; i++) &#123;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            long startTime = System.nanoTime();</span></span><br><span class="line"><span class="string">            //创建线程池</span></span><br><span class="line"><span class="string">            ExecutorService crunchifyExServer = Executors.newFixedThreadPool(THREAD_POOL_SIZE);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            for (int j = 0; j &lt; THREAD_POOL_SIZE; j++) &#123;</span></span><br><span class="line"><span class="string">                crunchifyExServer.execute(new Runnable() &#123;</span></span><br><span class="line"><span class="string">                    @SuppressWarnings("</span><span class="string">unused")</span></span><br><span class="line">                    <span class="string">@Override</span></span><br><span class="line">                    <span class="string">public</span> <span class="string">void</span> <span class="string">run()</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">                        <span class="string">for</span> <span class="string">(int</span> <span class="string">i</span> <span class="string">=</span> <span class="number">0</span><span class="string">;</span> <span class="string">i</span> <span class="string">&lt;</span> <span class="number">100000</span><span class="string">;</span> <span class="string">i++)</span> <span class="string">&#123;</span></span><br><span class="line">                            <span class="string">Integer</span> <span class="string">crunchifyRandomNumber</span> <span class="string">=</span> <span class="string">(int)</span> <span class="string">Math.ceil(Math.random()</span> <span class="string">*</span> <span class="number">550000</span><span class="string">);</span></span><br><span class="line"></span><br><span class="line">                            <span class="string">//</span> <span class="string">Retrieve</span> <span class="string">value.</span> <span class="string">We</span> <span class="string">are</span> <span class="string">not</span> <span class="string">using</span> <span class="string">it</span> <span class="string">anywhere</span></span><br><span class="line">                            <span class="string">Integer</span> <span class="string">crunchifyValue</span> <span class="string">=</span> <span class="string">crunchifyThreads.get(String.valueOf(crunchifyRandomNumber));</span></span><br><span class="line"></span><br><span class="line">                            <span class="string">//</span> <span class="string">Put</span> <span class="string">value</span></span><br><span class="line">                            <span class="string">crunchifyThreads.put(String.valueOf(crunchifyRandomNumber),</span> <span class="string">crunchifyRandomNumber);</span></span><br><span class="line">                        <span class="string">&#125;</span></span><br><span class="line">                    <span class="string">&#125;</span></span><br><span class="line">                <span class="string">&#125;);</span></span><br><span class="line">            <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">            <span class="string">//</span> <span class="string">Make</span> <span class="string">sure</span> <span class="string">executor</span> <span class="string">stops</span></span><br><span class="line">            <span class="string">crunchifyExServer.shutdown();</span></span><br><span class="line"></span><br><span class="line">            <span class="string">//</span> <span class="string">Blocks</span> <span class="string">until</span> <span class="string">all</span> <span class="string">tasks</span> <span class="string">have</span> <span class="string">completed</span> <span class="string">execution</span> <span class="string">after</span> <span class="string">a</span> <span class="string">shutdown</span> <span class="string">request</span></span><br><span class="line">            <span class="string">crunchifyExServer.awaitTermination(Long.MAX_VALUE,</span> <span class="string">TimeUnit.DAYS);</span></span><br><span class="line"></span><br><span class="line">            <span class="string">long</span> <span class="string">entTime</span> <span class="string">=</span> <span class="string">System.nanoTime();</span></span><br><span class="line">            <span class="string">long</span> <span class="string">totalTime</span> <span class="string">=</span> <span class="string">(entTime</span> <span class="bullet">-</span> <span class="string">startTime)</span> <span class="string">/</span> <span class="number">1000000</span><span class="string">L;</span></span><br><span class="line">            <span class="string">averageTime</span> <span class="string">+=</span> <span class="string">totalTime;</span></span><br><span class="line">            <span class="string">System.out.println("2500K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="string">" + totalTime + "</span> <span class="string">ms");</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">        <span class="string">System.out.println("For</span> <span class="string">" + crunchifyThreads.getClass() + "</span> <span class="string">the</span> <span class="string">average</span> <span class="string">time</span> <span class="string">is</span> <span class="string">" + averageTime / 5 + "</span> <span class="string">ms\n");</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试结果：10万次添加/获取元素 ConcurrentHashMap效率最高</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Test</span> <span class="string">started</span> <span class="attr">for:</span> <span class="string">class</span> <span class="string">java.util.Hashtable</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">355</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">322</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">274</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">284</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">353</span> <span class="string">ms</span></span><br><span class="line"><span class="string">For</span> <span class="string">class</span> <span class="string">java.util.Hashtable</span> <span class="string">the</span> <span class="string">average</span> <span class="string">time</span> <span class="string">is</span> <span class="number">317</span> <span class="string">ms</span></span><br><span class="line"></span><br><span class="line"><span class="string">Test</span> <span class="string">started</span> <span class="attr">for:</span> <span class="string">class</span> <span class="string">java.util.Collections$SynchronizedMap</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">245</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">350</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">307</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">253</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">319</span> <span class="string">ms</span></span><br><span class="line"><span class="string">For</span> <span class="string">class</span> <span class="string">java.util.Collections$SynchronizedMap</span> <span class="string">the</span> <span class="string">average</span> <span class="string">time</span> <span class="string">is</span> <span class="number">294</span> <span class="string">ms</span></span><br><span class="line"></span><br><span class="line"><span class="string">Test</span> <span class="string">started</span> <span class="attr">for:</span> <span class="string">class</span> <span class="string">java.util.concurrent.ConcurrentHashMap</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">742</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">84</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">74</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">79</span> <span class="string">ms</span></span><br><span class="line"><span class="number">2500</span><span class="string">K</span> <span class="string">entried</span> <span class="string">added/retrieved</span> <span class="string">in</span> <span class="number">120</span> <span class="string">ms</span></span><br><span class="line"><span class="string">For</span> <span class="string">class</span> <span class="string">java.util.concurrent.ConcurrentHashMap</span> <span class="string">the</span> <span class="string">average</span> <span class="string">time</span> <span class="string">is</span> <span class="number">219</span> <span class="string">ms</span></span><br></pre></td></tr></table></figure>
+
+
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../../springboot/sp-02/">
+        <span class="nav-arrow">← </span>
+        
+          springboot IOC容器
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../../docker-learn/docker-01/">
+        
+          centos7 安装 docker
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Java集合"><span class="toc-nav-text">Java集合</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Java集合线程是否安全"><span class="toc-nav-text">Java集合线程是否安全</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#List-HashMap-Set-线程安全声明使用方法"><span class="toc-nav-text">List HashMap Set 线程安全声明使用方法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#HashMap存储原理"><span class="toc-nav-text">HashMap存储原理</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#HashMap扩容"><span class="toc-nav-text">HashMap扩容</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#HashTable、SynchronizedMap（线程安全的HashMap）、ConcurrentHashMap"><span class="toc-nav-text">HashTable、SynchronizedMap（线程安全的HashMap）、ConcurrentHashMap</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2019/09/15/java/java-collections/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Java集合",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

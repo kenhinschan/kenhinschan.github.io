@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      mysql笔记 | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>mysql笔记</h2>
+  <p class="post-date">2019-08-01</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="mysql笔记"><a href="#mysql笔记" class="headerlink" title="mysql笔记"></a>mysql笔记</h1><hr>
+<h2 id="mysql-结构"><a href="#mysql-结构" class="headerlink" title="mysql 结构"></a>mysql 结构</h2><ul>
+<li>1、连接层</li>
+<li>2、服务层</li>
+<li>3、引擎层<ul>
+<li>常见的数据库引擎：<ul>
+<li>MyIsAm 表锁、不支持事务、会死锁、不适合高并发</li>
+<li>InnoDB 行锁、支持事务，高并发</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4、存储层</li>
+</ul>
+<h2 id="mysql-开启慢查询日志-（抓取sql语句）"><a href="#mysql-开启慢查询日志-（抓取sql语句）" class="headerlink" title="mysql 开启慢查询日志 （抓取sql语句）"></a>mysql 开启慢查询日志 （抓取sql语句）</h2><ul>
+<li><p>要使用慢查询日志，要先开启，（抓取超过5秒的慢sql预计，系统默认是10秒）  </p>
+</li>
+<li><p>slow_query_log 慢查询开启状态</p>
+</li>
+<li><p>slow_query_log_file 慢查询日志存放的位置（这个目录需要MySQL的运行帐号的可写权限，一般设置为MySQL的数据存放目录）</p>
+</li>
+<li><p>long_query_time 查询超过多少秒才记录</p>
+<p>1、查看慢查询相关参数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like 'slow_query%';</span><br><span class="line">+<span class="comment">---------------------------+----------------------------------+</span></span><br><span class="line">| Variable_name             | Value                            |</span><br><span class="line">+<span class="comment">---------------------------+----------------------------------+</span></span><br><span class="line">| slow_query_log            | OFF                              |</span><br><span class="line">| slow_query_log_file       | /mysql/data/localhost-slow.log   |</span><br><span class="line">+<span class="comment">---------------------------+----------------------------------+</span></span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like 'long_query_time';</span><br><span class="line">+<span class="comment">-----------------+-----------+</span></span><br><span class="line">| Variable_name   | Value     |</span><br><span class="line">+<span class="comment">-----------------+-----------+</span></span><br><span class="line">| long_query_time | 10.000000 |</span><br><span class="line">+<span class="comment">-----------------+-----------+</span></span><br></pre></td></tr></table></figure>
+
+<p>2、设置方法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> slow_query_log=<span class="string">'ON'</span>;</span><br><span class="line">   </span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> slow_query_log_file=<span class="string">'/usr/local/mysql/data/slow.log'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> long_query_time=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="mysql索引失效-amp-amp-索引优化"><a href="#mysql索引失效-amp-amp-索引优化" class="headerlink" title="mysql索引失效 &amp;&amp; 索引优化"></a>mysql索引失效 &amp;&amp; 索引优化</h2><pre><code>- 索引是检索、与排序的数据结构
+
+- 最左前缀原则，（带头大哥不能死）（1楼，2楼，3楼，4楼）没有1楼就上不了2楼
+
+- 中间兄弟不能断，（1楼，2楼，3楼，4楼） ，同样没有了2楼就上不了3楼
+
+- 范围条件之后 in  like %kkk  i&gt;9
+
+- 索引覆盖
+
+- where 条件使用了不等于、null or 索引会失效 
+
+- order by  最左前缀原则
+
+- ground by 分组前先排序，最左前缀原则，尽量使用where条件替换having</code></pre><h2 id="explain-分析SQL语句"><a href="#explain-分析SQL语句" class="headerlink" title="explain 分析SQL语句"></a>explain 分析SQL语句</h2><ul>
+<li><p>使用 explain 关键字来查看执行计划，是否命中索引</p>
+</li>
+<li><p>通过计算某列的区分度，来判断该列是否适合新建索引</p>
+<ul>
+<li><p>id字段 id相同时，执行顺序由上至下，id数值大的，优先执行，最后是null</p>
+</li>
+<li><p>select_type字段： 查询类型 外层查询（主查询）、子查询，临时表查询</p>
+</li>
+<li><p>type字段  性能：ref &gt; index &gt; all （all性能最差）</p>
+</li>
+<li><p>key字段  索引实际是否被用到 ，null值索引失效</p>
+</li>
+<li><p>key_len  索引长度</p>
+</li>
+<li><p>ref字段  索引是否是常量</p>
+</li>
+<li><p>rows字段 行数越小越好</p>
+</li>
+<li><p>Extra字段 不能出现Using filesort, Using temporary</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="show-profiles-数据库自带sql性能分析工具"><a href="#show-profiles-数据库自带sql性能分析工具" class="headerlink" title="show profiles 数据库自带sql性能分析工具"></a>show profiles 数据库自带sql性能分析工具</h2><ul>
+<li><p>Show profile 是mysql 提供可以用来分析当前会话中语句执行的资源消耗情况。可以用于sql 调优的测量</p>
+<ul>
+<li><p>1、先开启</p>
+<ul>
+<li><p>命令：show variables like ‘profiling%’;</p>
+</li>
+<li><p>命令：set profiling=on;</p>
+</li>
+</ul>
+</li>
+<li><p>2、运行SQL</p>
+</li>
+<li><p>3、 查看结果：Show profiles；</p>
+</li>
+<li><p>4、日常开发需要注意的结论：</p>
+<ul>
+<li><p>4.1   converting HEAP to MyISAM ： 查询结果太大，内存都不够用了，往磁盘上搬了；</p>
+</li>
+<li><p>4.2   creating tmp table ：创建临时表，拷贝数据到临时表，然后再删除；</p>
+</li>
+<li><p>4.3   copying to tmp table on disk ：把内存中临时表复制到磁盘，危险！！！</p>
+</li>
+<li><p>4.5   locked</p>
+<p>注：以上四个中若出现一个或多个，表示sql 语句 必须优化。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="mysql-锁机制"><a href="#mysql-锁机制" class="headerlink" title="mysql 锁机制"></a>mysql 锁机制</h2><ul>
+<li><p>1、表锁（偏读） - MyIsAm 无死锁 低并发，</p>
+<ul>
+<li><p>读锁（共享锁）</p>
+</li>
+<li><p>写锁 （排他锁、独占锁）</p>
+</li>
+</ul>
+</li>
+<li><p>2、行锁（偏写） - InnoDB</p>
+<ul>
+<li><p>索引失效是 行锁会升级为表锁</p>
+</li>
+<li><p>间隙锁范围条件会阻塞 （A事务范围条件修改数据，事务还未提交）同时（B事务添加范围条件内不再存在的数据，会出现阻塞）</p>
+</li>
+<li><p>脏读 - 脏读发生在一个事务A读取了被另一个事务B修改，但是还未提交的数据。假如B回退，则事务A读取的是无效的数据。</p>
+</li>
+<li><p>不可重复读 - </p>
+</li>
+<li><p>幻读 - </p>
+</li>
+</ul>
+</li>
+<li><p>查看数据库锁情况：show open tables 或者 show open tables from database; </p>
+</li>
+<li><p>查看服务器状态：show status like ‘%lock%’   </p>
+<ul>
+<li><p>如当Table_locks_waited与Table_locks_immediate的比值较大，<br>则说明我们的表锁造成的阻塞比较严重，可能需要调整Query语句，<br>或者更改存储引擎，亦或者需要调整业务逻辑。当然，具体改善方式必须根据实际场景来判断。</p>
+</li>
+<li><p>而Innodb_row_lock_waits较大，则说明Innodb的行锁也比较严重，<br>且影响了其他线程的正常处理。同样需要查找出原因并解决。<br>造成Innodb行锁严重的原因可能是Query语句所利用的索引不够合理<br>（Innodb行锁是基于索引来锁定的），造成间隙锁过大。也可能是系统本身处理能力有限，则需要从其他方面来考虑解决。</p>
+</li>
+</ul>
+</li>
+<li><p>查看服务器配置参数：show variables like ‘%timeout%’;  </p>
+</li>
+</ul>
+<h2 id="索引-B-Tree-存储原理"><a href="#索引-B-Tree-存储原理" class="headerlink" title="索引 B+Tree 存储原理"></a>索引 B+Tree 存储原理</h2></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../../../../07/31/java/java-node/">
+        <span class="nav-arrow">← </span>
+        
+          Java线程池笔记
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../../docker-learn/docker-02/">
+        
+          Docker下安装rabbitmq
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#mysql笔记"><span class="toc-nav-text">mysql笔记</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql-结构"><span class="toc-nav-text">mysql 结构</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql-开启慢查询日志-（抓取sql语句）"><span class="toc-nav-text">mysql 开启慢查询日志 （抓取sql语句）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql索引失效-amp-amp-索引优化"><span class="toc-nav-text">mysql索引失效 &amp;&amp; 索引优化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#explain-分析SQL语句"><span class="toc-nav-text">explain 分析SQL语句</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#show-profiles-数据库自带sql性能分析工具"><span class="toc-nav-text">show profiles 数据库自带sql性能分析工具</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql-锁机制"><span class="toc-nav-text">mysql 锁机制</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#索引-B-Tree-存储原理"><span class="toc-nav-text">索引 B+Tree 存储原理</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2019/08/01/mysql/mysql-learning/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "mysql笔记",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

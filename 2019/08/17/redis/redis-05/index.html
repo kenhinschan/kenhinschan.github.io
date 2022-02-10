@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      redis的事务 | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>redis的事务</h2>
+  <p class="post-date">2019-08-17</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="redis的事务"><a href="#redis的事务" class="headerlink" title="redis的事务"></a>redis的事务</h2><ul>
+<li><p>redis事务，没有原子性这个概念，不会回滚</p>
+</li>
+<li><p>redis事务 有类似乐观锁的原理</p>
+</li>
+</ul>
+<h2 id="redis事务结构"><a href="#redis事务结构" class="headerlink" title="redis事务结构"></a>redis事务结构</h2><p><img src="/image/redis-sw-01.jpg" alt></p>
+<h2 id="redis事务使用"><a href="#redis事务使用" class="headerlink" title="redis事务使用"></a>redis事务使用</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">SecondKillServlet</span> <span class="string">extends</span> <span class="string">HttpServlet</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">@Override</span></span><br><span class="line">    <span class="string">protected</span> <span class="string">void</span> <span class="string">doPost(HttpServletRequest</span> <span class="string">req,</span> <span class="string">HttpServletResponse</span> <span class="string">resp)</span> <span class="string">throws</span> <span class="string">ServletException,</span> <span class="string">IOException</span> <span class="string">&#123;</span></span><br><span class="line">        </span><br><span class="line">        <span class="string">String</span> <span class="string">prodid</span> <span class="string">=</span> <span class="string">req.getParameter("prodid");</span></span><br><span class="line">        <span class="string">//得到用户id</span></span><br><span class="line">        <span class="string">String</span> <span class="string">userid</span> <span class="string">=</span> <span class="string">""</span> <span class="string">+</span> <span class="string">new</span> <span class="string">Random().nextInt(10000);</span></span><br><span class="line">        <span class="string">Jedis</span> <span class="string">jedis</span> <span class="string">=</span> <span class="literal">null</span><span class="string">;</span></span><br><span class="line">        <span class="string">try</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">JedisPool</span> <span class="string">pool</span> <span class="string">=</span> <span class="string">JedisPoolUtil.getJedisPoolInstance();</span></span><br><span class="line">            <span class="string">jedis</span> <span class="string">=</span> <span class="string">pool.getResource();</span></span><br><span class="line">            <span class="string">//jedis</span> <span class="string">=</span> <span class="string">new</span> <span class="string">Jedis("hadoop104",</span> <span class="number">6379</span><span class="string">);</span></span><br><span class="line">            <span class="string">String</span> <span class="string">memberKey</span> <span class="string">=</span> <span class="string">"sk:"</span> <span class="string">+</span> <span class="string">prodid</span> <span class="string">+</span> <span class="string">":users"</span><span class="string">;</span></span><br><span class="line">            <span class="string">//当前用户是否秒杀过</span></span><br><span class="line">            <span class="string">Boolean</span> <span class="string">flg</span> <span class="string">=</span> <span class="string">jedis.sismember(memberKey,</span> <span class="string">userid);</span></span><br><span class="line"></span><br><span class="line">            <span class="string">if(flg)&#123;</span></span><br><span class="line">                <span class="string">//秒杀过，显示错误</span></span><br><span class="line">                <span class="string">System.out.println("已经参加过秒杀！");</span></span><br><span class="line">            <span class="string">&#125;else&#123;</span></span><br><span class="line">                <span class="string">//没有秒杀过</span></span><br><span class="line">                <span class="string">//获取商品库存</span></span><br><span class="line">                <span class="string">String</span> <span class="string">qtKey</span> <span class="string">=</span> <span class="string">"sk:"</span><span class="string">+prodid+":qt";</span></span><br><span class="line">                </span><br><span class="line">                <span class="string">jedis.watch(qtKey);//</span> <span class="string">事务监听，针对两个线程同时对库存修改，(可以使用锁代替)</span></span><br><span class="line">                <span class="string">String</span> <span class="string">pString</span> <span class="string">=</span> <span class="string">jedis.get(qtKey);</span></span><br><span class="line">                <span class="string">if(pString</span> <span class="string">==</span> <span class="literal">null</span><span class="string">)&#123;</span></span><br><span class="line">                    <span class="string">System.out.println("商品不存在！");</span></span><br><span class="line">                <span class="string">&#125;else&#123;</span></span><br><span class="line">                    <span class="string">Integer</span> <span class="string">pcnt</span> <span class="string">=</span> <span class="string">Integer.valueOf(pString);</span></span><br><span class="line">                    <span class="string">//判断库存大小</span></span><br><span class="line">                    <span class="string">if(pcnt&lt;=0)&#123;</span></span><br><span class="line">                        <span class="string">//小于0--false</span></span><br><span class="line">                        <span class="string">resp.getWriter().print("false");</span></span><br><span class="line">                        <span class="string">System.out.println("秒杀失败");</span></span><br><span class="line">                    <span class="string">&#125;else&#123;</span></span><br><span class="line"><span class="string">//</span>                        <span class="string">//大于零，库存减一</span></span><br><span class="line"><span class="string">//</span>                        <span class="string">jedis.decr(qtKey);</span></span><br><span class="line"><span class="string">//</span>                        <span class="string">//增加秒杀成功者清单</span></span><br><span class="line"><span class="string">//</span>                        <span class="string">jedis.sadd(memberKey,userid);</span></span><br><span class="line"><span class="string">//</span>                        <span class="string">System.out.println("秒杀成功");</span></span><br><span class="line">                        <span class="string">Transaction</span> <span class="string">multi</span> <span class="string">=</span> <span class="string">jedis.multi();//事务开始组队</span></span><br><span class="line">                        <span class="string">multi.decr(qtKey);//事务块语句</span></span><br><span class="line">                        <span class="string">multi.sadd(memberKey,userid);</span></span><br><span class="line">                        <span class="string">List&lt;Object&gt;</span> <span class="string">result</span> <span class="string">=</span> <span class="string">multi.exec();//事务执行</span></span><br><span class="line">                        <span class="string">if(result</span> <span class="string">==</span> <span class="literal">null</span> <span class="string">||</span> <span class="string">result.isEmpty())&#123;</span></span><br><span class="line">                            <span class="string">System.out.println("操作失败");</span></span><br><span class="line">                        <span class="string">&#125;else&#123;</span></span><br><span class="line">                            <span class="string">System.out.println("秒杀成功");</span></span><br><span class="line">                        <span class="string">&#125;</span></span><br><span class="line">                    <span class="string">&#125;</span></span><br><span class="line">                <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">            <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">&#125;</span> <span class="string">catch</span> <span class="string">(Exception</span> <span class="string">e)</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">e.printStackTrace();</span></span><br><span class="line">        <span class="string">&#125;</span> <span class="string">finally</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">if(jedis</span> <span class="string">!=</span> <span class="literal">null</span><span class="string">)&#123;</span></span><br><span class="line">                <span class="string">jedis.close();</span></span><br><span class="line">            <span class="string">&#125;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../../mysql/lock-01/">
+        <span class="nav-arrow">← </span>
+        
+          乐观锁与悲观锁
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../redis-03/">
+        
+          redis数据持久化（备份和恢复）
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#redis的事务"><span class="toc-nav-text">redis的事务</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#redis事务结构"><span class="toc-nav-text">redis事务结构</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#redis事务使用"><span class="toc-nav-text">redis事务使用</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2019/08/17/redis/redis-05/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "redis的事务",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

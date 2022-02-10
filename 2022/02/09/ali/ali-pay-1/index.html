@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      支付宝支付接口（手机网站支付（跳到APP支付）、PC网站支付（扫码支付）） | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>支付宝支付接口（手机网站支付（跳到APP支付）、PC网站支付（扫码支付））</h2>
+  <p class="post-date">2022-02-09</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="支付宝支付接口（手机网站支付、PC网站支付扫码支付）"><a href="#支付宝支付接口（手机网站支付、PC网站支付扫码支付）" class="headerlink" title="支付宝支付接口（手机网站支付、PC网站支付扫码支付）"></a>支付宝支付接口（手机网站支付、PC网站支付扫码支付）</h2><ul>
+<li>手机网站支付（跳到APP支付）</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/**</span></span><br><span class="line">    <span class="string">*</span> <span class="string">跳转APP内支付（手机网站支付）</span></span><br><span class="line">    <span class="string">*</span> <span class="string">@param</span> <span class="string">httpRequest</span></span><br><span class="line">    <span class="string">*</span> <span class="string">@param</span> <span class="string">httpResponse</span></span><br><span class="line">    <span class="string">*</span> <span class="string">@throws</span> <span class="string">ServletException</span></span><br><span class="line">    <span class="string">*</span> <span class="string">@throws</span> <span class="string">IOException</span></span><br><span class="line">    <span class="string">*/</span></span><br><span class="line">   <span class="string">@RequestMapping(value</span> <span class="string">=</span> <span class="string">"/test/pay/create"</span><span class="string">)</span></span><br><span class="line">   <span class="string">public</span> <span class="string">void</span> <span class="string">doPost(HttpServletRequest</span> <span class="string">httpRequest,</span></span><br><span class="line">                      <span class="string">HttpServletResponse</span> <span class="string">httpResponse)</span> <span class="string">throws</span> <span class="string">ServletException,</span> <span class="string">IOException</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">       <span class="string">String</span> <span class="string">serverUrl</span> <span class="string">=</span> <span class="string">AlipayConfig.URL;//沙箱网关</span></span><br><span class="line">       <span class="string">String</span> <span class="string">appId</span> <span class="string">=</span> <span class="string">AlipayConfig.APPID;</span></span><br><span class="line">       <span class="string">String</span> <span class="string">privateKey</span> <span class="string">=</span> <span class="string">AlipayConfig.RSA_PRIVATE_KEY;</span></span><br><span class="line">       <span class="string">String</span> <span class="string">format</span> <span class="string">=</span> <span class="string">AlipayConfig.FORMAT;</span></span><br><span class="line">       <span class="string">String</span> <span class="string">charset</span> <span class="string">=</span> <span class="string">AlipayConfig.CHARSET;</span></span><br><span class="line">       <span class="string">String</span> <span class="string">alipayPulicKey</span> <span class="string">=</span> <span class="string">AlipayConfig.ALIPAY_PUBLIC_KEY;</span></span><br><span class="line">       <span class="string">String</span> <span class="string">signType</span> <span class="string">=</span> <span class="string">AlipayConfig.SIGNTYPE;</span></span><br><span class="line"></span><br><span class="line">       <span class="string">//实例化客户端</span></span><br><span class="line">       <span class="string">AlipayClient</span> <span class="string">alipayClient</span> <span class="string">=</span> <span class="string">new</span> <span class="string">DefaultAlipayClient(serverUrl,appId,privateKey,format,charset,alipayPulicKey,signType);</span></span><br><span class="line">       <span class="string">AlipayTradeWapPayRequest</span> <span class="string">alipayRequest</span> <span class="string">=</span> <span class="string">new</span> <span class="string">AlipayTradeWapPayRequest();//创建API对应的request</span></span><br><span class="line">       <span class="string">alipayRequest.setReturnUrl(AlipayConfig.return_url);</span></span><br><span class="line">       <span class="string">alipayRequest.setNotifyUrl(AlipayConfig.notify_url);//在公共参数中设置回跳和通知地址</span></span><br><span class="line"></span><br><span class="line">       <span class="string">Map&lt;String,Object&gt;</span> <span class="string">map</span> <span class="string">=</span> <span class="string">new</span> <span class="string">ConcurrentHashMap&lt;&gt;();</span></span><br><span class="line">       <span class="string">String</span> <span class="string">uuid</span> <span class="string">=</span> <span class="string">UUID.randomUUID().toString().replaceAll("-","");</span></span><br><span class="line">       <span class="string">String</span> <span class="string">payTyte1</span> <span class="string">=</span> <span class="string">"QUICK_WAP_PAY"</span><span class="string">;//手机网站支付</span></span><br><span class="line">       <span class="string">String</span> <span class="string">payTyte2</span> <span class="string">=</span> <span class="string">"FAST_INSTANT_TRADE_PAY"</span><span class="string">;//PC网站支付</span></span><br><span class="line">       <span class="string">map.put("out_trade_no",uuid);</span></span><br><span class="line">       <span class="string">map.put("total_amount",0.1);</span></span><br><span class="line">       <span class="string">map.put("subject","百事可乐");</span></span><br><span class="line">       <span class="string">map.put("product_code",payTyte2);</span></span><br><span class="line">       <span class="string">alipayRequest.setBizContent(JSONUtils.toJSONString(map));//填充业务参数</span></span><br><span class="line"></span><br><span class="line">       <span class="string">String</span> <span class="string">form="";</span></span><br><span class="line">       <span class="string">try</span> <span class="string">&#123;</span></span><br><span class="line">           <span class="string">form</span> <span class="string">=</span> <span class="string">alipayClient.pageExecute(alipayRequest).getBody();</span> <span class="string">//调用SDK生成表单</span></span><br><span class="line">       <span class="string">&#125;</span> <span class="string">catch</span> <span class="string">(AlipayApiException</span> <span class="string">e)</span> <span class="string">&#123;</span></span><br><span class="line">           <span class="string">e.printStackTrace();</span></span><br><span class="line">       <span class="string">&#125;</span></span><br><span class="line">       <span class="string">httpResponse.setContentType("text/html;charset="</span> <span class="string">+</span> <span class="string">AlipayConfig.CHARSET);</span></span><br><span class="line">       <span class="string">httpResponse.getWriter().write(form);//直接将完整的表单html输出到页面</span></span><br><span class="line">       <span class="string">httpResponse.getWriter().flush();</span></span><br><span class="line">       <span class="string">httpResponse.getWriter().close();</span></span><br><span class="line">   <span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>PC网站支付（扫码支付）</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/**</span></span><br><span class="line"> <span class="string">*</span> <span class="string">扫码支付（PC网站支付）</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@param</span> <span class="string">httpRequest</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@param</span> <span class="string">httpResponse</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@throws</span> <span class="string">ServletException</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@throws</span> <span class="string">IOException</span></span><br><span class="line"> <span class="string">*/</span></span><br><span class="line"><span class="string">@RequestMapping(value</span> <span class="string">=</span> <span class="string">"/test/pay/create2"</span><span class="string">)</span></span><br><span class="line"><span class="string">public</span> <span class="string">void</span> <span class="string">doPost2(HttpServletRequest</span> <span class="string">httpRequest,</span></span><br><span class="line">                   <span class="string">HttpServletResponse</span> <span class="string">httpResponse)</span> <span class="string">throws</span> <span class="string">ServletException,</span> <span class="string">IOException</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">String</span> <span class="string">serverUrl</span> <span class="string">=</span> <span class="string">AlipayConfig.URL;//沙箱网关</span></span><br><span class="line">    <span class="string">String</span> <span class="string">appId</span> <span class="string">=</span> <span class="string">AlipayConfig.APPID;</span></span><br><span class="line">    <span class="string">String</span> <span class="string">privateKey</span> <span class="string">=</span> <span class="string">AlipayConfig.RSA_PRIVATE_KEY;</span></span><br><span class="line">    <span class="string">String</span> <span class="string">format</span> <span class="string">=</span> <span class="string">AlipayConfig.FORMAT;</span></span><br><span class="line">    <span class="string">String</span> <span class="string">charset</span> <span class="string">=</span> <span class="string">AlipayConfig.CHARSET;</span></span><br><span class="line">    <span class="string">String</span> <span class="string">alipayPulicKey</span> <span class="string">=</span> <span class="string">AlipayConfig.ALIPAY_PUBLIC_KEY;</span></span><br><span class="line">    <span class="string">String</span> <span class="string">signType</span> <span class="string">=</span> <span class="string">AlipayConfig.SIGNTYPE;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//实例化客户端</span></span><br><span class="line">    <span class="string">AlipayClient</span> <span class="string">alipayClient</span> <span class="string">=</span> <span class="string">new</span> <span class="string">DefaultAlipayClient(serverUrl,appId,privateKey,format,charset,alipayPulicKey,signType);</span></span><br><span class="line"></span><br><span class="line">    <span class="string">AlipayTradePagePayRequest</span> <span class="string">alipayRequest</span> <span class="string">=</span> <span class="string">new</span> <span class="string">AlipayTradePagePayRequest();//创建API对应的request</span> <span class="string">(PC电脑网站)</span></span><br><span class="line">    <span class="string">//AlipayTradeWapPayRequest</span> <span class="string">alipayRequest</span> <span class="string">=</span> <span class="string">new</span> <span class="string">AlipayTradeWapPayRequest();//创建API对应的request</span> <span class="string">(手机网站跳到支付宝APP)</span></span><br><span class="line">    <span class="string">alipayRequest.setReturnUrl(AlipayConfig.return_url);</span></span><br><span class="line">    <span class="string">alipayRequest.setNotifyUrl(AlipayConfig.notify_url);//在公共参数中设置回跳和通知地址</span></span><br><span class="line"></span><br><span class="line">    <span class="string">Map&lt;String,Object&gt;</span> <span class="string">map</span> <span class="string">=</span> <span class="string">new</span> <span class="string">ConcurrentHashMap&lt;&gt;();</span></span><br><span class="line">    <span class="string">String</span> <span class="string">uuid</span> <span class="string">=</span> <span class="string">UUID.randomUUID().toString().replaceAll("-","");</span></span><br><span class="line">    <span class="string">String</span> <span class="string">payTyte1</span> <span class="string">=</span> <span class="string">"QUICK_WAP_PAY"</span><span class="string">;//手机网站支付</span></span><br><span class="line">    <span class="string">String</span> <span class="string">payTyte2</span> <span class="string">=</span> <span class="string">"FAST_INSTANT_TRADE_PAY"</span><span class="string">;//PC网站支付</span></span><br><span class="line">    <span class="string">map.put("out_trade_no",uuid);</span></span><br><span class="line">    <span class="string">map.put("total_amount",0.1);</span></span><br><span class="line">    <span class="string">map.put("subject","百事可乐");</span></span><br><span class="line">    <span class="string">map.put("product_code",payTyte2);</span></span><br><span class="line">    <span class="string">alipayRequest.setBizContent(JSONUtils.toJSONString(map));//填充业务参数</span></span><br><span class="line"></span><br><span class="line">    <span class="string">String</span> <span class="string">form="";</span></span><br><span class="line">    <span class="string">try</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">form</span> <span class="string">=</span> <span class="string">alipayClient.pageExecute(alipayRequest).getBody();</span> <span class="string">//调用SDK生成表单</span></span><br><span class="line">    <span class="string">&#125;</span> <span class="string">catch</span> <span class="string">(AlipayApiException</span> <span class="string">e)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">e.printStackTrace();</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="string">httpResponse.setContentType("text/html;charset="</span> <span class="string">+</span> <span class="string">AlipayConfig.CHARSET);</span></span><br><span class="line">    <span class="string">httpResponse.getWriter().write(form);//直接将完整的表单html输出到页面</span></span><br><span class="line">    <span class="string">httpResponse.getWriter().flush();</span></span><br><span class="line">    <span class="string">httpResponse.getWriter().close();</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>API常量参数</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/**</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@author</span> <span class="string">qixuan.chen</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@date</span> <span class="number">2020</span><span class="bullet">-02</span><span class="bullet">-19</span> <span class="number">12</span><span class="string">:24</span></span><br><span class="line"> <span class="string">*/</span></span><br><span class="line"><span class="string">@Data</span></span><br><span class="line"><span class="string">@Component</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">AlipayConfig</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">//</span> <span class="string">沙箱appid</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">String</span> <span class="string">APPID</span> <span class="string">=</span> <span class="string">"20187........"</span><span class="string">;</span></span><br><span class="line">    <span class="string">//</span> <span class="string">私钥</span> <span class="string">pkcs8格式的</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">String</span> <span class="string">RSA_PRIVATE_KEY</span> <span class="string">=</span> <span class="string">"MIIEv......"</span><span class="string">;</span></span><br><span class="line">    <span class="string">//</span> <span class="string">请求网关</span>  <span class="string">固定</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">String</span> <span class="string">URL</span> <span class="string">=</span> <span class="string">"https://openapi.alipay.com/gateway.do"</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//</span> <span class="string">服务器异步通知页面路径</span> <span class="string">需http://或者https://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">String</span> <span class="string">notify_url</span> <span class="string">=</span> <span class="string">"http://www.xx....:8082/front/alipay/notify"</span><span class="string">;</span></span><br><span class="line">    <span class="string">//</span> <span class="string">页面跳转同步通知页面路径</span> <span class="string">需http://或者https://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问</span> <span class="string">商户可以自定义同步跳转地址</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">String</span> <span class="string">return_url</span> <span class="string">=</span> <span class="string">"http://www.xx....:8082/front/alipay/return"</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//</span> <span class="string">编码</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">String</span> <span class="string">CHARSET</span> <span class="string">=</span> <span class="string">"UTF-8"</span><span class="string">;</span></span><br><span class="line">    <span class="string">//</span> <span class="string">返回格式</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">String</span> <span class="string">FORMAT</span> <span class="string">=</span> <span class="string">"json"</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//</span> <span class="string">支付宝公钥</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">String</span> <span class="string">ALIPAY_PUBLIC_KEY</span> <span class="string">=</span> <span class="string">"MIIBIj......"</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//</span> <span class="string">日志记录目录</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">String</span> <span class="string">log_path</span> <span class="string">=</span> <span class="string">"/log"</span><span class="string">;</span></span><br><span class="line">    <span class="string">//</span> <span class="string">RSA2</span></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">String</span> <span class="string">SIGNTYPE</span> <span class="string">=</span> <span class="string">"RSA2"</span><span class="string">;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#支付宝" >
+    <span class="tag-code">支付宝</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../../../../../2020/07/01/mysql/使用存储过程清理所有表数据/">
+        <span class="nav-arrow">← </span>
+        
+          使用存储过程清理所有表数据
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#支付宝支付接口（手机网站支付、PC网站支付扫码支付）"><span class="toc-nav-text">支付宝支付接口（手机网站支付、PC网站支付扫码支付）</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2022/02/09/ali/ali-pay-1/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "支付宝支付接口（手机网站支付（跳到APP支付）、PC网站支付（扫码支付））",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

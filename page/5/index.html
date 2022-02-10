@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../css/images/logo.png">
+  
+  <title>
+    
+      个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../js/qrious.js"></script>
+  
+  
+    <script src="../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/18/java/java-hash-sf/">Java 获取存储槽点hash算法</a>
+      </h2>
+      <p class="article-date">August 18, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Java 获取存储槽点hash算法12345678910111213141516171819202122232425262728293031323334353637383940414243/** * @author qixuan.chen * @date 2019-07-31 16:02 * ...
+        
+      </div>
+      <a class="more" href="../../2019/08/18/java/java-hash-sf/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/18/redis/redis-07/">redis集群</a>
+      </h2>
+      <p class="article-date">August 18, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis集群（默认有哨兵模式）
+至少6台机器（3组，每组是一个主从哨兵模式（master主机 salve从机））
+
+三台主机创建集群时，划分槽点
+
+存储槽点分配：如主机1（05000）主机1（500010000）主机1（10000~15000）
+
+集群是一个整体（数据分布存储在3个mast ...
+        
+      </div>
+      <a class="more" href="../../2019/08/18/redis/redis-07/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/18/redis/redis-06/">redis主从复制</a>
+      </h2>
+      <p class="article-date">August 18, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis主从复制 区别redis集群
+至少2台机器（一主一从），最好3台机器（一主二仆）
+
+主从复制时读写分离（从机不能写入，只有主机才能写入）
+
+主从复制较好好的方式是：一主二仆，再增加哨兵模式
+
+哨兵模式是（心跳）监听：主机服务器宕机，会从两个从机中选择一个变为主机
+
+从机启动时 主机 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/18/redis/redis-06/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/17/java/java-list-copy/">Java集合List的浅复制、深复制</a>
+      </h2>
+      <p class="article-date">August 17, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Java集合List的浅复制、深复制
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/17/java/java-list-copy/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/17/redis/redis-03/">redis数据持久化（备份和恢复）</a>
+      </h2>
+      <p class="article-date">August 17, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis数据持久化（备份和恢复）
+使用redis做缓存 抗高并发
+
+读写高效，查询速度快，避免频繁连接数据库读取数据
+
+只用redis做内存缓存使用，可以不关心redis持久化（因为数据库在mysql数据库里）
+
+如果把redis当做缓存数据库使用，那需要注意redis数据持久化、数据一致 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/17/redis/redis-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/17/redis/redis-05/">redis的事务</a>
+      </h2>
+      <p class="article-date">August 17, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis的事务
+redis事务，没有原子性这个概念，不会回滚
+
+redis事务 有类似乐观锁的原理
+
+
+redis事务结构
+redis事务使用12345678910111213141516171819202122232425262728293031323334353637383940414 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/17/redis/redis-05/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/17/mysql/lock-01/">乐观锁与悲观锁</a>
+      </h2>
+      <p class="article-date">August 17, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          乐观锁与悲观锁1、悲观锁 （加锁）总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，
+所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁
+（共享资源每次只给一个线程使用，其它线程阻塞，用完后再把资源转让给其它线程）。
+传统的关系型数据库里边就用到了很多这种锁机制， ...
+        
+      </div>
+      <a class="more" href="../../2019/08/17/mysql/lock-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/17/jvm/jvm-memory/">jvm性能调休</a>
+      </h2>
+      <p class="article-date">August 17, 2019</p>
+      
+        
+  <a href="../../tags#jvm" >
+    <span class="tag-code">jvm</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          jvm性能调休
+堆内存溢出outofmemory
+堆区内存溢出
+
+12
+
+
+非堆区内存溢出
+
+代码模拟例子 （死循环向List不断添加对象，非堆区添加class）
+
+自动、手动导出jvm内存影像文件，分析
+
+
+生产环境死循环 导致内存、cpu飙升线程死锁 cpu飙升耗资源jvm性能调休工具使 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/17/jvm/jvm-memory/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/16/mysql/mysql-03/">千万、百万级数据量的快速分页limit 优化</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="../../tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          千万、百万级数据量的快速分页limit 优化
+随着数据量增大查询会变慢，百万级数据量开始变慢（无索引情况下）
+
+例子limit n,10; n会全表扫描
+
+
+12345678910111213141516SELECT count(*) from t_advertise_view_record ...
+        
+      </div>
+      <a class="more" href="../../2019/08/16/mysql/mysql-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/16/redis/redis-04/">redis应用场景</a>
+      </h2>
+      <p class="article-date">August 16, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis应用场景1、热点数据的缓存由于redis访问速度块、支持的数据类型比较丰富，所以redis很适合用来存储热点数据，另外结合expire，
+我们可以设置过期时间然后再进行缓存更新操作，这个功能最为常见，我们几乎所有的项目都有所运用。2、限时业务的运用redis中可以使用expire命 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/16/redis/redis-04/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="../4/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a href="../6/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../js/script.js"></script>
+  </body>
+</html>

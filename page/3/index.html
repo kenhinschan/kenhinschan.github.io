@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../css/images/logo.png">
+  
+  <title>
+    
+      个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../js/qrious.js"></script>
+  
+  
+    <script src="../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/elasticsearch/elk-nginx-01/">Logstash采集nginx日志输出到es</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          注意：宿主机与docker容器的挂载、很重要、很重要
+Logstash采集nginx日志输出到es
+进入elk容器
+
+1docker exec -it elkv2 /bin/bash
+
+修改nginx日志格式logs-nginx.conf
+12345678910111213input &#1 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/elasticsearch/elk-nginx-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/elasticsearch/elk-mysql-05/">logstash同步mysql数据到es</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          logstash同步mysql到es
+进入elk容器
+
+1docker exec -it elk /bin/bash
+
+
+把mysql的t_case_cpws表的部分字段导入到es的mysql-test索引库
+
+可以设置定时
+
+进入/opt/logstash/config目录vi mysql ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/elasticsearch/elk-mysql-05/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/elasticsearch/elk-mysql-06/">logstash数据采集之mysql-to-es（指定ik分词）</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          注意：如果执行失败，查看logstash是否已经正在运行中，如果是可以在elk容器里service logstash stop先停止logstash服务，再执行
+logstash的配置123456789101112131415161718192021222324252627282930313 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/elasticsearch/elk-mysql-06/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/docker-learn/docker-03/">centos7 安装 ELK</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#docker" >
+    <span class="tag-code">docker</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+之前docker使用分别安装E、L、K
+
+觉得还是不够方便，现在使用docker安装别人现成的ELK镜像
+
+
+1、安装ELK镜像
+安装7.1.1版本
+
+1docker pull sebp/elk:711
+
+2、运行123456789docker run -p 5601:5601 -p 92 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/docker-learn/docker-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/docker-learn/docker-01/">centos7 安装 docker</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#docker" >
+    <span class="tag-code">docker</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          centos7 安装 docker
+centos7系统（稳定,对docker支持友好）查看docker是否已安装 docker -v1、使用yum命令进行安装1yum install -y docker
+
+2、查看是否安装成功1234[root@localhost qixuan]# yum  ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/docker-learn/docker-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/java/java-collections/">Java集合</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Java集合
+Java集合线程是否安全
+非线程安全的，效率高
+线程安全的，效率低
+补充：ConcurrentHashMap （线程安全、效率高）
+
+
+List HashMap Set 线程安全声明使用方法注意：在高并发情况下，list，hashmap，set都会存在–并发修改异常
+
+1.使用 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/java/java-collections/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/springboot/sp-02/">springboot IOC容器</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#springboot" >
+    <span class="tag-code">springboot</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          1、spring bean的作用域
+默认作用域是单例，可以通过@scope修改
+
+2、spring bean的生命周期把bean交给ioc管理（@Controller @Service @Repository @Component）
+
+1、调用构造实例化（默认情况下，spring ioc容器 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/springboot/sp-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/java/java-single/">Java的设计模式</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          1、单例模式（线程安全-双端检测）12345678910111213141516171819public class SingleObject &#123;    //在类加载到内存时候静态成员变量就存在了，而对象还不存在，volatile内存可见（防止指令重排，出现）    private ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/java/java-single/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/15/java/java-static/">Java的静态与非静态</a>
+      </h2>
+      <p class="article-date">September 15, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Java的静态与非静态
+静态成员、静态方法随着类的加载而加载（先于非静态存在jvm内存中）
+
+静态成员、静态方法可以通过类名直接调用（类名.静态方法/成员变量）
+
+静态方法不能调用非静态的方法、非静态的成员变量（编译不通过，因为静态先于非静态存在jvm内存中）
+
+非静态成员方法、成员变量必须 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/15/java/java-static/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/11/java/java-class/">Java的接口与抽象类</a>
+      </h2>
+      <p class="article-date">September 11, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          接口与抽象类的区别
+（1）抽象类可以有构造方法，接口中不能有构造方法。
+
+（2）抽象类中可以有普通成员变量，接口中没有普通成员变量
+
+（3）抽象类中可以包含静态方法，接口中不能包含静态方法
+
+（4）一个类可以实现多个接口，但只能继承一个抽象类。
+
+（5）接口可以被多重实现，抽象类只能被单一继 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/11/java/java-class/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="../2/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a href="../4/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../js/script.js"></script>
+  </body>
+</html>

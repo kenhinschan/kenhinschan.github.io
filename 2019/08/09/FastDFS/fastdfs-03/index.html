@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      springboot 整合FastDFS | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>springboot 整合FastDFS</h2>
+  <p class="post-date">2019-08-09</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="1、加入maven坐标"><a href="#1、加入maven坐标" class="headerlink" title="1、加入maven坐标"></a>1、加入maven坐标</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;dependency&gt;</span></span><br><span class="line">    <span class="string">&lt;groupId&gt;com.github.tobato&lt;/groupId&gt;</span></span><br><span class="line">    <span class="string">&lt;artifactId&gt;fastdfs-client&lt;/artifactId&gt;</span></span><br><span class="line">    <span class="string">&lt;version&gt;1.26.2&lt;/version&gt;</span></span><br><span class="line"><span class="string">&lt;/dependency&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、yml配置"><a href="#2、yml配置" class="headerlink" title="2、yml配置"></a>2、yml配置</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分布式文件系统fastdfs配置</span></span><br><span class="line"><span class="attr">fdfs:</span></span><br><span class="line">  <span class="comment"># socket连接超时时长</span></span><br><span class="line"><span class="attr">  soTimeout:</span> <span class="number">1500</span></span><br><span class="line">  <span class="comment"># 连接tracker服务器超时时长</span></span><br><span class="line"><span class="attr">  connectTimeout:</span> <span class="number">600</span></span><br><span class="line"><span class="attr">  pool:</span></span><br><span class="line">    <span class="comment"># 从池中借出的对象的最大数目</span></span><br><span class="line"><span class="attr">    max-total:</span> <span class="number">153</span></span><br><span class="line">    <span class="comment"># 获取连接时的最大等待毫秒数100</span></span><br><span class="line"><span class="attr">    max-wait-millis:</span> <span class="number">102</span></span><br><span class="line">  <span class="comment"># 缩略图生成参数，可选</span></span><br><span class="line"><span class="attr">  thumbImage:</span></span><br><span class="line"><span class="attr">    width:</span> <span class="number">150</span></span><br><span class="line"><span class="attr">    height:</span> <span class="number">150</span></span><br><span class="line">  <span class="comment"># 跟踪服务器tracker_server请求地址,支持多个，这里只有一个，如果有多个在下方加- x.x.x.x:port</span></span><br><span class="line"><span class="attr">  trackerList:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.10</span><span class="string">:22122</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># 存储服务器storage_server访问地址</span></span><br><span class="line"><span class="attr">  web-server-url:</span> <span class="attr">http://192.168.1.10:81/</span></span><br><span class="line"><span class="attr">  spring:</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      multipart:</span></span><br><span class="line"><span class="attr">        max-file-size:</span> <span class="number">100</span><span class="string">MB</span> <span class="comment"># 最大支持文件大小</span></span><br><span class="line"><span class="attr">        max-request-size:</span> <span class="number">100</span><span class="string">MB</span> <span class="comment"># 最大支持请求大小</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3、启动类开启注解"><a href="#3、启动类开启注解" class="headerlink" title="3、启动类开启注解"></a>3、启动类开启注解</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">@Import(FdfsClientConfig.class)</span></span><br><span class="line"><span class="string">@EnableMBeanExport(registration</span> <span class="string">=</span> <span class="string">RegistrationPolicy.IGNORE_EXISTING)</span></span><br><span class="line"><span class="string">@SpringBootApplication</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">Sp12FastdfsApplication</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">void</span> <span class="string">main(String[]</span> <span class="string">args)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">SpringApplication.run(Sp12FastdfsApplication.class,</span> <span class="string">args);</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4、fastdfs工具类"><a href="#4、fastdfs工具类" class="headerlink" title="4、fastdfs工具类"></a>4、fastdfs工具类</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/**</span></span><br><span class="line"> <span class="string">*</span> <span class="string">Fastdfs工具类</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@author</span> <span class="string">qixuan.chen</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@date</span> <span class="number">2019</span><span class="bullet">-08</span><span class="bullet">-07</span> <span class="number">23</span><span class="string">:26</span></span><br><span class="line"> <span class="string">*/</span></span><br><span class="line"><span class="string">@Component</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">FastdfsClientUtil</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">private</span> <span class="string">final</span> <span class="string">Logger</span> <span class="string">logger</span> <span class="string">=</span> <span class="string">LoggerFactory.getLogger(FastdfsClientUtil.class);</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@Autowired</span></span><br><span class="line">    <span class="string">private</span> <span class="string">FastFileStorageClient</span> <span class="string">storageClient;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@Autowired</span></span><br><span class="line">    <span class="string">private</span> <span class="string">FdfsWebServer</span> <span class="string">fdfsWebServer;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">上传文件</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">file</span> <span class="string">文件对象</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span> <span class="string">文件访问地址</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@throws</span> <span class="string">IOException</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">uploadFile(MultipartFile</span> <span class="string">file)</span> <span class="string">throws</span> <span class="string">IOException</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">StorePath</span> <span class="string">storePath</span> <span class="string">=</span> <span class="string">storageClient.uploadFile(file.getInputStream(),file.getSize(),</span> <span class="string">FilenameUtils.getExtension(file.getOriginalFilename()),null);</span></span><br><span class="line">        <span class="string">return</span> <span class="string">getResAccessUrl(storePath);</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">上传文件</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">file</span> <span class="string">文件对象</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span> <span class="string">文件访问地址</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@throws</span> <span class="string">IOException</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">uploadFile(File</span> <span class="string">file)</span> <span class="string">throws</span> <span class="string">IOException</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">FileInputStream</span> <span class="string">inputStream</span> <span class="string">=</span> <span class="string">new</span> <span class="string">FileInputStream</span> <span class="string">(file);</span></span><br><span class="line">        <span class="string">StorePath</span> <span class="string">storePath</span> <span class="string">=</span> <span class="string">storageClient.uploadFile(inputStream,file.length(),</span> <span class="string">FilenameUtils.getExtension(file.getName()),null);</span></span><br><span class="line">        <span class="string">return</span> <span class="string">getResAccessUrl(storePath);</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">带输入流形式的文件上传</span></span><br><span class="line">     <span class="string">*</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">is</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">size</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">fileName</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">uploadFileStream(InputStream</span> <span class="string">is,</span> <span class="string">long</span> <span class="string">size,</span> <span class="string">String</span> <span class="string">fileName)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">StorePath</span> <span class="string">path</span> <span class="string">=</span> <span class="string">storageClient.uploadFile(is,</span> <span class="string">size,</span> <span class="string">fileName,</span> <span class="literal">null</span><span class="string">);</span></span><br><span class="line">        <span class="string">return</span> <span class="string">getResAccessUrl(path);</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">将一段字符串生成一个文件上传</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">content</span> <span class="string">文件内容</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">fileExtension</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">uploadFile(String</span> <span class="string">content,</span> <span class="string">String</span> <span class="string">fileExtension)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">byte[]</span> <span class="string">buff</span> <span class="string">=</span> <span class="string">content.getBytes(Charset.forName("UTF-8"));</span></span><br><span class="line">        <span class="string">ByteArrayInputStream</span> <span class="string">stream</span> <span class="string">=</span> <span class="string">new</span> <span class="string">ByteArrayInputStream(buff);</span></span><br><span class="line">        <span class="string">StorePath</span> <span class="string">storePath</span> <span class="string">=</span> <span class="string">storageClient.uploadFile(stream,buff.length,</span> <span class="string">fileExtension,null);</span></span><br><span class="line">        <span class="string">return</span> <span class="string">getResAccessUrl(storePath);</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">//</span> <span class="string">封装图片完整URL地址</span></span><br><span class="line">    <span class="string">private</span> <span class="string">String</span> <span class="string">getResAccessUrl(StorePath</span> <span class="string">storePath)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">String</span> <span class="string">fileUrl</span> <span class="string">=</span> <span class="string">fdfsWebServer.getWebServerUrl()</span> <span class="string">+</span> <span class="string">storePath.getFullPath();</span></span><br><span class="line">        <span class="string">return</span> <span class="string">fileUrl;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">下载文件</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">fileUrl</span> <span class="string">文件url</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">public</span> <span class="string">byte[]</span>  <span class="string">download(String</span> <span class="string">fileUrl)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">String</span> <span class="string">group</span> <span class="string">=</span> <span class="string">fileUrl.substring(0,</span> <span class="string">fileUrl.indexOf("/"));</span></span><br><span class="line">        <span class="string">String</span> <span class="string">path</span> <span class="string">=</span> <span class="string">fileUrl.substring(fileUrl.indexOf("/")</span> <span class="string">+</span> <span class="number">1</span><span class="string">);</span></span><br><span class="line">        <span class="string">byte[]</span> <span class="string">bytes</span> <span class="string">=</span> <span class="string">storageClient.downloadFile(group,</span> <span class="string">path,</span> <span class="string">new</span> <span class="string">DownloadByteArray());</span></span><br><span class="line">        <span class="string">return</span> <span class="string">bytes;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">删除文件</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@param</span> <span class="string">fileUrl</span> <span class="string">文件访问地址</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">public</span> <span class="string">void</span> <span class="string">deleteFile(String</span> <span class="string">fileUrl)</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">if</span> <span class="string">(StringUtils.isEmpty(fileUrl))</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">return;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">        <span class="string">try</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">StorePath</span> <span class="string">storePath</span> <span class="string">=</span> <span class="string">StorePath.praseFromUrl(fileUrl);</span></span><br><span class="line">            <span class="string">storageClient.deleteFile(storePath.getGroup(),</span> <span class="string">storePath.getPath());</span></span><br><span class="line">        <span class="string">&#125;</span> <span class="string">catch</span> <span class="string">(FdfsUnsupportStorePathException</span> <span class="string">e)</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">logger.warn(e.getMessage());</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5、测试"><a href="#5、测试" class="headerlink" title="5、测试"></a>5、测试</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/**</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@author</span> <span class="string">qixuan.chen</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@date</span> <span class="number">2019</span><span class="bullet">-08</span><span class="bullet">-08</span> <span class="number">21</span><span class="string">:48</span></span><br><span class="line"> <span class="string">*/</span></span><br><span class="line"><span class="string">@RestController</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">UploadFileController</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">@Autowired</span></span><br><span class="line">    <span class="string">private</span> <span class="string">FastdfsClientUtil</span> <span class="string">fastdfsClientUtil;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">上传文件</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">@RequestMapping("/upload/file")</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">uploadFile()&#123;</span></span><br><span class="line">        <span class="string">File</span> <span class="string">file</span> <span class="string">=</span> <span class="string">new</span> <span class="string">File("/Users/chenqixuan/Downloads/logo.png");</span></span><br><span class="line">        <span class="string">String</span> <span class="string">url=null;</span></span><br><span class="line">        <span class="string">try</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">url</span> <span class="string">=</span> <span class="string">fastdfsClientUtil.uploadFile(file);</span></span><br><span class="line">        <span class="string">&#125;</span> <span class="string">catch</span> <span class="string">(IOException</span> <span class="string">e)</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">e.printStackTrace();</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">url;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">上传文件</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">@GetMapping("/upload/str")</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">uploadStrFile(@RequestParam("content")</span> <span class="string">String</span> <span class="string">content,@RequestParam("ext")</span> <span class="string">String</span> <span class="string">ext</span> <span class="string">)&#123;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">String</span> <span class="string">url=null;</span></span><br><span class="line">        <span class="string">try</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">url</span> <span class="string">=</span> <span class="string">fastdfsClientUtil.uploadFile(content,ext);</span></span><br><span class="line">        <span class="string">&#125;</span> <span class="string">catch</span> <span class="string">(Exception</span> <span class="string">e)</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">e.printStackTrace();</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">url;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">下载文件</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">@GetMapping("/download/file")</span></span><br><span class="line">    <span class="string">public</span> <span class="string">void</span> <span class="string">downloadFile(@RequestParam("fileUrl")</span> <span class="string">String</span> <span class="string">fileUrl</span> <span class="string">)&#123;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">String</span> <span class="string">url=null;</span></span><br><span class="line">        <span class="string">try</span> <span class="string">&#123;</span></span><br><span class="line">           <span class="string">byte[]</span> <span class="string">content</span> <span class="string">=</span> <span class="string">fastdfsClientUtil.download(fileUrl);</span></span><br><span class="line">            <span class="string">File</span> <span class="string">file</span> <span class="string">=</span> <span class="string">new</span> <span class="string">File("filename.png");</span></span><br><span class="line">            <span class="string">BufferedOutputStream</span> <span class="string">bos</span> <span class="string">=</span> <span class="string">new</span> <span class="string">BufferedOutputStream(new</span> <span class="string">FileOutputStream(file));</span></span><br><span class="line">            <span class="string">bos.write(content);</span></span><br><span class="line">        <span class="string">&#125;</span> <span class="string">catch</span> <span class="string">(Exception</span> <span class="string">e)</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">e.printStackTrace();</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">删除文件</span></span><br><span class="line">     <span class="string">*</span> <span class="string">@return</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">@GetMapping("/upload/delete")</span></span><br><span class="line">    <span class="string">public</span> <span class="string">String</span> <span class="string">uploadStrFile(@RequestParam("fileUrl")</span> <span class="string">String</span> <span class="string">fileUrl</span> <span class="string">)&#123;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">try</span> <span class="string">&#123;</span></span><br><span class="line">             <span class="string">fastdfsClientUtil.deleteFile(fileUrl);</span></span><br><span class="line">        <span class="string">&#125;</span> <span class="string">catch</span> <span class="string">(Exception</span> <span class="string">e)</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">e.printStackTrace();</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">        <span class="string">return</span> <span class="string">"success: "</span><span class="string">+fileUrl;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#FastDFS" >
+    <span class="tag-code">FastDFS</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../fastdfs-01/">
+        <span class="nav-arrow">← </span>
+        
+          docker 安装一键部署FastDFS （分布式文件存储）
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../../../14/FastDFS/fastdfs-02/">
+        
+          docker 安装FastDFS （tracker、storage）
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1、加入maven坐标"><span class="toc-nav-text">1、加入maven坐标</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2、yml配置"><span class="toc-nav-text">2、yml配置</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3、启动类开启注解"><span class="toc-nav-text">3、启动类开启注解</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4、fastdfs工具类"><span class="toc-nav-text">4、fastdfs工具类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#5、测试"><span class="toc-nav-text">5、测试</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2019/08/09/FastDFS/fastdfs-03/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "springboot 整合FastDFS",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

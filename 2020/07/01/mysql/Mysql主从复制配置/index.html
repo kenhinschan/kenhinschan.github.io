@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      Mysql主从复制配置 | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Mysql主从复制配置</h2>
+  <p class="post-date">2020-07-01</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="MYSQL-主从复制-一主一从"><a href="#MYSQL-主从复制-一主一从" class="headerlink" title="MYSQL 主从复制 (一主一从)"></a>MYSQL 主从复制 (一主一从)</h2><p>主库已有数据要进行备份：docker exec [CONTAINER] /usr/bin/mysqldump -u username –password=xxx [DATABASE] &gt; backup.sql</p>
+<p>数据库备份：/usr/bin/mysqldump -u username –password=xxx [DATABASE] &gt; backup.sql</p>
+<ul>
+<li>主库：192.168.27.35 (127.0.0.1)—– mysql5.5 win10</li>
+<li>从库：192.168.48.140   —-mariadb  centos7</li>
+</ul>
+<h4 id="一、-master端配置（192-168-27-35-主库）"><a href="#一、-master端配置（192-168-27-35-主库）" class="headerlink" title="一、 master端配置（192.168.27.35 主库）"></a>一、 master端配置（192.168.27.35 主库）</h4><ul>
+<li>1、主库的my.ini 配置(master端)<br>注意：不是my-default.ini(在这里配置不生效的)</li>
+</ul>
+<p>在[mysqld]节点加上如下配置:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#主库配置</span><br><span class="line">server_id=1</span><br><span class="line">log_bin=mysql-master1-bin</span><br><span class="line">log_bin-index=mysql-master1-bin.index</span><br><span class="line">#只同步cloud_course,db1数据库(可选配置)</span><br><span class="line">binlog-do-db=cloud_course</span><br><span class="line">binlog-do-db=db1</span><br><span class="line"># 这个方式很多版本不可行</span><br><span class="line"># binlog-do-db=cloud_course,db1</span><br><span class="line">innodb_flush_log_at_trx_commit = 1</span><br><span class="line">sync_binlog = 1</span><br><span class="line">expire_logs_days=7</span><br></pre></td></tr></table></figure>
+
+<p>注意:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">如果省略server-id（或将其显式设置为默认值0），则主服务器拒绝来自从服务器的任何连接。</span><br><span class="line">为了在使用带事务的InnoDB进行复制设置时尽可能提高持久性和一致性，</span><br><span class="line">您应该在master my.cnf文件中使用以下配置项：</span><br><span class="line">innodb_flush_log_at_trx_commit = 1</span><br><span class="line">sync_binlog = 1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>2、重启master端mysql<br>systemctl restart mariadb 或者 systemctl restart mysql</p>
+</li>
+<li><p>3、查看并记录master的信息<br>show master status;</p>
+</li>
+</ul>
+<p>position的值 是不断变化的 （更新、添加、删除，添加用户，修改用户权限等）</p>
+<p>file: 日志文件主库重启了，文件名会变化，会+1的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show master status;</span><br><span class="line">+--------------------------+----------+------------------+------------------+-------------------+</span><br><span class="line">| File                     | Position | Binlog_Do_DB     | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line">+--------------------------+----------+------------------+------------------+-------------------+</span><br><span class="line">| mysql-master1-bin.000001 |      120 | cloud_course,db1 |                  |                   |</span><br><span class="line">+--------------------------+----------+------------------+------------------+-------------------+</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>4、确保在主服务器上 skip_networking 选项处于 OFF 关闭状态, 这是默认值。<br>如果是启用的，则从站无法与主站通信，并且复制失败。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &apos;%skip_networking%&apos;;</span><br><span class="line">+-----------------+-------+</span><br><span class="line">| Variable_name   | Value |</span><br><span class="line">+-----------------+-------+</span><br><span class="line">| skip_networking | OFF   |</span><br><span class="line">+-----------------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="二、slave端配置（192-168-1-101-从库配置）"><a href="#二、slave端配置（192-168-1-101-从库配置）" class="headerlink" title="二、slave端配置（192.168.1.101 从库配置）"></a>二、slave端配置（192.168.1.101 从库配置）</h4><ul>
+<li><p>1、从库my.ini或者my.cnf配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[mariadb]</span><br><span class="line">server-id=140</span><br><span class="line"># 指定数据库（多个数据库）</span><br><span class="line">replicate-do-db=cloud_course</span><br><span class="line">replicate-do-db=db1</span><br><span class="line"></span><br><span class="line">## 开启二进制日志功能，以备Slave作为其它Slave的Master时使用</span><br><span class="line">log-bin=mysql-slave1-bin</span><br><span class="line">expire_logs_days=7</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2、从库中设置连接到master主服务器</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">change master to master_host='192.168.27.35', master_user='root', master_password='123456',master_log_file='mysql-master1-bin.000001', master_log_pos=120;</span><br><span class="line"></span><br><span class="line">参数解释： </span><br><span class="line">    master_host=’192.168.1.100’ ## Master的IP地址</span><br><span class="line">    master_user=’slave’ ## 用于同步数据的用户（在Master中授权的用户）</span><br><span class="line">    master_password=’123456’ ## 同步数据用户的密码</span><br><span class="line">    master_port=3306 ## Master数据库服务的端口</span><br><span class="line">    master_log_file=’edu-mysql-bin.000001’ ##指定Slave从哪个日志文件开始读复制数据（Master上执行命令的结果的File字段）</span><br><span class="line">    master_log_pos=429 ## 从哪个POSITION号开始读（Master上执行命令的结果的Position字段）</span><br><span class="line">    master_connect_retry=30 ##当重新建立主从连接时，如果连接建立失败，间隔多久后重试。单位为秒，默认设置为60秒，同步延迟调优参数。</span><br></pre></td></tr></table></figure>
+
+<p>进入slave服务器mysql执行命令：STOP slave;<br>在执行上面CHANGE MASTER命令<br>成功后再执行命令：START slave;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mariadb&gt; stop slave;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mariadb&gt; </span><br><span class="line">mariadb&gt; change master to master_host=&apos;192.168.27.35&apos;, master_user=&apos;xuan&apos;, master_password=&apos;123456&apos;,master_log_file=&apos;mysql-master1-bin.000002&apos;, master_log_pos=120;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">mariadb&gt; </span><br><span class="line">mariadb&gt; start slave;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>3、开启主从同步 （在从库执行）<br>mariadb&gt; start slave;</p>
+</li>
+<li><p>4、查看主从同步状态</p>
+</li>
+</ul>
+<p>mariadb&gt; show slave status;</p>
+<p>查询查看主从同步状态，会发现Slave_IO_Running和Slave_SQL_Running是Yes了，表明开启成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 从库设置</span><br><span class="line">show slave status;</span><br><span class="line"></span><br><span class="line">stop slave</span><br><span class="line"></span><br><span class="line">start slave</span><br><span class="line"></span><br><span class="line">reset slave;</span><br><span class="line"></span><br><span class="line">change master to master_host=&apos;192.168.27.35&apos;, master_user=&apos;root&apos;, master_password=&apos;123456&apos;,master_log_file=&apos;mysql-master1-bin.000001&apos;, master_log_pos=120;</span><br></pre></td></tr></table></figure>
+
+<h4 id="三、mysql主从模式测试"><a href="#三、mysql主从模式测试" class="headerlink" title="三、mysql主从模式测试"></a>三、mysql主从模式测试</h4><ul>
+<li><p>主库进行创建多个数据表、 修改数据表数据（添加、删除、修改）</p>
+</li>
+<li><p>从库同步随之发生变化</p>
+</li>
+</ul>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../Mysql互为主从配置/">
+        <span class="nav-arrow">← </span>
+        
+          Mysql互为主从配置
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../使用存储过程清理所有表数据/">
+        
+          使用存储过程清理所有表数据
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#MYSQL-主从复制-一主一从"><span class="toc-nav-text">MYSQL 主从复制 (一主一从)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#一、-master端配置（192-168-27-35-主库）"><span class="toc-nav-text">一、 master端配置（192.168.27.35 主库）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#二、slave端配置（192-168-1-101-从库配置）"><span class="toc-nav-text">二、slave端配置（192.168.1.101 从库配置）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#三、mysql主从模式测试"><span class="toc-nav-text">三、mysql主从模式测试</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2020/07/01/mysql/Mysql主从复制配置/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Mysql主从复制配置",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

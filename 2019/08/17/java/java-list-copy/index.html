@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      Java集合List的浅复制、深复制 | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Java集合List的浅复制、深复制</h2>
+  <p class="post-date">2019-08-17</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Java集合List的浅复制、深复制"><a href="#Java集合List的浅复制、深复制" class="headerlink" title="Java集合List的浅复制、深复制"></a>Java集合List的浅复制、深复制</h1><hr>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/**</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@author</span> <span class="string">qixuan.chen</span></span><br><span class="line"> <span class="string">*</span> <span class="string">@date</span> <span class="number">2019</span><span class="bullet">-08</span><span class="bullet">-17</span> <span class="number">18</span><span class="string">:14</span></span><br><span class="line"> <span class="string">*/</span></span><br><span class="line"><span class="string">public</span> <span class="string">class</span> <span class="string">ListArrayTest</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="string">public</span> <span class="string">static</span> <span class="string">void</span> <span class="string">main(String[]</span> <span class="string">args)&#123;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">yiyongObject();</span></span><br><span class="line"></span><br><span class="line">        <span class="string">listCopy();</span></span><br><span class="line"></span><br><span class="line">        <span class="string">arrayCopy();</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">数组引用、深复制</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">private</span> <span class="string">static</span> <span class="string">void</span> <span class="string">arrayCopy()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">String[]</span> <span class="string">array</span> <span class="string">=</span> <span class="string">new</span> <span class="string">String[6];</span></span><br><span class="line"></span><br><span class="line">        <span class="string">array[0]</span> <span class="string">=</span> <span class="string">"0000"</span><span class="string">;</span></span><br><span class="line">        <span class="string">array[1]</span> <span class="string">=</span> <span class="string">"1111"</span><span class="string">;</span></span><br><span class="line">        <span class="string">array[2]</span> <span class="string">=</span> <span class="string">"2222"</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">String[]</span> <span class="string">array2</span> <span class="string">=</span> <span class="string">array;//数组引用</span> <span class="string">指向同一个地址</span></span><br><span class="line">        <span class="string">array2[1]</span> <span class="string">=</span> <span class="string">"ddddd"</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">String[]</span> <span class="string">array3=</span> <span class="string">array.clone();//数组复制</span> <span class="string">指向不同地址</span></span><br><span class="line">        <span class="string">array3[0]</span> <span class="string">=</span> <span class="string">"diii"</span><span class="string">;</span></span><br><span class="line">        <span class="string">array3[1]</span> <span class="string">=</span> <span class="string">"xxxx"</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">System.out.println();</span></span><br><span class="line">        <span class="string">System.out.println("==1=="+</span> <span class="string">Arrays.toString(array));</span></span><br><span class="line">        <span class="string">System.out.println("==2=="+Arrays.toString(array2));</span></span><br><span class="line">        <span class="string">System.out.println("==3=="+Arrays.toString(array3));</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">list的浅复制</span> <span class="string">（外层复制，对象的内存块还是同一个）</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">private</span> <span class="string">static</span> <span class="string">void</span> <span class="string">listCopy()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">ArrayList&lt;User&gt;</span> <span class="string">list1</span> <span class="string">=</span> <span class="string">new</span> <span class="string">ArrayList&lt;&gt;();//接口方式创建实例</span></span><br><span class="line">        <span class="string">User</span> <span class="string">user</span> <span class="string">=</span> <span class="string">new</span> <span class="string">User();</span></span><br><span class="line">        <span class="string">user.setName("zhangsan1");</span></span><br><span class="line">        <span class="string">list1.add(user);</span></span><br><span class="line"></span><br><span class="line">        <span class="string">ArrayList&lt;User&gt;</span> <span class="string">list2</span> <span class="string">=</span> <span class="string">(ArrayList&lt;User&gt;)list1.clone();//list的浅复制</span> <span class="string">（外层复制，对象的内存块还是同一个）</span></span><br><span class="line"></span><br><span class="line">        <span class="string">//深复制</span></span><br><span class="line">        <span class="string">ArrayList&lt;User&gt;</span> <span class="string">list3</span> <span class="string">=</span> <span class="string">new</span> <span class="string">ArrayList&lt;&gt;();</span></span><br><span class="line">        <span class="string">for</span> <span class="string">(User</span> <span class="attr">u:list1)</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">list3.add(u.clone());//重写User对象的clone方法</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">list2.get(0).setName("lisi00");//所以只修改了list2,</span> <span class="string">同样list1也会发生变化</span></span><br><span class="line"></span><br><span class="line">        <span class="string">System.out.println();</span></span><br><span class="line">        <span class="string">System.out.println("====22list1===="+list1.toString());</span></span><br><span class="line">        <span class="string">System.out.println("====22list2===="+list2.toString());</span></span><br><span class="line">        <span class="string">System.out.println("====22list3===="+list3.toString());</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">/**</span></span><br><span class="line">     <span class="string">*</span> <span class="string">内存对象引用例子</span></span><br><span class="line">     <span class="string">*/</span></span><br><span class="line">    <span class="string">private</span> <span class="string">static</span> <span class="string">void</span> <span class="string">yiyongObject()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">List&lt;User&gt;</span> <span class="string">list1</span> <span class="string">=</span> <span class="string">new</span> <span class="string">ArrayList&lt;&gt;();//接口方式创建实例</span></span><br><span class="line">        <span class="string">User</span> <span class="string">user</span> <span class="string">=</span> <span class="string">new</span> <span class="string">User();</span></span><br><span class="line">        <span class="string">user.setName("zhangsan1");</span></span><br><span class="line">        <span class="string">list1.add(user);</span></span><br><span class="line">        <span class="string">user.setName("zhangsan2");</span></span><br><span class="line">        <span class="string">list1.add(user);</span></span><br><span class="line">        <span class="string">User</span> <span class="string">user2</span> <span class="string">=</span> <span class="string">new</span> <span class="string">User();</span></span><br><span class="line">        <span class="string">user2.setName("zhangsan2444");</span></span><br><span class="line">        <span class="string">list1.add(user2);</span></span><br><span class="line"></span><br><span class="line">        <span class="string">List&lt;User&gt;</span> <span class="string">list2</span> <span class="string">=</span> <span class="string">list1;//引用</span> <span class="string">list1、list2指向同一块内存</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="string">list2.get(0).setName("lisi00");//所以只修改了list2,</span> <span class="string">同样list1也会发生变化</span></span><br><span class="line">        <span class="string">System.out.println();</span></span><br><span class="line">        <span class="string">System.out.println("====list1===="+list1.toString());</span></span><br><span class="line">        <span class="string">System.out.println("====list2===="+list2.toString());</span></span><br><span class="line"></span><br><span class="line">        <span class="string">list2.remove(0);//删除</span></span><br><span class="line">        <span class="string">System.out.println("====list1rr===="+list1.toString());</span></span><br><span class="line">        <span class="string">System.out.println("====list2rr===="+list2.toString());</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="string">static</span> <span class="string">class</span> <span class="string">User&#123;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">private</span> <span class="string">String</span> <span class="string">name;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">public</span> <span class="string">String</span> <span class="string">getName()</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">return</span> <span class="string">name;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">public</span> <span class="string">void</span> <span class="string">setName(String</span> <span class="string">name)</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">this.name</span> <span class="string">=</span> <span class="string">name;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">@Override</span></span><br><span class="line">        <span class="string">public</span> <span class="string">String</span> <span class="string">toString()</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">return</span> <span class="string">"User&#123;"</span> <span class="string">+</span></span><br><span class="line">                    <span class="string">"name='"</span> <span class="string">+</span> <span class="string">name</span> <span class="string">+</span> <span class="string">'\''</span> <span class="string">+</span></span><br><span class="line">                    <span class="string">'&#125;'</span><span class="string">;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">public</span> <span class="string">User()</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">public</span> <span class="string">User(String</span> <span class="string">name)</span> <span class="string">&#123;</span></span><br><span class="line">            <span class="string">this.name</span> <span class="string">=</span> <span class="string">name;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">@Override</span></span><br><span class="line">        <span class="string">public</span> <span class="string">User</span> <span class="string">clone()</span>  <span class="string">&#123;</span></span><br><span class="line">            <span class="string">User</span> <span class="string">user</span> <span class="string">=</span> <span class="string">new</span> <span class="string">User(this.name);</span></span><br><span class="line">            <span class="string">return</span> <span class="string">user;</span></span><br><span class="line">        <span class="string">&#125;</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../../redis/redis-03/">
+        <span class="nav-arrow">← </span>
+        
+          redis数据持久化（备份和恢复）
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../../../18/redis/redis-06/">
+        
+          redis主从复制
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Java集合List的浅复制、深复制"><span class="toc-nav-text">Java集合List的浅复制、深复制</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2019/08/17/java/java-list-copy/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Java集合List的浅复制、深复制",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

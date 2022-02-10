@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../css/images/logo.png">
+  
+  <title>
+    
+      个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../js/qrious.js"></script>
+  
+  
+    <script src="../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/01/docker-learn/docker-02/">Docker下安装rabbitmq</a>
+      </h2>
+      <p class="article-date">August 1, 2019</p>
+      
+        
+  <a href="../../tags#docker" >
+    <span class="tag-code">docker</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          搜查镜像
+地址：https://hub.docker.com/  找对应的tags：3.7-management 
+
+拉取镜像1docker pull rabbitmq:3.7-management
+
+启动镜像（默认用户名密码）,默认guest 用户，密码也是 guest1docker ru ...
+        
+      </div>
+      <a class="more" href="../../2019/08/01/docker-learn/docker-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/01/mysql/mysql-learning/">mysql笔记</a>
+      </h2>
+      <p class="article-date">August 1, 2019</p>
+      
+        
+  <a href="../../tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          mysql笔记
+mysql 结构
+1、连接层
+2、服务层
+3、引擎层
+常见的数据库引擎：
+MyIsAm 表锁、不支持事务、会死锁、不适合高并发
+InnoDB 行锁、支持事务，高并发
+
+
+
+
+4、存储层
+
+mysql 开启慢查询日志 （抓取sql语句）
+要使用慢查询日志，要先开启，（抓取超过5 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/01/mysql/mysql-learning/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/07/31/java/java-node/">Java线程池笔记</a>
+      </h2>
+      <p class="article-date">July 31, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Java线程池
+线程池可类比数据库连接池线程池好处
+1、降低资源消耗：可以重复利用已创建的线程降低线程创建和销毁造成的消耗。
+
+2、提高响应速度：当任务到达时，任务可以不需要等到线程创建就能立即执行。
+
+3、提高线程的可管理性：线程是稀缺资源，如果无限制地创建，不仅会消耗系统资源，还会降低系 ...
+        
+      </div>
+      <a class="more" href="../../2019/07/31/java/java-node/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/07/28/springcould/sc-01/">springcould 技术栈笔记</a>
+      </h2>
+      <p class="article-date">July 28, 2019</p>
+      
+        
+  <a href="../../tags#springcould" >
+    <span class="tag-code">springcould</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          springcould 技术栈笔记
+Eureka 服务注册与发现（物业公司）
+eureka_service（物业公司）与 eureka_client 入住的公司 （需要到物业公司登记、注册）
+
+eureka_service自我保护机制 （心跳）
+
+eureka 定时检查入住的微服务，是否正常 ...
+        
+      </div>
+      <a class="more" href="../../2019/07/28/springcould/sc-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/07/23/redis/基于redis的分布式锁/">基于redis的高并发分布式锁</a>
+      </h2>
+      <p class="article-date">July 23, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          分布式锁一般有三种实现方式：
+
+数据库乐观锁；
+
+基于Redis的分布式锁；
+
+基于ZooKeeper的分布式锁。
+本篇博客将介绍第二种方式，基于Redis实现分布式锁。
+虽然网上已经有各种介绍Redis分布式锁实现的博客，
+然而他们的实现却有着各种各样的问题，为了避免误人子弟，
+本篇博客将 ...
+        
+      </div>
+      <a class="more" href="../../2019/07/23/redis/基于redis的分布式锁/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/07/23/redis/缓存穿透/">缓存穿透、缓存雪崩、缓存击穿</a>
+      </h2>
+      <p class="article-date">July 23, 2019</p>
+      
+        
+  <a href="../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          缓存穿透、缓存雪崩、缓存击穿 （缓存失效）
+缓存穿透
+程序在处理缓存时，一般是先从缓存查询，如果缓存没有这个key获取为null，则会从DB中查询，并设置到缓存中去。
+按这种做法，那查询一个一定不存在的数据值，由于缓存是不命中时需要从数据库查询，查不到数据则不写入缓存，这将导致这个不存在的数 ...
+        
+      </div>
+      <a class="more" href="../../2019/07/23/redis/缓存穿透/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/07/07/springboot-swagger2的restful api文档/">springboot 集成 swagger2 展示restful api 文档</a>
+      </h2>
+      <p class="article-date">July 7, 2019</p>
+      
+        
+  <a href="../../tags#springboot" >
+    <span class="tag-code">springboot</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          springboot 集成 swagger2 展示restful api 文档
+1、在pom.xml文件，引入swagger2 maveny依赖12345678910&lt;dependency&gt;    &lt;groupId&gt;io.springfox&lt;/groupId&g ...
+        
+      </div>
+      <a class="more" href="../../2019/07/07/springboot-swagger2的restful api文档/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/07/06/springboot配置devtools实现热部署/">springboot配置devtools实现热部署</a>
+      </h2>
+      <p class="article-date">July 6, 2019</p>
+      
+        
+  <a href="../../tags#springboot" >
+    <span class="tag-code">springboot</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          springboot配置实现热部署
+
+spring为开发者提供了一个名为spring-boot-devtools的模块来使spring boot应用支持热部署，提高开发者的开发效率，无需手动重启spring boot应用。
+
+1、maven的pom.xml配置1234567891011121 ...
+        
+      </div>
+      <a class="more" href="../../2019/07/06/springboot配置devtools实现热部署/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/07/05/nginx/nginx负载均衡时配置/">nginx负载均衡时配置</a>
+      </h2>
+      <p class="article-date">July 5, 2019</p>
+      
+        
+  <a href="../../tags#nginx" >
+    <span class="tag-code">nginx</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          nginx负载均衡时配置
+
+　在服务器集群中，Nginx起到一个代理服务器的角色（即反向代理），为了避免单独一个服务器压力过大，将来自用户的请求转发给不同的服务器
+
+1、内置负载策略
+Nginx负载均衡是通过upstream模块来实现的，内置实现了三种负载策略，配置还是比较简单的。官网负载均 ...
+        
+      </div>
+      <a class="more" href="../../2019/07/05/nginx/nginx负载均衡时配置/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/06/29/hello-world/">Hello World</a>
+      </h2>
+      <p class="article-date">June 29, 2019</p>
+      
+        
+  <a href="../../tags#hexo" >
+    <span class="tag-code">hexo</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer ...
+        
+      </div>
+      <a class="more" href="../../2019/06/29/hello-world/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="../6/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a href="../8/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../js/script.js"></script>
+  </body>
+</html>

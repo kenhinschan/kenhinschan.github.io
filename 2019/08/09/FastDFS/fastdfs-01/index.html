@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      docker 安装一键部署FastDFS （分布式文件存储） | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>docker 安装一键部署FastDFS （分布式文件存储）</h2>
+  <p class="post-date">2019-08-09</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="docker-安装FastDFS"><a href="#docker-安装FastDFS" class="headerlink" title="docker 安装FastDFS"></a>docker 安装FastDFS</h1><ul>
+<li><p>不利用docker安装，是比较复杂的</p>
+</li>
+<li><p>利用docker安装镜像，可以安装别人配置好的FastDFS</p>
+</li>
+<li><p>只要运行命令就可以了</p>
+</li>
+</ul>
+<h2 id="一键部署FastDFS-文件存储单机版"><a href="#一键部署FastDFS-文件存储单机版" class="headerlink" title="一键部署FastDFS 文件存储单机版"></a>一键部署FastDFS 文件存储单机版</h2><h2 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h2><ul>
+<li><ul>
+<li>封装好的fastDFS镜像：egistry.cn-beijing.aliyuncs.com/tianzuo/fastdfs</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">pull</span> <span class="string">registry.cn-beijing.aliyuncs.com/tianzuo/fastdfs</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">--restart=always</span> <span class="bullet">--privileged=true</span> <span class="bullet">--net=host</span> <span class="bullet">--name=fastdfs</span> <span class="bullet">-e</span> <span class="string">IP=192.168.1.10</span> <span class="bullet">-e</span> <span class="string">WEB_PORT=81</span> <span class="bullet">-v</span> <span class="string">$&#123;HOME&#125;/fastdfs:/var/local/fdfs</span> <span class="string">registry.cn-beijing.aliyuncs.com/tianzuo/fastdfs</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>其中-v ${HOME}/fastdfs:/var/local/fdfs是指：将${HOME}/fastdfs这个目录挂载到容器里的/var/local/fdfs这个目录里。
+所以上传的文件将被持久化到${HOME}/fastdfs/storage/data里，
+可以使用 echo $HOME 查看${HOME}路径
+
+IP 后面是自己的服务器公网ip 或者 虚拟机ip
+-e WEB_PORT=80 指定nginx端口</code></pre><ul>
+<li>registry.cn-beijing.aliyuncs.com/tianzuo/fastdfs:latest 拉取镜像</li>
+</ul>
+<h2 id="测试命令"><a href="#测试命令" class="headerlink" title="测试命令"></a>测试命令</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">exec</span> <span class="bullet">-it</span> <span class="string">fastdfs</span> <span class="string">/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="string">echo</span> <span class="string">"Hello FastDFS!"</span><span class="string">&gt;index.html</span></span><br><span class="line"></span><br><span class="line"><span class="string">fdfs_test</span> <span class="string">/etc/fdfs/client.conf</span> <span class="string">upload</span> <span class="string">index.html</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="测试命令运行效果"><a href="#测试命令运行效果" class="headerlink" title="测试命令运行效果"></a>测试命令运行效果</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[root@localhost</span> <span class="string">qixuan]#</span> <span class="string">docker</span> <span class="string">exec</span> <span class="bullet">-it</span> <span class="string">fastdfs</span> <span class="string">/bin/bash</span></span><br><span class="line"><span class="string">bash-4.4#</span> <span class="string">echo</span> <span class="string">"Hello FastDFS!"</span><span class="string">&gt;index.html</span></span><br><span class="line"><span class="string">bash-4.4#</span> <span class="string">fdfs_test</span> <span class="string">/etc/fdfs/client.conf</span> <span class="string">upload</span> <span class="string">index.html</span></span><br><span class="line"><span class="string">This</span> <span class="string">is</span> <span class="string">FastDFS</span> <span class="string">client</span> <span class="string">test</span> <span class="string">program</span> <span class="string">v5.12</span></span><br><span class="line"></span><br><span class="line"><span class="string">Copyright</span> <span class="string">(C)</span> <span class="number">2008</span><span class="string">,</span> <span class="string">Happy</span> <span class="string">Fish</span> <span class="string">/</span> <span class="string">YuQing</span></span><br><span class="line"></span><br><span class="line"><span class="string">FastDFS</span> <span class="string">may</span> <span class="string">be</span> <span class="string">copied</span> <span class="string">only</span> <span class="string">under</span> <span class="string">the</span> <span class="string">terms</span> <span class="string">of</span> <span class="string">the</span> <span class="string">GNU</span> <span class="string">General</span></span><br><span class="line"><span class="string">Public</span> <span class="string">License</span> <span class="string">V3,</span> <span class="string">which</span> <span class="string">may</span> <span class="string">be</span> <span class="string">found</span> <span class="string">in</span> <span class="string">the</span> <span class="string">FastDFS</span> <span class="string">source</span> <span class="string">kit.</span></span><br><span class="line"><span class="string">Please</span> <span class="string">visit</span> <span class="string">the</span> <span class="string">FastDFS</span> <span class="string">Home</span> <span class="string">Page</span> <span class="attr">http://www.csource.org/</span> </span><br><span class="line"><span class="string">for</span> <span class="string">more</span> <span class="string">detail.</span></span><br><span class="line"></span><br><span class="line"><span class="string">[2019-08-06</span> <span class="number">14</span><span class="string">:29:07]</span> <span class="string">DEBUG</span> <span class="bullet">-</span> <span class="string">base_path=/var/local/fdfs/storage,</span> <span class="string">connect_timeout=30,</span> <span class="string">network_timeout=60,</span> <span class="string">tracker_server_count=1,</span> <span class="string">anti_steal_token=0,</span> <span class="string">anti_steal_secret_key</span> <span class="string">length=0,</span> <span class="string">use_connection_pool=0,</span> <span class="string">g_connection_pool_max_idle_time=3600s,</span> <span class="string">use_storage_id=0,</span> <span class="string">storage</span> <span class="string">server</span> <span class="string">id</span> <span class="attr">count:</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="attr">tracker_query_storage_store_list_without_group:</span> </span><br><span class="line">	<span class="string">server</span> <span class="number">1.</span> <span class="string">group_name=,</span> <span class="string">ip_addr=192.168.1.10,</span> <span class="string">port=23000</span></span><br><span class="line"></span><br><span class="line"><span class="string">group_name=group1,</span> <span class="string">ip_addr=192.168.1.10,</span> <span class="string">port=23000</span></span><br><span class="line"><span class="string">storage_upload_by_filename</span></span><br><span class="line"><span class="string">group_name=group1,</span> <span class="string">remote_filename=M00/00/00/wKgBCl1JjrOAI2gOAAAADwL5vO460.html</span></span><br><span class="line"><span class="string">source</span> <span class="string">ip</span> <span class="attr">address:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.10</span></span><br><span class="line"><span class="string">file</span> <span class="string">timestamp=2019-08-06</span> <span class="number">14</span><span class="string">:29:07</span></span><br><span class="line"><span class="string">file</span> <span class="string">size=15</span></span><br><span class="line"><span class="string">file</span> <span class="string">crc32=49921262</span></span><br><span class="line"><span class="string">example</span> <span class="string">file</span> <span class="attr">url:</span> <span class="attr">http://192.168.1.10/group1/M00/00/00/wKgBCl1JjrOAI2gOAAAADwL5vO460.html</span></span><br><span class="line"><span class="string">storage_upload_slave_by_filename</span></span><br><span class="line"><span class="string">group_name=group1,</span> <span class="string">remote_filename=M00/00/00/wKgBCl1JjrOAI2gOAAAADwL5vO460_big.html</span></span><br><span class="line"><span class="string">source</span> <span class="string">ip</span> <span class="attr">address:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.10</span></span><br><span class="line"><span class="string">file</span> <span class="string">timestamp=2019-08-06</span> <span class="number">14</span><span class="string">:29:07</span></span><br><span class="line"><span class="string">file</span> <span class="string">size=15</span></span><br><span class="line"><span class="string">file</span> <span class="string">crc32=49921262</span></span><br><span class="line"><span class="string">example</span> <span class="string">file</span> <span class="attr">url:</span> <span class="attr">http://192.168.1.10/group1/M00/00/00/wKgBCl1JjrOAI2gOAAAADwL5vO460_big.html</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="开放端口后，要重启防火墙"><a href="#开放端口后，要重启防火墙" class="headerlink" title="开放端口后，要重启防火墙"></a>开放端口后，要重启防火墙</h2><p>firewall-cmd –zone=public –add-port=22122/tcp –permanent<br>firewall-cmd –zone=public –add-port=23000/tcp –permanent</p>
+<p>firewall-cmd –zone=public –add-port=81/tcp –permanent</p>
+<ul>
+<li><p>重启防火墙<br>firewall-cmd –reload</p>
+</li>
+<li><p>浏览器访问地址：<a href="http://192.168.1.10/group1/M00/00/00/wKgBCl1JjrOAI2gOAAAADwL5vO460.html" target="_blank" rel="noopener">http://192.168.1.10/group1/M00/00/00/wKgBCl1JjrOAI2gOAAAADwL5vO460.html</a></p>
+</li>
+</ul>
+<ul>
+<li><p>docker中删除dead状态的容器</p>
+</li>
+<li><p>先查出其进程，kill掉，在进行删除</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[root@localhost</span> <span class="string">qixuan]#</span> <span class="string">docker</span> <span class="string">rm</span> <span class="bullet">-f</span> <span class="number">02</span><span class="string">f2e6c460fa</span></span><br><span class="line"><span class="string">Error</span> <span class="string">response</span> <span class="string">from</span> <span class="attr">daemon:</span> <span class="string">Driver</span> <span class="string">overlay2</span> <span class="string">failed</span> <span class="string">to</span> <span class="string">remove</span> <span class="string">root</span> <span class="string">filesystem</span> <span class="number">02</span><span class="attr">f2e6c460fa2f67245815f88eebcf09381296e2987af11bb87c1d6b8a72f511:</span> <span class="string">remove</span> <span class="string">/var/lib/docker/overlay2/2352aa8937cf7ae73c10913d1f5463983005acd26b54a36cf14c59a85e3893dc/merged:</span> <span class="string">device</span> <span class="string">or</span> <span class="string">resource</span> <span class="string">busy</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">grep</span> <span class="string">docker</span> <span class="string">/proc/*/mountinfo|grep</span> <span class="number">2352</span><span class="string">aa8937cf7ae73c10913d1f5463983005acd26b54a36cf14c59a85e3893dc</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="如果要修改容器里的配置文件"><a href="#如果要修改容器里的配置文件" class="headerlink" title="如果要修改容器里的配置文件"></a>如果要修改容器里的配置文件</h2><p>docker exec -it  CONTAINER_ID  bash</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#FastDFS" >
+    <span class="tag-code">FastDFS</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../../../07/mq/rabbitmq-01/">
+        <span class="nav-arrow">← </span>
+        
+          rabbitmq笔记
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../fastdfs-03/">
+        
+          springboot 整合FastDFS
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#docker-安装FastDFS"><span class="toc-nav-text">docker 安装FastDFS</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#一键部署FastDFS-文件存储单机版"><span class="toc-nav-text">一键部署FastDFS 文件存储单机版</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#拉取镜像"><span class="toc-nav-text">拉取镜像</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#启动"><span class="toc-nav-text">启动</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#测试命令"><span class="toc-nav-text">测试命令</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#测试命令运行效果"><span class="toc-nav-text">测试命令运行效果</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#开放端口后，要重启防火墙"><span class="toc-nav-text">开放端口后，要重启防火墙</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#如果要修改容器里的配置文件"><span class="toc-nav-text">如果要修改容器里的配置文件</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2019/08/09/FastDFS/fastdfs-01/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "docker 安装一键部署FastDFS （分布式文件存储）",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

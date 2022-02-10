@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      redis应用场景 | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>redis应用场景</h2>
+  <p class="post-date">2019-08-16</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="redis应用场景"><a href="#redis应用场景" class="headerlink" title="redis应用场景"></a>redis应用场景</h2><h3 id="1、热点数据的缓存"><a href="#1、热点数据的缓存" class="headerlink" title="1、热点数据的缓存"></a>1、热点数据的缓存</h3><pre><code>由于redis访问速度块、支持的数据类型比较丰富，所以redis很适合用来存储热点数据，另外结合expire，
+我们可以设置过期时间然后再进行缓存更新操作，这个功能最为常见，我们几乎所有的项目都有所运用。</code></pre><h3 id="2、限时业务的运用"><a href="#2、限时业务的运用" class="headerlink" title="2、限时业务的运用"></a>2、限时业务的运用</h3><pre><code>redis中可以使用expire命令设置一个键的生存时间，到时间后redis会删除它。
+利用这一特性可以运用在限时的优惠活动信息、手机验证码等业务场景。</code></pre><h3 id="3、计数器相关问题"><a href="#3、计数器相关问题" class="headerlink" title="3、计数器相关问题"></a>3、计数器相关问题</h3><pre><code>redis由于incrby命令可以实现原子性的递增，所以可以运用于高并发的秒杀活动、
+分布式序列号的生成、具体业务还体现在比如限制一个手机号发多少条短信、
+一个接口一分钟限制多少请求、一个接口一天限制调用多少次等等。</code></pre><h3 id="4、排行榜相关问题"><a href="#4、排行榜相关问题" class="headerlink" title="4、排行榜相关问题"></a>4、排行榜相关问题</h3><pre><code>关系型数据库在排行榜方面查询速度普遍偏慢，所以可以借助redis的SortedSet进行热点数据的排序。
+在奶茶活动中，我们需要展示各个部门的点赞排行榜， 所以我针对每个部门做了一个SortedSet,
+然后以用户的openid作为上面的username,以用户的点赞数作为上面的score, 然后针对每个用户做一个hash,
+通过zrangebyscore就可以按照点赞数获取排行榜，然后再根据username获取用户的hash信息，
+这个当时在实际运用中性能体验也蛮不错的。 </code></pre><h3 id="5、分布式会话"><a href="#5、分布式会话" class="headerlink" title="5、分布式会话"></a>5、分布式会话</h3><pre><code>集群模式下，在应用不多的情况下一般使用容器自带的session复制功能就能满足，
+当应用增多相对复杂的系统中，一般都会搭建以Redis等内存数据库为中心的session服务，
+session不再由容器管理，而是由session服务及内存数据库管理。</code></pre><h3 id="6、分布式锁"><a href="#6、分布式锁" class="headerlink" title="6、分布式锁"></a>6、分布式锁</h3><pre><code>这个主要利用redis的setnx命令进行，setnx：&quot;set if not exists&quot;就是如果不存在则成功设置缓存同时返回1，
+否则返回0 ，这个特性在俞你奔远方的后台中有所运用，因为我们服务器是集群的，定时任务可能在两台机器上都会运行，
+所以在定时任务中首先 通过setnx设置一个lock，如果成功设置则执行，如果没有成功设置，则表明该定时任务已执行。
+当然结合具体业务，我们可以给这个lock加一个过期时间，比如说30分钟执行一次的定时任务，
+那么这个过期时间设置为小于30分钟的一个时间 就可以，这个与定时任务的周期以及定时任务执行消耗时间相关。
+当然我们可以将这个特性运用于其他需要分布式锁的场景中，结合过期时间主要是防止死锁的出现。</code></pre><h3 id="7、延时操作"><a href="#7、延时操作" class="headerlink" title="7、延时操作"></a>7、延时操作</h3><pre><code>这个目前我做过相关测试，但是还没有运用到我们的实际项目中，
+下面我举个该特性的应用场景。 比如在订单生产后我们占用了库存，
+10分钟后去检验用户是够真正购买，如果没有购买将该单据设置无效，
+同时还原库存。 由于redis自2.8.0之后版本提供Keyspace Notifications功能，
+允许客户订阅Pub/Sub频道，以便以某种方式接收影响Redis数据集的事件。
+所以我们对于上面的需求就可以用以下解决方案，我们在订单生产时，设置一个key，
+同时设置10分钟后过期， 我们在后台实现一个监听器，监听key的实效，
+监听到key失效时将后续逻辑加上。
+当然我们也可以利用rabbitmq、activemq等消息中间件的延迟队列服务实现该需求。</code></pre><h3 id="8、分页、模糊搜索"><a href="#8、分页、模糊搜索" class="headerlink" title="8、分页、模糊搜索"></a>8、分页、模糊搜索</h3><pre><code>redis的set集合中提供了一个zrangebylex方法，
+语法如下：ZRANGEBYLEX key min max [LIMIT offset count]
+通过ZRANGEBYLEX zset - + LIMIT 0 10 可以进行分页数据查询，
+其中- +表示获取全部数据zrangebylex key min max 
+这个就可以返回字典区间的数据，利用这个特性可以进行模糊查询功能，
+这个也是目前我在redis中发现的唯一一个支持对存储内容进行模糊查询的特性。
+前几天我通过这个特性，对学校数据进行了模拟测试，学校数据60万左右，
+响应时间在700ms左右，比mysql的like查询稍微快一点，
+但是由于它可以避免大量的数据库io操作，所以总体还是比直接mysql查询更利于系统的性能保障。</code></pre><h3 id="9、点赞、好友等相互关系的存储"><a href="#9、点赞、好友等相互关系的存储" class="headerlink" title="9、点赞、好友等相互关系的存储"></a>9、点赞、好友等相互关系的存储</h3><pre><code>Redis set对外提供的功能与list类似是一个列表的功能，
+特殊之处在于set是可以自动排重的，当你需要存储一个列表数据，
+又不希望出现重复数据时，set是一个很好的选择，
+并且set提供了判断某个成员是否在一个set集合内的重要接口，
+这个也是list所不能提供的。 又或者在微博应用中，
+每个用户关注的人存在一个集合中，就很容易实现求两个人的共同好友功能。
+这个在奶茶活动中有运用，就是利用set存储用户之间的点赞关联的，
+另外在点赞前判断是否点赞过就利用了sismember方法，
+当时这个接口的响应时间控制在10毫秒内，十分高效。</code></pre><h3 id="10、队列"><a href="#10、队列" class="headerlink" title="10、队列"></a>10、队列</h3><pre><code>由于redis有list push和list pop这样的命令，
+所以能够很方便的执行队列操作。</code></pre></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#redis" >
+    <span class="tag-code">redis</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../../mysql/mysql-02/">
+        <span class="nav-arrow">← </span>
+        
+          数据库连接池满的问题
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../../mysql/mysql-03/">
+        
+          千万、百万级数据量的快速分页limit 优化
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#redis应用场景"><span class="toc-nav-text">redis应用场景</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1、热点数据的缓存"><span class="toc-nav-text">1、热点数据的缓存</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2、限时业务的运用"><span class="toc-nav-text">2、限时业务的运用</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#3、计数器相关问题"><span class="toc-nav-text">3、计数器相关问题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#4、排行榜相关问题"><span class="toc-nav-text">4、排行榜相关问题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#5、分布式会话"><span class="toc-nav-text">5、分布式会话</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#6、分布式锁"><span class="toc-nav-text">6、分布式锁</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#7、延时操作"><span class="toc-nav-text">7、延时操作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#8、分页、模糊搜索"><span class="toc-nav-text">8、分页、模糊搜索</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#9、点赞、好友等相互关系的存储"><span class="toc-nav-text">9、点赞、好友等相互关系的存储</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#10、队列"><span class="toc-nav-text">10、队列</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2019/08/16/redis/redis-04/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "redis应用场景",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>

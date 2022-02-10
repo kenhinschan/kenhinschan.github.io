@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../css/images/logo.png">
+  
+  <title>
+    
+      个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../js/qrious.js"></script>
+  
+  
+    <script src="../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/06/elasticsearch/es-04/">docker 安装 logstash</a>
+      </h2>
+      <p class="article-date">September 6, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+ELK构建日志分析系统
+
+
+E：elasticsearch 数据存储
+L：logstash 数据采集，数据过滤，数据传输(对比其他数据采集插件，logstash的数据处理能力比较突出)
+K：kibana 数据分析
+
+1、拉取镜像1docker pull logstash:7.1.1
+
+2、 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/06/elasticsearch/es-04/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/05/elasticsearch/es-02/">elasticsearch全文检索</a>
+      </h2>
+      <p class="article-date">September 5, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          基于Lucene全文搜索引擎的全文检索技术框架
+elasticsearch（分布式的）（推荐）
+
+solr（出现比较早）
+
+
+es与mysql数据库对比
+
+
+关系型数据库
+Elasticsearch
+
+
+
+database（数据库）
+index（索引）
+
+
+table（表）
+type（类型） ...
+        
+      </div>
+      <a class="more" href="../../2019/09/05/elasticsearch/es-02/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/05/elasticsearch/es-03/">基于elasticsearch的IK中文分词笔记</a>
+      </h2>
+      <p class="article-date">September 5, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          基于elasticsearch的IK中文分词笔记使用
+自带的分词（对中文支持不好）
+
+123456GET /_analyze&#123;  "analyzer": "standard",  "text": "我是程序员，我是帅哥"&#125;
+
+
+IK分词（有多种模式）
+
+ik_max_wo ...
+        
+      </div>
+      <a class="more" href="../../2019/09/05/elasticsearch/es-03/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/04/java/java-queue/">Java队列</a>
+      </h2>
+      <p class="article-date">September 4, 2019</p>
+      
+        
+  <a href="../../tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+ArrayBlockingQueue ：一个由数组支持的有界队列。
+LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。
+PriorityBlockingQueue ：一个由优先级堆支持的无界优先级队列。
+DelayQueue ：一个由优先级堆支持的、基于时间的调度 ...
+        
+      </div>
+      <a class="more" href="../../2019/09/04/java/java-queue/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/09/04/maven/maven-01/">dependencies与dependencyManagement的区别</a>
+      </h2>
+      <p class="article-date">September 4, 2019</p>
+      
+        
+  <a href="../../tags#maven" >
+    <span class="tag-code">maven</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          如果一个项目有多个模块组成，各个模块各自引入自己的bao，难免出现同一个包出现在项目的不同模块中的情况。这时候就会产生冲突，进而导致打包失败。此时就要用到统一的依赖管理，目的就是统一项目使用到的依赖
+dependencies与dependencyManagement的区别
+dependenc ...
+        
+      </div>
+      <a class="more" href="../../2019/09/04/maven/maven-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/29/linux-os/linux-project-run/">项目线上运行突然变慢了</a>
+      </h2>
+      <p class="article-date">August 29, 2019</p>
+      
+        
+  <a href="../../tags#linux" >
+    <span class="tag-code">linux</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          项目线上运行突然变慢了
+什么原因导致项目运行变慢？
+
+项目肯定出现了问题（这点毋庸置疑）
+
+程序问题导致（日志分析，jvm内存监控，服务器内存监控）
+
+sql问题导致，数量增大导致 （慢查询分析）
+
+高并发环境下造成，一台服务器扛不住压力 （考虑集群、nginx做负载均衡）
+
+
+怎样排查、定 ...
+        
+      </div>
+      <a class="more" href="../../2019/08/29/linux-os/linux-project-run/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/26/linux-os/linux-01/">linux文件系统挂载</a>
+      </h2>
+      <p class="article-date">August 26, 2019</p>
+      
+        
+  <a href="../../tags#linux" >
+    <span class="tag-code">linux</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          软连接和挂载有什么区别（ln和mount）
+挂载
+
+12挂载是将其他机器上的磁盘映射到本机器上来，使得在本机器上可以访问其他机器的文件；如在IP1服务器上可以访问IP2上的资源
+
+
+命令
+
+123mount [-t vfstype] [-o options] device dir 挂载命令: ...
+        
+      </div>
+      <a class="more" href="../../2019/08/26/linux-os/linux-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/23/data-structure/fibonacci-sequence/">斐波那契数列--学习笔记</a>
+      </h2>
+      <p class="article-date">August 23, 2019</p>
+      
+        
+  <a href="../../tags#数据结构" >
+    <span class="tag-code">数据结构</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          –
+
+斐波那契数列
+
+123456789101112131415161718192021222324/** * @author qixuan.chen * @date 2019-08-23 12:01 */public class fibonacci &#123;        public ...
+        
+      </div>
+      <a class="more" href="../../2019/08/23/data-structure/fibonacci-sequence/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/21/elasticsearch/es-01/">docker安装elasticsearch</a>
+      </h2>
+      <p class="article-date">August 21, 2019</p>
+      
+        
+  <a href="../../tags#elasticsearch" >
+    <span class="tag-code">elasticsearch</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          前言ElasticSearch是一个基于Lucene的搜索服务器.
+它提供了一个分布式多用户能力的全文搜索引擎,
+基于Restfulweb接口.ES是用java开发的,
+是当前流行的企业级搜索引擎.在本系列博文中,
+我们将来一起学习ElasticSearch的相关知识在docker安装ela ...
+        
+      </div>
+      <a class="more" href="../../2019/08/21/elasticsearch/es-01/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="../../2019/08/20/data-structure/data-structure/">数据结构--学习笔记</a>
+      </h2>
+      <p class="article-date">August 20, 2019</p>
+      
+        
+  <a href="../../tags#数据结构" >
+    <span class="tag-code">数据结构</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          数据结构可视化数据结构可视化
+B + Tree存储演示
+数据存储在叶子节点（即：最底的一层）
+
+根据MaxDegree设定的数值（节点存储个数）
+
+每个节点存储个数小于MaxDegree设定的数值，达到这个数值，就要提取节点，扩建树结构
+
+
+
+
+
+        
+      </div>
+      <a class="more" href="../../2019/08/20/data-structure/data-structure/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="../3/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a href="../5/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../js/script.js"></script>
+  </body>
+</html>

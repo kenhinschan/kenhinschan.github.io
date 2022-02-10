@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="kenhinschan&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="../../../../../css/images/logo.png">
+  
+  <title>
+    
+      springboot 整合 mycat | 个人笔记
+    
+  </title>
+  <link href="/css/plugins/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/plugins/nprogress.min.css" rel="stylesheet">
+  <link href="/css/plugins/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../../css/style.css">
+  
+    <link href="/css/plugins/gitment.css" rel="stylesheet">
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/geopattern.min.js"></script>
+  <script src="/js/nprogress.min.js"></script>
+  
+    <script src="../../../../../js/qrious.js"></script>
+  
+  
+    <script src="../../../../../js/gitment.js"></script>
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="../../../../../index.html">
+      <div class="logo"></div>
+      <span>个人笔记</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="../../../../../index.html" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="../../../../../about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../index.html" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="../../../../../about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>springboot 整合 mycat</h2>
+  <p class="post-date">2020-06-04</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="springboot-整合-mycat"><a href="#springboot-整合-mycat" class="headerlink" title="springboot 整合 mycat"></a>springboot 整合 mycat</h2><h3 id="确认本地已安装Mycat"><a href="#确认本地已安装Mycat" class="headerlink" title="确认本地已安装Mycat"></a>确认本地已安装Mycat</h3><ul>
+<li><p>mycat安装比较简单，这里不做讲解</p>
+</li>
+<li><p>mycat安装参考资料：<a href="https://blog.csdn.net/yu342107056/article/details/88326540" target="_blank" rel="noopener">https://blog.csdn.net/yu342107056/article/details/88326540</a></p>
+</li>
+</ul>
+<h3 id="Mycat的配置文件（重点）"><a href="#Mycat的配置文件（重点）" class="headerlink" title="Mycat的配置文件（重点）"></a>Mycat的配置文件（重点）</h3><ul>
+<li><p>区分好逻辑库、逻辑表、mysql的物理库表概念</p>
+</li>
+<li><p>mycat的逻辑库、逻辑表需要关联的mysql物理库节点</p>
+</li>
+<li><p>主从模式、读写分离模式（一主一从、多主多从）</p>
+</li>
+<li><p>mycat逻辑库、逻辑表是<schema>里配置</schema></p>
+</li>
+<li><p>mysql物理数据库<datanode>里配置</datanode></p>
+</li>
+<li><p>主从模式 <datahost>里配置</datahost></p>
+<ul>
+<li>基本应用：<ul>
+<li>单项复制：一主一从</li>
+</ul>
+</li>
+<li>扩展应用：<ul>
+<li>一主多从</li>
+<li>链式复制：主从从</li>
+<li>主主（互为主从）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="mycat的逻辑库配置（一主一从模式读写分离）"><a href="#mycat的逻辑库配置（一主一从模式读写分离）" class="headerlink" title="mycat的逻辑库配置（一主一从模式读写分离）"></a>mycat的逻辑库配置（一主一从模式读写分离）</h3><ul>
+<li><p>注意：mycat配置是基于mysql的主从复制的基础上，目前的mycat是没有数据同步</p>
+</li>
+<li><p>一主一从读写分离 （主库挂了 应用也跟着挂了 不能实现高可用）</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE mycat:schema SYSTEM "schema.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mycat:schema</span> <span class="attr">xmlns:mycat</span>=<span class="string">"http://io.mycat/"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">schema</span> <span class="attr">name</span>=<span class="string">"TESTDB"</span> <span class="attr">checkSQLschema</span>=<span class="string">"false"</span> <span class="attr">sqlMaxLimit</span>=<span class="string">"100"</span> <span class="attr">randomDataNode</span>=<span class="string">"dn1"</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- auto sharding by id (long) --&gt;</span></span><br><span class="line">		<span class="comment">&lt;!--splitTableNames 启用&lt;table name 属性使用逗号分割配置多个表,即多个表使用这个配置--&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- &lt;table name="travelrecord,address" dataNode="dn1,dn2,dn3" rule="auto-sharding-long" splitTableNames ="true"/&gt; --&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- &lt;table name="oc_call" primaryKey="ID" dataNode="dn1$0-743" rule="latest-month-calldate" /&gt; --&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- &lt;table name="sys_user" primaryKey="id" type="global" dataNode="dn1,dn2,dn3" /&gt; --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">table</span> <span class="attr">name</span>=<span class="string">"sys_user"</span> <span class="attr">primaryKey</span>=<span class="string">"id"</span> <span class="attr">type</span>=<span class="string">"global"</span> <span class="attr">dataNode</span>=<span class="string">"dn1"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">schema</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- mycat的逻辑库逻辑表 --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">	&lt;schema name="mycat_db1" checkSQLschema="false" sqlMaxLimit="100" randomDataNode="dn1"&gt;</span></span><br><span class="line"><span class="comment">		&lt;table name="tb_user" primaryKey="id" type="global" dataNode="dn1" /&gt;</span></span><br><span class="line"><span class="comment">		&lt;table name="tb_student" primaryKey="id" type="global" dataNode="dn1" /&gt;</span></span><br><span class="line"><span class="comment">	&lt;/schema&gt; --&gt;</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment">&lt;!-- mycat的逻辑库逻辑表 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">schema</span> <span class="attr">name</span>=<span class="string">"mycat_db1"</span> <span class="attr">checkSQLschema</span>=<span class="string">"false"</span> <span class="attr">sqlMaxLimit</span>=<span class="string">"100"</span> <span class="attr">randomDataNode</span>=<span class="string">"dn1"</span>&gt;</span><span class="tag">&lt;/<span class="name">schema</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- 物理数据库 一个整体独立的库，没有分片 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dataNode</span> <span class="attr">name</span>=<span class="string">"dn1"</span> <span class="attr">dataHost</span>=<span class="string">"myhost1"</span> <span class="attr">database</span>=<span class="string">"db1"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- &lt;dataNode name="dn1$0-743" dataHost="localhost1" database="db$0-743" /&gt; --&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- 主从模式 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dataHost</span> <span class="attr">name</span>=<span class="string">"myhost1"</span> <span class="attr">maxCon</span>=<span class="string">"100"</span> <span class="attr">minCon</span>=<span class="string">"10"</span> <span class="attr">balance</span>=<span class="string">"3"</span> <span class="attr">writeType</span>=<span class="string">"0"</span> <span class="attr">dbType</span>=<span class="string">"mysql"</span> <span class="attr">dbDriver</span>=<span class="string">"native"</span> <span class="attr">switchType</span>=<span class="string">"2"</span>  <span class="attr">slaveThreshold</span>=<span class="string">"100"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">heartbeat</span>&gt;</span>select user()<span class="tag">&lt;/<span class="name">heartbeat</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">writeHost</span> <span class="attr">host</span>=<span class="string">"hostM1"</span> <span class="attr">url</span>=<span class="string">"localhost:3306"</span> <span class="attr">user</span>=<span class="string">"root"</span> <span class="attr">password</span>=<span class="string">"123456"</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">readHost</span> <span class="attr">host</span>=<span class="string">"hostS1"</span> <span class="attr">url</span>=<span class="string">"172.16.16.8:3306"</span> <span class="attr">user</span>=<span class="string">"root"</span> <span class="attr">password</span>=<span class="string">"abc123456"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">writeHost</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dataHost</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="name">mycat:schema</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="mycat的逻辑库配置（互为主从模式—双机热备）"><a href="#mycat的逻辑库配置（互为主从模式—双机热备）" class="headerlink" title="mycat的逻辑库配置（互为主从模式—双机热备）"></a>mycat的逻辑库配置（互为主从模式—双机热备）</h3><ul>
+<li><p>主挂掉之后自动切换到从的配置</p>
+</li>
+<li><p>意：mycat配置是基于mysql的互为主从复制的基础上，目前的mycat是没有数据同步</p>
+</li>
+<li><p>有读写分离</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE mycat:schema SYSTEM "schema.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mycat:schema</span> <span class="attr">xmlns:mycat</span>=<span class="string">"http://io.mycat/"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- mycat的逻辑库逻辑表 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">schema</span> <span class="attr">name</span>=<span class="string">"mycat_db1"</span> <span class="attr">checkSQLschema</span>=<span class="string">"false"</span> <span class="attr">sqlMaxLimit</span>=<span class="string">"100"</span> <span class="attr">randomDataNode</span>=<span class="string">"dn1"</span>&gt;</span><span class="tag">&lt;/<span class="name">schema</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- 物理数据库 一个整体独立的库，没有分片 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dataNode</span> <span class="attr">name</span>=<span class="string">"dn1"</span> <span class="attr">dataHost</span>=<span class="string">"myhost1"</span> <span class="attr">database</span>=<span class="string">"db1"</span> /&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- 主从模式 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dataHost</span> <span class="attr">name</span>=<span class="string">"myhost1"</span> <span class="attr">maxCon</span>=<span class="string">"100"</span> <span class="attr">minCon</span>=<span class="string">"10"</span> <span class="attr">balance</span>=<span class="string">"3"</span> <span class="attr">writeType</span>=<span class="string">"0"</span> <span class="attr">dbType</span>=<span class="string">"mysql"</span> <span class="attr">dbDriver</span>=<span class="string">"native"</span> <span class="attr">switchType</span>=<span class="string">"2"</span>  <span class="attr">slaveThreshold</span>=<span class="string">"100"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">heartbeat</span>&gt;</span>select user()<span class="tag">&lt;/<span class="name">heartbeat</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">writeHost</span> <span class="attr">host</span>=<span class="string">"hostM1"</span> <span class="attr">url</span>=<span class="string">"localhost:3306"</span> <span class="attr">user</span>=<span class="string">"root"</span> <span class="attr">password</span>=<span class="string">"123456"</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">readHost</span> <span class="attr">host</span>=<span class="string">"hostS1"</span> <span class="attr">url</span>=<span class="string">"172.16.16.8:3306"</span> <span class="attr">user</span>=<span class="string">"root"</span> <span class="attr">password</span>=<span class="string">"abc123456"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">writeHost</span>&gt;</span></span><br><span class="line">		</span><br><span class="line">        <span class="tag">&lt;<span class="name">writeHost</span> <span class="attr">host</span>=<span class="string">"hostM2"</span> <span class="attr">url</span>=<span class="string">"172.16.16.8:3306"</span> <span class="attr">user</span>=<span class="string">"root"</span> <span class="attr">password</span>=<span class="string">"abc123456"</span>&gt;</span><span class="tag">&lt;/<span class="name">writeHost</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">	<span class="tag">&lt;/<span class="name">dataHost</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="name">mycat:schema</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>双机热备（没有读写分离）</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE mycat:schema SYSTEM "schema.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mycat:schema</span> <span class="attr">xmlns:mycat</span>=<span class="string">"http://io.mycat/"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- mycat的逻辑库逻辑表 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">schema</span> <span class="attr">name</span>=<span class="string">"mycat_db1"</span> <span class="attr">checkSQLschema</span>=<span class="string">"false"</span> <span class="attr">sqlMaxLimit</span>=<span class="string">"100"</span> <span class="attr">randomDataNode</span>=<span class="string">"dn1"</span>&gt;</span><span class="tag">&lt;/<span class="name">schema</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- 物理数据库 一个整体独立的库，没有分片 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dataNode</span> <span class="attr">name</span>=<span class="string">"dn1"</span> <span class="attr">dataHost</span>=<span class="string">"myhost1"</span> <span class="attr">database</span>=<span class="string">"db1"</span> /&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- 主从模式 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dataHost</span> <span class="attr">name</span>=<span class="string">"myhost1"</span> <span class="attr">maxCon</span>=<span class="string">"100"</span> <span class="attr">minCon</span>=<span class="string">"10"</span> <span class="attr">balance</span>=<span class="string">"3"</span> <span class="attr">writeType</span>=<span class="string">"0"</span> <span class="attr">dbType</span>=<span class="string">"mysql"</span> <span class="attr">dbDriver</span>=<span class="string">"native"</span> <span class="attr">switchType</span>=<span class="string">"2"</span>  <span class="attr">slaveThreshold</span>=<span class="string">"100"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">heartbeat</span>&gt;</span>select user()<span class="tag">&lt;/<span class="name">heartbeat</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">writeHost</span> <span class="attr">host</span>=<span class="string">"hostM1"</span> <span class="attr">url</span>=<span class="string">"localhost:3306"</span> <span class="attr">user</span>=<span class="string">"root"</span> <span class="attr">password</span>=<span class="string">"123456"</span>&gt;</span><span class="tag">&lt;/<span class="name">writeHost</span>&gt;</span></span><br><span class="line">		</span><br><span class="line">        <span class="tag">&lt;<span class="name">writeHost</span> <span class="attr">host</span>=<span class="string">"hostM2"</span> <span class="attr">url</span>=<span class="string">"172.16.16.8:3306"</span> <span class="attr">user</span>=<span class="string">"root"</span> <span class="attr">password</span>=<span class="string">"abc123456"</span>&gt;</span><span class="tag">&lt;/<span class="name">writeHost</span>&gt;</span></span><br><span class="line">       </span><br><span class="line">	<span class="tag">&lt;/<span class="name">dataHost</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="name">mycat:schema</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="springboot的整合mycat配置"><a href="#springboot的整合mycat配置" class="headerlink" title="springboot的整合mycat配置"></a>springboot的整合mycat配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">server:</span><br><span class="line">  port: 8015</span><br><span class="line"></span><br><span class="line">spring:</span><br><span class="line">  jpa:</span><br><span class="line">    show-sql: true</span><br><span class="line">    hibernate:</span><br><span class="line">      ddl-auto: update</span><br><span class="line">#      ddl-auto: create</span><br><span class="line">      naming:</span><br><span class="line">        strategy: org.hibernate.cfg.ImprovedNamingStrategy</span><br><span class="line">    properties:</span><br><span class="line">      hibernate:</span><br><span class="line">        dialect: org.hibernate.dialect.MySQL5InnoDBDialect</span><br><span class="line">  datasource:</span><br><span class="line">    driver-class-name: com.mysql.cj.jdbc.Driver</span><br><span class="line">    url: jdbc:mysql://localhost:8066/mycat_db1?characterEncoding=UTF-8&amp;useSSL=false&amp;autoReconnect=true&amp;rewriteBatchedStatements=true&amp;serverTimezone=UTC</span><br><span class="line">#    url: jdbc:mysql://localhost:3306/db1?characterEncoding=UTF-8&amp;useSSL=false&amp;autoReconnect=true&amp;rewriteBatchedStatements=true&amp;serverTimezone=UTC</span><br><span class="line">    username: root</span><br><span class="line">    password: 123456</span><br></pre></td></tr></table></figure>
+
+<h3 id="特别注意："><a href="#特别注意：" class="headerlink" title="特别注意："></a>特别注意：</h3><ul>
+<li>查询语句不要加事务，否则读操作会被分发到写服务器上。</li>
+</ul>
+<h3 id="mycat配置说明"><a href="#mycat配置说明" class="headerlink" title="mycat配置说明"></a>mycat配置说明</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">配置说明：</span></span><br><span class="line"></span><br><span class="line"><span class="string">name属性唯一标识dataHost标签，供上层的标签使用。</span></span><br><span class="line"></span><br><span class="line"><span class="string">maxCon属性指定每个读写实例连接池的最大连接。也就是说，标签内嵌套的</span></span><br><span class="line"></span><br><span class="line"><span class="string">writeHost、readHost标签都会使用这个属性的值来实例化出连接池的最大连接数。</span></span><br><span class="line"></span><br><span class="line"><span class="string">minCon属性指定每个读写实例连接池的最小连接，初始化连接池的大小。</span></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="string">balance属性负载均衡类型，目前的取值有3种：</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span><span class="string">balance="0",不开启读写分离机制，所有读操作都发送到当前可用的writeHost上。</span></span><br><span class="line"><span class="number">2.</span><span class="string">balance="1"，全部的readHost与stand</span> <span class="string">by</span> <span class="string">writeHost参与select语句的负载均衡，简单的说，当双主双从模式(M1-&gt;S1，M2-&gt;S2，并且M1与M2互为主备)，</span></span><br><span class="line"></span><br><span class="line"><span class="string">正常情况下，M2,S1,S2都参与select语句的负载均衡。</span></span><br><span class="line"></span><br><span class="line"><span class="number">3.</span><span class="string">balance="2"，所有读操作都随机的在writeHost、readhost上分发。</span></span><br><span class="line"><span class="number">4.</span><span class="string">balance="3"，所有读请求随机的分发到wiriterHost对应的readhost执行，</span></span><br><span class="line"></span><br><span class="line"><span class="string">writerHost不负担读压力，注意balance=3只在1.4及其以后版本有，1.3没有。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">writeType属性负载均衡类型，目前的取值有3种：</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span><span class="string">writeType="0",</span> <span class="string">所有写操作发送到配置的第一个writeHost，第一个挂了切到还生存的第二个writeHost，重新启动后已切换后的为准，切换记录在配置文件中:dnindex.properties.</span></span><br><span class="line"><span class="number">2.</span><span class="string">writeType="1"，所有写操作都随机的发送到配置的writeHost，1.5以后废弃不推荐。</span></span><br><span class="line"><span class="number">3.</span><span class="string">writeType="2"，不执行写操作</span></span><br><span class="line"></span><br><span class="line"><span class="string">switchType属性</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="number">1</span> <span class="string">表示不自动切换</span></span><br><span class="line"><span class="number">1</span> <span class="string">默认值，自动切换</span></span><br><span class="line"><span class="number">2</span> <span class="string">基于MySQL主从同步的状态决定是否切换</span></span><br><span class="line"><span class="number">3</span> <span class="string">基于MySQLgalarycluster的切换机制（适合集群）（1.4.1）</span></span><br></pre></td></tr></table></figure>
+
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="../../../../../tags#mycat" >
+    <span class="tag-code">mycat</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="../../../../04/10/linux-os/linux-project-docker/">
+        <span class="nav-arrow">← </span>
+        
+          Docker下部署配电项目
+        
+      </a>
+    
+    
+      <a class="nav-right" href="../../../27/gitlab/gitlab-install/">
+        
+          (untitled)
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#springboot-整合-mycat"><span class="toc-nav-text">springboot 整合 mycat</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#确认本地已安装Mycat"><span class="toc-nav-text">确认本地已安装Mycat</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Mycat的配置文件（重点）"><span class="toc-nav-text">Mycat的配置文件（重点）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#mycat的逻辑库配置（一主一从模式读写分离）"><span class="toc-nav-text">mycat的逻辑库配置（一主一从模式读写分离）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#mycat的逻辑库配置（互为主从模式—双机热备）"><span class="toc-nav-text">mycat的逻辑库配置（互为主从模式—双机热备）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#springboot的整合mycat配置"><span class="toc-nav-text">springboot的整合mycat配置</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#特别注意："><span class="toc-nav-text">特别注意：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#mycat配置说明"><span class="toc-nav-text">mycat配置说明</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://kenhinschan.github.io/2020/06/04/mycat/mycat-01/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "kenhinschan";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "springboot 整合 mycat",
+        owner: "kenhinschan",
+        repo: "kenhinschan.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/kenhinschan">kenhinschan</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="../../../../../js/script.js"></script>
+  </body>
+</html>
